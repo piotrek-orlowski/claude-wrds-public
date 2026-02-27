@@ -1,0 +1,13 @@
+{
+  "enabledPlugins": {
+    "claude-mem@thedotmack": true
+  },
+  "permissions": {
+    "allow": [
+      "Bash(psql service=wrds*)",
+      "Bash(ssh wrds*)",
+      "Bash(scp * wrds:*)",
+      "Bash(scp wrds:*)"
+    ]
+  }
+}
