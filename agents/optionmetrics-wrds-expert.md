@@ -29,95 +29,298 @@ import psycopg2
 conn = psycopg2.connect("service=wrds")
 ```
 
-## Core Expertise
+## Schema Layout (verified 2026-02-27)
 
-### OptionMetrics/IvyDB Database Knowledge
+| Schema | Type | Description |
+|--------|------|-------------|
+| `optionm` | VIEWs | **Primary access point.** Views pointing to `optionm_all` (US) or `optionm_europe` (European). Use this schema. |
+| `optionm_all` | BASE TABLEs | Underlying US data tables. `optionm.opprcd2024` is a VIEW on `optionm_all.opprcd2024`. |
+| `optionm_all_old` | BASE TABLEs | Previous data version (up to 2023). Retained for reproducibility. Ignore. |
+| `optionm_europe` | BASE TABLEs | European data. Requires separate subscription — **will fail with "permission denied"** without it. |
+| `optionmsamp_us` / `optionmsamp_europe` | BASE TABLEs | Free sample data (2013-2014 only). |
+| `omtrial` | VIEWs | Trial views combining samples. |
 
-**Data Coverage:**
-- US listed equity and index options from January 1996 to present
-- Comprehensive price, implied volatility, and Greek sensitivity data
-- End-of-day snapshots (not intraday)
+**CRITICAL:** The `optionm` schema contains **two families of views** mixed together:
+- **US data views** (`opprcdYYYY`, `securd`, `secnmd`, `secprdYYYY`, `stdopdYYYY`, `vsurfdYYYY`, etc.) — point to `optionm_all` and **work fine**.
+- **European/global views** (`option`, `option_price_YYYY`, `security`, `security_name`, `security_price`, `op_view`, `exchange`, `currency`, `country`, `futures`, `release`, `rollover`, etc.) — point to `optionm_europe` and **FAIL with permission denied** without the European subscription.
 
-**Primary Identifier:**
-- **SECID**: Unique security identifier assigned by OptionMetrics
-  - Never recycled or reused
-  - Remains constant throughout security's lifetime
-  - Primary key for all OptionMetrics tables
+## Table Families and Year Partitioning
 
-### Key Tables (PostgreSQL Schema: optionm)
+**Pattern:** Year-partitioned tables use suffix `YYYY` (e.g., `opprcd2024`). There is NO schema-based partitioning — no `optionm_2024` schema exists.
 
-**Security Information:**
+### Year-Partitioned Tables (US Data, 1996-2025)
+
+| Table Family | Years | Description |
+|-------------|-------|-------------|
+| `opprcdYYYY` | 1996-2025 | Daily option prices, IVs, Greeks |
+| `secprdYYYY` | 1996-2025 | Daily underlying security prices |
+| `stdopdYYYY` | 1996-2025 | Standardized ATM-forward options |
+| `vsurfdYYYY` | 1996-2025 | Interpolated volatility surface |
+| `fwdprdYYYY` | 1996-2025 | Computed forward prices |
+| `hvoldYYYY` | 1996-2025 | Historical (realized) volatility |
+| `borrateYYYY` | 1996-2025 | Implied borrow rates (by expiration) |
+| `stdbrteYYYY` | 1996-2025 | Standardized borrow rates (by days) |
+| `distrprojdYYYY` | 1996-2023 | Projected dividend distributions (lags behind) |
+
+### Non-Partitioned Tables (US Data)
+
+| Table | Rows | Description |
+|-------|------|-------------|
+| `secprd` | ~66M | All-years security prices (same data as UNION of secprdYYYY). **No equivalent for opprcd.** |
+| `securd` | ~120K | Security master (current snapshot) |
+| `securd1` | ~120K | Security master + `issuer` column |
+| `secnmd` | ~272K | Historical ticker/name/CUSIP changes |
+| `opinfd` | ~14K | Option contract specifications |
+| `indexd` | ~83K | Index security master |
+| `exchgd` | ~209K | Exchange listing history |
+| `distrd` | ~742K | Distribution (dividend/split) history |
+| `opvold` | ~81M | Daily aggregated option volume |
+| `idxdvd` | ~2.7M | Index continuous dividend yields |
+| `zerocd` | ~304K | Zero-coupon interest rate curve |
+| `optionmnames` | ~70M | OptionMetrics name/identifier history (**very large — filter aggressively**) |
+
+## Column Definitions
+
+### opprcdYYYY — Daily Option Prices (1996-2025)
+
+One row per option contract per trading day.
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Underlying security ID |
+| `date` | date | Observation date |
+| `symbol` | varchar(21) | Option symbol (OSI format) |
+| `symbol_flag` | varchar(1) | Symbol type flag ("1" = standard) |
+| `exdate` | date | Expiration date |
+| `last_date` | date | Last trade date |
+| `cp_flag` | varchar(1) | Call ("C") or Put ("P") |
+| `strike_price` | double precision | **Strike x 1000 — DIVIDE BY 1000 for actual strike** |
+| `best_bid` | double precision | Best closing bid price |
+| `best_offer` | double precision | Best closing ask price |
+| `volume` | double precision | Daily contract volume |
+| `open_interest` | double precision | Open interest (contracts) |
+| `impl_volatility` | double precision | Black-Scholes IV (**-99.99 = missing**) |
+| `delta` | double precision | Option delta |
+| `gamma` | double precision | Option gamma |
+| `vega` | double precision | Option vega (per 1% vol change) |
+| `theta` | double precision | Option theta (per calendar day) |
+| `optionid` | double precision | Unique option contract identifier |
+| `cfadj` | double precision | Cumulative adjustment factor |
+| `am_settlement` | double precision | AM settlement flag (1 = AM, 0 = PM) |
+| `contract_size` | double precision | Contract multiplier (typically 100) |
+| `ss_flag` | varchar(1) | Special settlement flag ("0" = standard) |
+| `forward_price` | double precision | Computed forward price of underlying |
+| `expiry_indicator` | varchar(1) | Expiry indicator |
+| `root` | varchar(5) | Option root symbol |
+| `suffix` | varchar(2) | Option suffix |
+
+### secprdYYYY / secprd — Daily Security Prices
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `date` | date | Observation date |
+| `open` | double precision | Opening price |
+| `high` | double precision | Daily high |
+| `low` | double precision | Daily low |
+| `close` | double precision | Closing price |
+| `volume` | double precision | Share volume |
+| `return` | double precision | Daily total return |
+| `cfadj` | double precision | Cumulative price adjustment factor |
+| `cfret` | double precision | Cumulative return adjustment factor |
+| `shrout` | double precision | Shares outstanding (thousands; 0 for indices) |
+
+**Notes:**
+- `secprd` (no year suffix) is a non-partitioned BASE TABLE containing all years (~66M rows).
+- `secprdYYYY` tables contain the same data partitioned by year.
+- Contains both equity AND index securities (index `shrout` = 0).
+
+### vsurfdYYYY — Interpolated Volatility Surface
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `date` | date | Observation date |
+| `days` | double precision | Days to expiration |
+| `delta` | double precision | Delta level (integer) |
+| `impl_volatility` | double precision | Interpolated IV |
+| `impl_strike` | double precision | Implied strike price |
+| `impl_premium` | double precision | Implied option premium |
+| `dispersion` | double precision | Dispersion measure |
+| `cp_flag` | varchar(1) | Call ("C") or Put ("P") |
+
+**Days grid (11 values):** 10, 30, 60, 91, 122, 152, 182, 273, 365, 547, 730
+
+**Delta grid (by 5s):**
+- Puts: -90, -85, -80, -75, -70, -65, -60, -55, -50, -45, -40, -35, -30, -25, -20, -15, -10
+- Calls: 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90
+
+### stdopdYYYY — Standardized ATM-Forward Options
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `date` | date | Observation date |
+| `days` | double precision | Days to expiration |
+| `forward_price` | double precision | Computed forward price |
+| `strike_price` | double precision | Strike price (= forward_price for ATM) |
+| `premium` | double precision | Option premium |
+| `impl_volatility` | double precision | ATM-forward IV |
+| `delta` | double precision | Option delta |
+| `gamma` | double precision | Option gamma |
+| `theta` | double precision | Option theta |
+| `vega` | double precision | Option vega |
+| `cp_flag` | varchar(1) | Call ("C") or Put ("P") |
+
+**Days grid (11 values):** 10, 30, 60, 91, 122, 152, 182, 273, 365, 547, 730
+
+Both calls and puts are reported for each days/date combination.
+
+### securd — Security Master
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `cusip` | varchar(8) | CUSIP (8-digit) |
+| `ticker` | varchar(6) | Current ticker |
+| `sic` | varchar(4) | SIC code |
+| `index_flag` | varchar(1) | "0" = equity, "1" = index |
+| `exchange_d` | double precision | Exchange code (bitmask) |
+| `class` | varchar(1) | Security class |
+| `issue_type` | varchar(1) | Issue type ("0" = common stock, "A" = index/ADR, "F" = foreign, "U" = unit) |
+| `industry_group` | double precision | Industry group code |
+
+~120K total: ~38K equities, ~83K indices. `securd1` adds an `issuer` column.
+
+### secnmd — Security Name History
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `effect_date` | date | Effective date of this record |
+| `cusip` | varchar(8) | CUSIP at this date |
+| `ticker` | varchar(6) | Ticker at this date |
+| `class` | varchar(1) | Security class |
+| `issuer` | varchar(28) | Issuer name |
+| `issue` | varchar(20) | Issue description |
+| `sic` | varchar(4) | SIC code |
+
+Multiple rows per secid when ticker/name/CUSIP changes.
+
+### opinfd — Option Contract Info
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `div_convention` | varchar(1) | Dividend convention ("I" = index) |
+| `exercise_style` | varchar(1) | "A" = American, "E" = European |
+| `am_set_flag` | varchar(1) | AM settlement flag |
+
+One row per optionable security.
+
+### indexd — Index Security Master
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `ticker` | varchar(6) | Ticker |
+| `cusip` | varchar(8) | CUSIP |
+| `exchange_d` | double precision | Exchange code |
+| `issue_type` | varchar(1) | Issue type |
+| `class` | varchar(1) | Security class |
+| `indexnam` | varchar(28) | Index name |
+| `issue` | varchar(20) | Issue description |
+| `div_convention` | varchar(1) | Dividend convention ("I" = index) |
+| `exercise_style` | varchar(1) | Exercise style ("E" = European) |
+| `am_set_flag` | varchar(1) | AM settlement flag |
+
+### distrd — Distribution History
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | Security ID |
+| `record_date` | date | Record date |
+| `seq_num` | double precision | Sequence number |
+| `ex_date` | date | Ex-dividend date |
+| `amount` | double precision | Distribution amount (per share) |
+| `adj_factor` | double precision | Adjustment factor (for splits) |
+| `declare_date` | date | Declaration date |
+| `payment_date` | date | Payment date |
+| `link_secid` | double precision | Linked security ID (for spinoffs) |
+| `distr_type` | varchar(1) | "1" = cash div, "%" = projected, "2" = stock div, "5" = split, "4" = spinoff, "3" = return of capital |
+| `frequency` | varchar(1) | Distribution frequency |
+| `currency` | varchar(3) | Currency |
+| `approx_flag` | varchar(1) | "0" = exact |
+| `cancel_flag` | varchar(1) | Cancellation flag |
+| `liquid_flag` | varchar(1) | Liquidation flag |
+
+### Other Tables
+
 | Table | Description |
 |-------|-------------|
-| `securd` | Master security file (type, class, CUSIP) |
-| `secnmd` | Historical ticker, name, CUSIP changes |
-| `secprdYYYY` | Daily prices, returns, shares outstanding |
-| `distrd` | Dividends, splits, spinoffs |
+| `hvoldYYYY` | Historical (realized) volatility. Days: 10, 14, 30, 60, 91, 122, 152, 182, 273, 365, 547, 730, 1825 |
+| `borrateYYYY` | Implied borrow rates by expiration date (-99.99 = missing) |
+| `stdbrteYYYY` | Standardized borrow rates at fixed days (10, 30, 60, ..., 730) |
+| `distrprojdYYYY` | Projected dividends: secid, date, exdate, amount. Years: 1996-2023 only |
+| `fwdprdYYYY` | Forward prices: secid, date, expiration, amsettlement, forwardprice |
+| `opvold` | Aggregated option volume: 3 rows per secid-date (total, calls, puts) |
+| `zerocd` | Zero-coupon curve: date, days (10-730), rate (annualized %) |
+| `idxdvd` | Index dividend yields: secid, date, expiration, rate (continuous yield %) |
+| `exchgd` | Exchange listing history with status ("$" = active, "X"/"D" = delisted) |
+| `optionmnames` | Name/identifier history (~70M rows — **filter aggressively**) |
 
-**Option Data:**
-| Table | Description |
-|-------|-------------|
-| `opprcdYYYY` | Daily option prices, IVs, Greeks |
-| `opinfd` | Option contract specifications |
-| `opvold` | Daily aggregated volume by underlying |
+## CRSP Linking
 
-**Derived/Interpolated:**
-| Table | Description |
-|-------|-------------|
-| `stdopdYYYY` | Standardized ATM-forward options |
-| `vsurfdYYYY` | Interpolated volatility surface |
-| `zerocd` | Zero-coupon interest rate curve |
-| `fwdprd` | Computed forward prices |
+Use `wrdsapps.opcrsphist` to link OptionMetrics SECID to CRSP PERMNO. There is **no PERMNO column** in any OptionMetrics table.
 
-### Key Variables
+| Column | Type | Description |
+|--------|------|-------------|
+| `secid` | double precision | OptionMetrics security ID |
+| `sdate` | date | Link start date |
+| `edate` | date | Link end date |
+| `permno` | integer | CRSP PERMNO |
+| `score` | double precision | Link quality (1 = best, 6 = worst) |
 
-**Option Price File (opprcdYYYY):**
-| Variable | Description |
-|----------|-------------|
-| `secid` | Underlying security ID |
-| `date` | Observation date |
-| `exdate` | Expiration date |
-| `cp_flag` | Call (C) or Put (P) |
-| `strike_price` | Strike × 1000 (divide by 1000!) |
-| `best_bid` | Best closing bid |
-| `best_offer` | Best closing offer |
-| `impl_volatility` | Black-Scholes IV (-99.99 = missing) |
-| `delta` | Option delta |
-| `gamma` | Option gamma |
-| `vega` | Option vega (per 1% vol change) |
-| `theta` | Option theta (per calendar day) |
-| `volume` | Contract volume |
-| `open_interest` | Open interest |
-| `optionid` | Unique option identifier |
+**Link scores:**
+- **1** = exact CUSIP match (~28K links)
+- **2** = CUSIP match with minor difference (~190)
+- **4** = ticker-based match (~660)
+- **5** = weak match (~5.7K)
+- **6** = no match (NULL permno — all indices get score 6)
 
-**Security Price File (secprdYYYY):**
-| Variable | Description |
-|----------|-------------|
-| `secid` | Security ID |
-| `date` | Observation date |
-| `close` | Closing price |
-| `return` | Daily return |
-| `shrout` | Shares outstanding (thousands) |
-| `cfadj` | Cumulative adjustment factor |
+**Usage:**
+```sql
+SELECT o.secid, o.date, o.impl_volatility, l.permno
+FROM optionm.opprcd2024 o
+JOIN wrdsapps.opcrsphist l
+  ON o.secid = l.secid
+  AND o.date BETWEEN l.sdate AND l.edate
+  AND l.score <= 2  -- high-quality links only
+WHERE o.secid = 101594;
+```
 
-**Volatility Surface File (vsurfdYYYY):**
-| Variable | Description |
-|----------|-------------|
-| `secid` | Security ID |
-| `date` | Observation date |
-| `days` | Days to exp (30, 60, 91, 122, 152, 182, 365, 730) |
-| `delta` | Delta level (20-80 calls, -80 to -20 puts) |
-| `impl_volatility` | Interpolated IV |
-| `cp_flag` | Call (C) or Put (P) |
+## Index Options
 
-**Standardized Option File (stdopdYYYY):**
-| Variable | Description |
-|----------|-------------|
-| `secid` | Security ID |
-| `date` | Observation date |
-| `days` | Days to exp (30, 60, 91, 122, 152, 182, 365, 730) |
-| `impl_volatility` | ATM-forward IV |
-| `forward_price` | Computed forward price |
+Index options are in the **same tables** as equity options. No separate schema or table set.
+
+### Key Index SECIDs
+
+| SECID | Ticker | Name |
+|-------|--------|------|
+| 108105 | SPX | CBOE S&P 500 INDEX |
+| 117801 | VIX | CBOE MARKET VOLATILITY |
+| 109820 | SPY | SPDR S&P 500 ETF |
+
+### Equity vs Index Differences
+
+| Feature | Equity | Index |
+|---------|--------|-------|
+| Exercise style | American ("A") | European ("E") |
+| Settlement | PM (`am_settlement=0`) | AM (`am_settlement=1`) for SPX |
+| Dividend treatment | Discrete dividends via `distrd` | Continuous yield via `idxdvd` |
+| Pricing model | CRR binomial (100 steps) | Black-Scholes |
+| `shrout` in secprd | Shares outstanding | 0 |
+| Identify via | `securd.index_flag = '0'` | `securd.index_flag = '1'` or `indexd` table |
 
 ## Data Extraction Examples
 
@@ -131,14 +334,13 @@ ORDER BY effect_date DESC
 LIMIT 5;
 
 -- Get security info
-SELECT secid, cusip, class, issue_type
+SELECT secid, cusip, class, issue_type, index_flag
 FROM optionm.securd
 WHERE secid = 106566;  -- JNJ
 ```
 
 ### Basic Option Extraction
 ```sql
--- Get options for a specific date and maturity
 SELECT
     date, exdate,
     cp_flag,
@@ -150,7 +352,7 @@ SELECT
     volume, open_interest,
     exdate - date AS days_to_exp
 FROM optionm.opprcd2024
-WHERE secid = 106566  -- JNJ
+WHERE secid = 106566
   AND date = '2024-01-31'
   AND exdate BETWEEN '2025-01-01' AND '2025-02-28'
   AND best_bid > 0
@@ -202,7 +404,7 @@ ORDER BY date, exdate, cp_flag;
 -- Extract full volatility surface
 SELECT secid, date, days, delta, cp_flag,
        impl_volatility, impl_strike
-FROM optionm.vsurf2024
+FROM optionm.vsurfd2024
 WHERE secid = 106566
   AND date = '2024-06-28'
   AND impl_volatility > 0
@@ -211,7 +413,6 @@ ORDER BY days, delta;
 
 ### Put-Call IV Spread
 ```sql
--- IV spread between puts and calls at same strike
 SELECT
     c.secid, c.date, c.exdate,
     c.strike_price / 1000 AS strike,
@@ -257,7 +458,6 @@ WHERE p.cp_flag = 'P' AND p.delta BETWEEN -0.30 AND -0.20
 
 ### Term Structure
 ```sql
--- IV term structure from standardized options
 SELECT secid, date,
        MAX(CASE WHEN days = 30 THEN impl_volatility END) AS iv_30,
        MAX(CASE WHEN days = 60 THEN impl_volatility END) AS iv_60,
@@ -341,6 +541,37 @@ WHERE secid = 106566 AND impl_volatility > 0
 ORDER BY date, days;
 ```
 
+**For security prices only:** `secprd` (no year suffix) contains all years — no UNION ALL needed:
+```sql
+SELECT secid, date, close, return
+FROM optionm.secprd
+WHERE secid = 106566 AND date >= '2020-01-01';
+```
+
+## Critical Gotchas
+
+1. **`strike_price` in opprcd is multiplied by 1000.** Always divide by 1000.
+2. **`impl_volatility` = -99.99 means missing.** Filter with `impl_volatility > 0`.
+3. **European views in `optionm` will fail** without `optionm_europe` subscription. Stick to US-style tables (`opprcdYYYY`, `securd`, `secnmd`, etc.). Avoid: `option`, `option_price_YYYY`, `security`, `security_name`, `security_price`, `op_view`, `exchange`, `currency`, `country`, `futures`, `release`, `rollover`.
+4. **`secprd` (no year) is a real table** containing all years (~66M rows). But there is **NO equivalent for opprcd** — you must use year-specific `opprcdYYYY` tables.
+5. **Volatility surface table is `vsurfdYYYY`** (with "d" suffix), NOT `vsurfYYYY`.
+6. **Days grid is 11 values:** 10, 30, 60, 91, 122, 152, 182, 273, 365, 547, 730.
+7. **Delta grid in vsurfd:** -90 to -10 (puts) and 10 to 90 (calls), by increments of 5.
+8. **All numeric columns are `double precision`** — even secid, optionid, volume, open_interest. This is a WRDS PostgreSQL artifact.
+9. **CRSP linking requires `wrdsapps.opcrsphist`.** No PERMNO column exists in OptionMetrics. Score 6 = no match (all indices).
+10. **`optionmnames` is ~70M rows.** Always filter aggressively.
+11. **`distrprojdYYYY` only goes to 2023.** It lags behind other tables.
+
+## Export Results
+```bash
+psql service=wrds \
+    -c "COPY (
+        SELECT date, exdate, cp_flag, strike_price/1000 AS strike, impl_volatility
+        FROM optionm.opprcd2024
+        WHERE secid = 106566 AND date = '2024-06-28'
+    ) TO STDOUT WITH CSV HEADER" > jnj_options.csv
+```
+
 ## Python with psycopg2
 ```python
 import psycopg2
@@ -362,15 +593,4 @@ df = pd.DataFrame(cur.fetchall(), columns=cols)
 
 cur.close()
 conn.close()
-```
-
-## Export Results
-```bash
-# Export to CSV
-psql service=wrds \
-    -c "COPY (
-        SELECT date, exdate, cp_flag, strike_price/1000 AS strike, impl_volatility
-        FROM optionm.opprcd2024
-        WHERE secid = 106566 AND date = '2024-06-28'
-    ) TO STDOUT WITH CSV HEADER" > jnj_options.csv
 ```
