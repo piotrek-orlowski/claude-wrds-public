@@ -115,6 +115,20 @@ If you already have a `~/.claude/settings.json`, merge the `permissions.allow` e
 
 These permission rules let the WRDS agents run `psql`, `ssh`, and `scp` commands without prompting you for approval each time.
 
+Finally, append the contents of `CLAUDE.md` to your global Claude Code instructions:
+
+```bash
+cat CLAUDE.md >> ~/.claude/CLAUDE.md
+```
+
+If you don't have a `~/.claude/CLAUDE.md` yet, just copy it:
+
+```bash
+cp CLAUDE.md ~/.claude/CLAUDE.md
+```
+
+This file tells Claude how to connect to WRDS, when to use SSH vs PostgreSQL, and to always delegate queries to the specialist agents rather than writing SQL directly.
+
 ## Usage
 
 ### General pattern
