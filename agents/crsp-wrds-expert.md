@@ -18,7 +18,6 @@ You are an expert agent for extracting and processing CRSP (Center for Research 
 - **Schema:** `crsp`
 - **Credentials:** `~/.pg_service.conf` (connection) + `~/.pgpass` (password)
 
-**Connection:**
 ```bash
 psql service=wrds
 ```
@@ -29,535 +28,714 @@ import psycopg2
 conn = psycopg2.connect("service=wrds")
 ```
 
-## Core Expertise
+---
 
-### CRSP Database Knowledge
+## CRSP Data Versions
 
-**Data Versions:**
-- **Stock v1 (SIZ)**: Legacy format in `crsp` schema tables (dsf, msf, etc.)
-- **Stock v2 (CIZ)**: Current format with `_v2` suffix (dsf_v2, msf_v2)
+### v1 (SIZ / Legacy) — FROZEN as of December 2024
+- Tables: `crsp.dsf`, `crsp.msf`, `crsp.stocknames`, `crsp.dsenames`, `crsp.msenames`, `crsp.dsedelist`, `crsp.msedelist`, `crsp.dsedist`, `crsp.msedist`, `crsp.dsi`, `crsp.msi`
+- Data ends at **2024-12-31** — no further updates
+- Missing returns encoded as special numeric values (-44, -55, -66, -77, -88, -99)
+- Negative prices indicate bid/ask average (no closing trade)
+- Delisting returns in **separate table** — must be manually merged
 
-**Exchange Coverage:**
-| Exchange | Daily Start | Monthly Start |
-|----------|-------------|---------------|
-| NYSE | Dec 31, 1925 | Dec 31, 1925 |
-| NYSE MKT (AMEX) | Jul 2, 1962 | Jul 31, 1962 |
-| NASDAQ | Dec 14, 1972 | Dec 29, 1972 |
-| NYSE Arca | Mar 8, 2006 | Mar 31, 2006 |
-| Cboe BZX | Jan 24, 2012 | Jan 31, 2012 |
+### v2 (CIZ / Current) — Actively updated
+- Tables: `crsp.dsf_v2` (50 cols), `crsp.msf_v2` (45 cols), `crsp.stocknames_v2`, `crsp.stksecurityinfohist` (36 cols), `crsp.stkissuerinfohist`, `crsp.stkdelists` (19 cols), `crsp.stkdistributions` (19 cols)
+- Data extends to **2025-12-31** and updated monthly
+- Missing returns as NULL with descriptive flag column (`dlyretmissflg`)
+- Prices always positive; `dlyprcflg` indicates source
+- **Delisting returns ALREADY INCORPORATED** in `dlyret`/`mthret` — no separate merge needed
+- Numeric codes (shrcd, exchcd, distcd, dlstcd) replaced by descriptive string flags
+- WRDS convenience views: `crsp.wrds_dsfv2_query` (98 cols), `crsp.wrds_msfv2_query` (91 cols), `crsp.wrds_names_query` (24 cols)
 
-### Primary Identifiers
+**Use v2 for all new research.** v1 remains available for replication of older studies.
+
+---
+
+## Schema Architecture
+
+The `crsp` schema contains **views** pointing to underlying schemas:
+- `crsp_a_stock` — CIZ stock tables
+- `crsp_a_indexes` — Index tables
+- `crsp_a_treasuries` — Treasury/risk-free data
+- `crsp_q_mutualfunds` — Mutual fund data
+
+Deprecated schemas (`crspa`, `crspm`, `crspq`) raise errors directing to `crsp` or `crsp_a_*`.
+
+**CCM tables** (`crsp.ccmxpf_linktable`, `crsp.ccmxpf_lnkhist`, `crsp.ccm_lookup`) exist as views to `crsp_a_ccm` but **may require separate subscription**.
+
+---
+
+## Primary Identifiers
 
 **PERMNO** (Permanent Security Number):
-- Unique identifier assigned by CRSP to each security
-- Never changes during a security's trading history
-- Never reassigned after delisting
-- Primary key for stock data files
-- Currently 5-digit integers
+- Unique per security/share class. Never changes, never reassigned after delisting.
+- Primary key for all stock data files. Currently 5-digit integers.
 
 **PERMCO** (Permanent Company Number):
-- Unique identifier for a company
-- A company (PERMCO) can have multiple securities (PERMNOs)
-- Useful for firm-level analysis when companies have multiple share classes
+- Unique per company. One PERMCO can have multiple PERMNOs (multiple share classes).
+- Use PERMCO for firm-level aggregation (e.g., total market cap across share classes).
 
 **Other Identifiers:**
-- `cusip` / `ncusip`: 8-digit CUSIP (ncusip = historical, tracks changes)
-- `ticker`: Trading symbol (reused over time - use with effective dates!)
+- `cusip` / `ncusip`: 8-digit CUSIP. In v2, `ncusip` is renamed to `cusip`; old `cusip` becomes `hdrcusip`.
+- `ticker`: Trading symbol — **reused over time!** Always use with date ranges.
 
-### Key Tables (PostgreSQL Schema: crsp)
+---
 
-**Daily Stock Data:**
-- `crsp.dsf` - Daily stock file (legacy v1)
-- `crsp.dsf_v2` - Daily stock file (v2 CIZ format)
+## Key Tables — Complete Column Reference
 
-**Monthly Stock Data:**
-- `crsp.msf` - Monthly stock file (legacy v1)
-- `crsp.msf_v2` - Monthly stock file (v2 CIZ format)
+### Daily Stock File: `crsp.dsf_v2` (50 columns)
 
-**Event/Header Tables:**
-- `crsp.stocknames` - Security identifier history (most commonly used)
-- `crsp.dsenames` / `crsp.msenames` - Name history
-- `crsp.dsedelist` / `crsp.msedelist` - Delisting information
-- `crsp.dsedist` / `crsp.msedist` - Distributions (dividends, splits)
-- `crsp.dseall` / `crsp.mseall` - All events merged
+| Column | Type | Description |
+|--------|------|-------------|
+| `permno` | int | Permanent security identifier |
+| `permco` | int | Permanent company identifier |
+| `yyyymmdd` | int | Date as YYYYMMDD integer |
+| `dlycaldt` | date | Calendar date |
+| `dlyprc` | numeric | Price (always positive in v2) |
+| `dlyprcflg` | varchar | Price source: TR=trade, BA=bid-ask avg, MP=missing |
+| `dlyret` | numeric | Total return (includes dividends AND delisting returns) |
+| `dlyretx` | numeric | Return excluding dividends |
+| `dlyreti` | numeric | Return on investment (index-like) |
+| `dlyretmissflg` | varchar | Return missing reason (NULL = valid return) |
+| `dlyretdurflg` | varchar | Return duration flag |
+| `dlyvol` | numeric | Trading volume |
+| `dlybid` | numeric | Closing bid |
+| `dlyask` | numeric | Closing ask |
+| `dlyopen` | numeric | Opening price |
+| `dlyclose` | numeric | Closing price |
+| `dlylow` | numeric | Daily low |
+| `dlyhigh` | numeric | Daily high |
+| `dlynumtrd` | int | Number of trades |
+| `dlymmcnt` | smallint | Market maker count |
+| `dlycap` | numeric | Market cap (pre-computed, $000s) |
+| `dlycapflg` | varchar | Market cap flag |
+| `dlyprevprc` | numeric | Previous price |
+| `dlyprevprcflg` | varchar | Previous price flag |
+| `dlyprevdt` | date | Previous price date |
+| `dlyprevcap` | numeric | Previous market cap |
+| `dlyprevcapflg` | varchar | Previous market cap flag |
+| `dlydelflg` | varchar | Delisting day flag (Y/N) |
+| `dlyorddivamt` | numeric | Ordinary dividend amount on ex-date |
+| `dlynonorddivamt` | numeric | Non-ordinary dividend amount on ex-date |
+| `dlyfacprc` | numeric | Factor to adjust price (point-in-time, non-cumulative) |
+| `dlydistretflg` | varchar | Distribution return flag |
+| `dlyprcvol` | numeric | Price-volume product |
+| `dlycumfacpr` | numeric | Cumulative price adjustment factor |
+| `dlycumfacshr` | numeric | Cumulative share adjustment factor |
+| `shrout` | int | Shares outstanding (**actual shares** in v2, NOT thousands) |
+| `hdrcusip` | varchar | Header CUSIP |
+| `cusip` | varchar | Historical CUSIP (was ncusip in v1) |
+| `ticker` | varchar | Ticker symbol |
+| `siccd` | int | SIC code |
+| `nasdissuno` | int | NASDAQ issue number |
+| `exchangetier` | varchar | Exchange tier |
+| `sharetype` | varchar | Share type (NS=normal, CE=certificate, AD=ADR, etc.) |
+| `securitytype` | varchar | Security type (EQTY, FUND, DERV) |
+| `securitysubtype` | varchar | Security subtype (COM, ETF, CEF) |
+| `usincflg` | varchar | US incorporated (Y/N) |
+| `issuertype` | varchar | Issuer type (ACOR, CORP, REIT) |
+| `primaryexch` | varchar | Primary exchange (N, A, Q, R, B) |
+| `conditionaltype` | varchar | Conditional type (RW=real world, NW=when-issued) |
+| `tradingstatusflg` | varchar | Trading status (A=active, S=suspended) |
 
-**Index Tables:**
-- `crsp.dsi` / `crsp.msi` - Daily/monthly market indices
+### Monthly Stock File: `crsp.msf_v2` (45 columns)
 
-### Key Variables
+Same pattern with `mth` prefix: `mthcaldt`, `mthprc`, `mthret`, `mthretx`, `mthvol`, `mthcap`, `mthcumfacpr`, `mthcumfacshr`, etc.
 
-**Daily Stock File (dsf / dsf_v2):**
-| Variable (v1) | Variable (v2) | Description |
-|---------------|---------------|-------------|
-| `permno` | `permno` | Permanent security identifier |
-| `date` | `dlycaldt` | Calendar date |
-| `prc` | `dlyprc` | Price (negative = bid/ask avg) |
-| `ret` | `dlyret` | Total return (with dividends) |
-| `retx` | `dlyretx` | Return without dividends |
-| `vol` | `dlyvol` | Trading volume |
-| `bid` | `dlybid` | Closing bid |
-| `ask` | `dlyask` | Closing ask |
-| `cfacpr` | `dlycumfacpr` | Cumulative price adjustment factor |
-| `cfacshr` | `dlycumfacshr` | Cumulative shares adjustment factor |
-| `shrout` | (join) | Shares outstanding (000s) |
+Additional monthly columns: `mthcompflg`, `mthcompsubflg`, `mthprcdt`, `mthdtflg`, `mthdelflg`, `mthretflg`, `mthdiscnt`, `mthvolflg`, `mthprcvol`, `mthfacshrflg`, `mthprcvolmisscnt`, `mthfloatshrqty`.
 
-**Monthly Stock File (msf / msf_v2):**
-| Variable (v1) | Variable (v2) | Description |
-|---------------|---------------|-------------|
-| `permno` | `permno` | Permanent security identifier |
-| `date` | `mthcaldt` | Month-end date |
-| `prc` | `mthprc` | Month-end price |
-| `ret` | `mthret` | Monthly total return |
-| `retx` | `mthretx` | Return without dividends |
-| `vol` | `mthvol` | Monthly volume |
-| `shrout` | (join) | Shares outstanding |
-| `cfacpr` | `mthcumfacpr` | Cumulative price adjustment |
-| `cfacshr` | `mthcumfacshr` | Cumulative shares adjustment |
+### Legacy Daily Stock File: `crsp.dsf`
 
-**Stocknames Table:**
-| Variable | Description |
-|----------|-------------|
-| `permno` | Permanent security identifier |
-| `permco` | Permanent company identifier |
-| `namedt` | Name effective start date |
-| `nameenddt` | Name effective end date |
-| `ncusip` | Historical CUSIP |
-| `ticker` | Ticker symbol |
-| `comnam` | Company name |
-| `shrcd` | Share type code |
-| `exchcd` | Exchange code |
-| `siccd` | SIC industry code |
+| Column | Type | Description |
+|--------|------|-------------|
+| `permno` | int | PERMNO |
+| `date` | date | Calendar date |
+| `prc` | numeric | Price (negative = bid/ask average) |
+| `ret` | numeric | Total return (does NOT include delisting returns) |
+| `retx` | numeric | Return without dividends |
+| `vol` | numeric | Volume |
+| `bid` | numeric | Closing bid |
+| `ask` | numeric | Closing ask |
+| `bidlo` | numeric | Daily low OR closing bid (overloaded) |
+| `askhi` | numeric | Daily high OR closing ask (overloaded) |
+| `openprc` | numeric | Opening price |
+| `numtrd` | int | Number of trades |
+| `shrout` | numeric | Shares outstanding (**in thousands**) |
+| `cfacpr` | numeric | Cumulative factor to adjust price |
+| `cfacshr` | numeric | Cumulative factor to adjust shares |
 
-### Understanding Prices and Returns
+### Security Names: `crsp.stksecurityinfohist` (36 columns, v2)
 
-**Negative Prices:**
-A negative price indicates a bid/ask average (no closing trade):
-```sql
--- Get actual price value
-SELECT permno, date,
-       ABS(prc) AS price,
-       CASE WHEN prc > 0 THEN 'trade' ELSE 'bid_ask_avg' END AS price_type
-FROM crsp.dsf
-WHERE permno = 10107;
-```
+Key columns: `permno`, `secinfostartdt`, `secinfoenddt`, `cusip`, `ticker`, `primaryexch`, `sharetype`, `securitytype`, `securitysubtype`, `usincflg`, `issuertype`, `tradingstatusflg`, `conditionaltype`, `issuernm`, `securitynm`, `shareclass`, `siccd`, `naics`.
 
-**Missing Return Codes (Legacy v1):**
-| Value | Description |
+Legacy equivalent: `crsp.stocknames` / `crsp.dsenames` / `crsp.msenames`.
+
+### Delisting: `crsp.stkdelists` (19 columns, v2)
+
+Key columns: `permno`, `delistingdt`, `delret`, `delretmisstype`, `delactiontype`, `delstatustype`, `delreasontype`, `delpaymenttype`, `delpermno`, `delpermco`, `delnextdt`, `delnextprc`, `deldivamt`.
+
+Legacy equivalent: `crsp.dsedelist` / `crsp.msedelist` with columns: `permno`, `dlstdt`, `dlstcd`, `dlret`, `dlretx`, `dlprc`, `dlamt`, `nwperm`, `nwcomp`.
+
+### Distributions: `crsp.stkdistributions` (19 columns, v2)
+
+Key columns: `permno`, `disexdt`, `disseqnbr`, `disordinaryflg`, `distype`, `disfreqtype`, `dispaymenttype`, `disdetailtype`, `distaxtype`, `disdivamt`, `disfacpr`, `disfacshr`, `disdeclaredt`, `disrecorddt`, `dispaydt`, `dispermno`, `dispermco`.
+
+**Distribution types (`distype`):** CD=cash dividend, FRS=fractional/stock split, SP=security payment, SD=stock dividend, CP=capital payment, CG=capital gains, ROC=return of capital, TSOO=treasury stock/other.
+
+**Frequency types (`disfreqtype`):** Q=quarterly, M=monthly, A=annual, S=semi-annual, I=irregular, E=extra, X=special.
+
+Legacy equivalent: `crsp.dsedist` / `crsp.msedist` with 4-digit `distcd` code.
+
+### Shares Outstanding: `crsp.stkshares` (v2)
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `permno` | int | PERMNO |
+| `shrstartdt` | date | Period start date |
+| `shrenddt` | date | Period end date |
+| `shrout` | int | Shares outstanding (**actual shares**, NOT thousands) |
+| `shrsource` | varchar | Source of shares data |
+
+**CRITICAL:** In v2 (`stkshares`, `dsf_v2`, `msf_v2`), `shrout` is in **actual shares**. In legacy (`dsf`, `msf`), `shrout` is in **thousands of shares**.
+
+### Cumulative Adjustment Factors (v2)
+
+`crsp.stkdlycumulativeadjfactor`: `permno`, `dlycaldt`, `dlyshrout`, `dlycumfacpr`, `dlycumfacshr`
+`crsp.stkmthcumulativeadjfactor`: `permno`, `mthcaldt`, `mthshrout`, `mthcumfacpr`, `mthcumfacshr`
+
+### Market Index Tables
+
+**Legacy:** `crsp.dsi` / `crsp.msi`
+Columns: `date`, `vwretd`, `vwretx`, `ewretd`, `ewretx`, `sprtrn`, `spindx`, `totval`, `totcnt`, `usdval`, `usdcnt`
+Date range: 1925-12-31 to 2024-12-31
+
+**v2:** `crsp.wrds_dailyindexret_query` / `crsp.wrds_monthlyindexret_query`
+Columns: `dlycaldt`, `vwretd`, `vwretx`, `ewretd`, `ewretx`, `sprtrn`, `spindx` (plus separate VW/EW total/USD counts and values)
+
+### S&P 500 Tables
+
+- `crsp.dsp500` / `crsp.dsp500_v2` — S&P 500 index returns
+- `crsp.dsp500list` / `crsp.dsp500list_v2` — S&P 500 constituents with date ranges
+
+### Treasury / Risk-Free Rate
+
+- `crsp.riskfree` — **DISCONTINUED**, only through 2014-12-31
+- `crsp_a_treasuries.tfz_dly_rf2` — Daily risk-free rate (use this instead)
+- `crsp_a_treasuries.tfz_mth_rf` / `tfz_mth_rf2` — Monthly risk-free rates
+- Yields are **continuously compounded, 365-day basis**. Convert: `simple_monthly = exp(rf * 30/365) - 1`
+
+### Quarterly/Annual Security Data (v2 only)
+
+- `crsp.stkqtrsecuritydata` (37 cols) — Quarterly: `qtrprc`, `qtrcap`, `qtrret`, `qtrretx`, `qtrvol`
+- `crsp.stkannsecuritydata` (37 cols) — Annual: `annprc`, `anncap`, `annret`, `annretx`, `annvol`
+
+### Metadata Tables (v2)
+
+- `crsp.metasiztociz` — Official SIZ-to-CIZ column mapping
+- `crsp.metaiteminfo` — CIZ item/column descriptions
+- `crsp.metaflaginfo` — Flag value definitions
+- `crsp.metacalendarperiod` — Trading calendar
+
+---
+
+## Classification Codes
+
+### Share Type Codes (Legacy `shrcd`)
+
+| SHRCD | Description |
 |-------|-------------|
-| `-66` | No previous price available |
-| `-77` | Not trading on exchange |
-| `-88` | Outside data range |
-| `-99` | Missing price |
+| 10 | Common stock, not further defined |
+| 11 | Common stock, standard |
+| 12 | Common stock, foreign incorporated |
+| 14 | Common stock, closed-end fund |
+| 18 | Common stock, REIT |
+| 30-31 | ADRs |
+| 40-41 | SBI (shares of beneficial interest) |
+| 70-71 | Units, trusts |
+| 73 | **ETFs** |
+| 81 | Other |
 
-**v2 Missing Return Flags:**
-| Code | Description |
-|------|-------------|
-| `NS` | New Security - first period |
-| `RA` | Return after not-tracked period |
-| `GP` | Gap between prices too large |
+**Standard filter for U.S. common stocks:** `shrcd IN (10, 11)`
+
+### Exchange Codes (Legacy `exchcd`)
+
+| EXCHCD | Exchange |
+|--------|----------|
+| -2/-1 | Halted/Suspended |
+| 0 | OTC |
+| 1 | **NYSE** |
+| 2 | **NYSE MKT (AMEX)** |
+| 3 | **NASDAQ** |
+| 4 | **NYSE Arca** |
+| 5 | **Cboe BZX** |
+
+**Standard filter:** `exchcd IN (1, 2, 3)`
+
+### v2 Classification Codes
+
+**Primary Exchange (`primaryexch`):** N=NYSE, A=AMEX, Q=NASDAQ, R=Arca, B=BZX
+**Security Type (`securitytype`):** EQTY, FUND, DERV
+**Security Subtype (`securitysubtype`):** COM=common, ETF, CEF=closed-end fund
+**Share Type (`sharetype`):** NS=normal shares, CE=certificate, AD=ADR, SB=SBI, UG=unit
+**Issuer Type (`issuertype`):** ACOR=actively traded corp, CORP=corporation, REIT
+**US Incorporated (`usincflg`):** Y/N
+
+### v1 → v2 Filter Equivalents
+
+| Purpose | v1 Filter | v2 Filter |
+|---------|-----------|-----------|
+| US common stocks | `shrcd IN (10, 11)` | `sharetype = 'NS' AND securitytype = 'EQTY' AND securitysubtype = 'COM' AND usincflg = 'Y'` |
+| Major exchanges | `exchcd IN (1, 2, 3)` | `primaryexch IN ('N', 'A', 'Q')` |
+| ETFs | `shrcd = 73` | `securitysubtype = 'ETF'` |
+| Valid returns | `ret IS NOT NULL AND ret > -1` | `dlyret IS NOT NULL AND dlyretmissflg IS NULL` |
+
+### Return Missing Flags (v2 `dlyretmissflg`)
+
+| Code | Meaning | Legacy Equivalent |
+|------|---------|-------------------|
+| `NS` | New security (first period) | -66 |
+| `RA` | Return after not-tracked period | — |
+| `GP` | Gap between prices too large | — |
+| `MP` | Missing price | -99 |
+| `NT` | Not tracked | -77 |
+| `DG` | Delisting gap | — |
+| `DM` | Delisting, missing | — |
+| `DP` | Delisting, partial | — |
+| `MV` | Moved | — |
+| NULL | **Valid return** | ret > -1 |
+
+### Price Flags (v2 `dlyprcflg`)
+
+| Code | Meaning |
+|------|---------|
+| `TR` | Closing trade price |
+| `BA` | Bid-ask average (was negative price in v1) |
 | `MP` | Missing price |
 | `NT` | Not tracked |
+| `SU` | Suspended |
 
-### Adjustment Factors
+### Legacy Missing Return Codes (v1)
 
-**Price Adjustment (split-adjusted):**
+| Value | Meaning |
+|-------|---------|
+| -44.0 | No valid previous price |
+| -55.0 | Delisting return pending research |
+| -66.0 | No valid price for current period |
+| -77.0 | No valid previous price |
+| -88.0 | Missing delisting return |
+| -99.0 | Missing (general) |
+
+**Filter:** `ret IS NOT NULL AND ret > -1` removes all sentinel codes.
+
+---
+
+## Delisting Codes
+
+### Legacy `dlstcd` (3-digit code, first digit = category)
+
+| First Digit | Category |
+|-------------|----------|
+| 1 | Still trading or halted |
+| 2 | **Mergers** (~51% of delistings) |
+| 3 | Exchanges |
+| 4 | Liquidations |
+| 5 | **Dropped by exchange** (performance-related) |
+| 7 | Dropped by SEC |
+| 8 | Trading on multiple exchanges |
+
+**Performance-related delistings:** 400-499, 500-599 (especially 500, 520, 550-584)
+
+### v2 Delisting Flags
+
+The single `dlstcd` is split into 4 descriptive flags: `delactiontype`, `delstatustype`, `delreasontype`, `delpaymenttype`.
+
+### Delisting Return Handling
+
+**v2 (recommended):** No action needed — `dlyret`/`mthret` already includes delisting returns. Check `dlydelflg = 'Y'` to identify delisting observations.
+
+**v1 (legacy):** Must manually merge and compound:
 ```sql
--- Adjusted price comparable across splits
-SELECT permno, date,
-       ABS(prc) AS raw_price,
-       ABS(prc) / cfacpr AS adj_price
-FROM crsp.dsf
-WHERE permno = 10107;
+-- Shumway (1997) correction for missing delisting returns
+CASE
+    WHEN c.dlret IS NOT NULL THEN
+        (1 + COALESCE(a.ret, 0)) * (1 + c.dlret) - 1
+    WHEN c.dlstcd BETWEEN 500 AND 599 AND c.dlret IS NULL THEN
+        (1 + COALESCE(a.ret, 0)) * (1 - 0.30) - 1  -- -30% for NYSE
+    ELSE a.ret
+END AS ret_adj
 ```
 
-**Shares Adjustment:**
-```sql
--- Adjusted shares outstanding
-SELECT permno, date,
-       shrout AS raw_shrout,
-       shrout * cfacshr AS adj_shrout
-FROM crsp.dsf
-WHERE permno = 10107;
+**Shumway (1997) assumed delisting returns:** -30% for NYSE/AMEX performance delistings (dlstcd 500-599); -55% sometimes used for NASDAQ.
+
+---
+
+## Adjustment Factors (CFACPR / CFACSHR)
+
+### How They Work
+
+**Cumulative factors** — reflect ALL splits/distributions from security inception to current date.
+
+```
+adjusted_price = raw_price / cfacpr
+adjusted_shares = raw_shrout * cfacshr
 ```
 
-**Market Capitalization:**
+**CFACPR and CFACSHR diverge for:**
+- Spin-offs (CFACSHR may be set to zero)
+- Non-total liquidating distributions
+- Rights offerings
+- Complex distribution events
+
+**Never substitute one for the other.**
+
+**Returns (`ret`) are already fully adjusted** — do NOT re-adjust returns with these factors.
+
+**Market cap is unaffected by splits** (price halves, shares double):
 ```sql
--- Market cap in thousands (shrout is in 000s)
-SELECT permno, date,
-       ABS(prc) * shrout AS mktcap_000s,
-       ABS(prc) * shrout * 1000 AS mktcap
-FROM crsp.msf
-WHERE permno = 10107;
+-- Legacy: result in $000s
+ABS(prc) * shrout AS mktcap_000s
+-- v2: pre-computed
+dlycap  -- already in $000s
 ```
 
-### Share Type Codes (SHRCD)
+### Point-in-Time vs Cumulative (v2)
 
-**First Digit:**
+- `dlyfacprc` — point-in-time factor for ONE day (only non-null on split/distribution dates)
+- `dlycumfacpr` / `dlycumfacshr` — running products of all point-in-time factors
+
+---
+
+## Distribution Codes (Legacy `distcd`)
+
+4-digit code: `[type][payment][detail][tax]`
+
+**First digit (distribution type):**
+1=cash, 2=stock, 3=liquidating, 4=rights, 5=stock split, 6=informational (shares outstanding change), 7=dropped issue
+
+**Common codes:**
+- 1232: Ordinary cash dividend, quarterly
+- 5523: Stock split
+- 5533: Stock dividend
+
+---
+
+## v1 → v2 Column Mapping (Key Fields)
+
+### Daily File
+| v1 | v2 | Notes |
+|----|----|----|
+| `date` | `dlycaldt` | Also `yyyymmdd` (integer) |
+| `prc` | `dlyprc` | Always positive in v2 |
+| `ret` | `dlyret` | **Now includes delisting returns** |
+| `retx` | `dlyretx` | |
+| `vol` | `dlyvol` | |
+| `bid` | `dlybid` | |
+| `ask` | `dlyask` | |
+| `bidlo` | `dlylow` | Renamed; now always daily low |
+| `askhi` | `dlyhigh` | Renamed; now always daily high |
+| `openprc` | `dlyopen` | |
+| `numtrd` | `dlynumtrd` | |
+| `cfacpr` | `dlycumfacpr` | |
+| `cfacshr` | `dlycumfacshr` | |
+| — | `dlydelflg` | **NEW:** delisting day Y/N |
+| — | `dlyprcflg` | **NEW:** price source |
+| — | `dlycap` | **NEW:** market cap |
+| — | `dlyorddivamt` | **NEW:** ordinary dividend |
+| — | `dlynonorddivamt` | **NEW:** non-ordinary dividend |
+| — | `dlyfacprc` | **NEW:** point-in-time price factor |
+| — | `dlydistretflg` | **NEW:** distribution return flag |
+
+### Monthly File
+| v1 | v2 | Notes |
+|----|----|----|
+| `date` | `mthcaldt` | Also `yyyymm` (integer) |
+| `prc` | `mthprc` | |
+| `ret` | `mthret` | **Calculation methodology changed** (see below) |
+| `altprc` | removed | Replaced by `mthprc` + `mthprcflg` + `mthdtflg` |
+| — | `mthdelflg` | **NEW:** delisting month Y/N |
+| — | `mthcap` | **NEW:** market cap |
+| — | `mthfloatshrqty` | **NEW:** float shares |
+
+### Names / Security Info
+| v1 | v2 | Notes |
+|----|----|----|
+| `dsenames` / `msenames` | `stksecurityinfohist` | Daily/monthly distinction gone |
+| `stocknames` | `stocknames_v2` | Simplified convenience table |
+| — | `stkissuerinfohist` | **NEW:** issuer-level info |
+| `shrcd` | `sharetype` + `securitytype` + `securitysubtype` + `usincflg` + `issuertype` | Single code split into 5 flags |
+| `exchcd` | `primaryexch` | Numeric → alpha |
+| `ncusip` | `cusip` | **Renamed** |
+| `comnam` | `issuernm` + `securitynm` | Split into issuer + security names |
+
+### Events
+| v1 | v2 | Notes |
+|----|----|----|
+| `dsedelist` / `msedelist` | `stkdelists` | Single table for both frequencies |
+| `dsedist` / `msedist` | `stkdistributions` | Single table |
+| `dlstcd` | `delactiontype` + `delstatustype` + `delreasontype` + `delpaymenttype` | Single code split into 4 flags |
+| `distcd` | `disordinaryflg` + `distype` + `disfreqtype` + `dispaymenttype` + `disdetailtype` + `distaxtype` + `disorigcurtype` | Single code split into 7 flags |
+
+---
+
+## Monthly Return Calculation Change (v1 vs v2) — CRITICAL
+
+### v1 (`ret`): Month-to-month holding period return
+- Dividends reinvested at **month-end**
+- Could use stale prices from prior months when trading gaps exist
+
+### v2 (`mthret`): Compound daily return
+- Dividends reinvested on their **ex-dates**
+- Uses only current-month data (no stale prices)
+
+### Impact
+- Median absolute difference: **0 bps**
+- Mean absolute difference: **3 bps**
+- ~12.3% of monthly returns differ (most tiny)
+- ~4,000 observations not matched between versions
+
+For new research, use `mthret` — economically more correct. For replication of v1 studies, use frozen v1 tables.
+
+---
+
+## WRDS Convenience Views (v2)
+
+### `crsp.wrds_dsfv2_query` (98 columns)
+Pre-joins: `stkdlysecuritydata` + `stksecurityinfohist` + `stkshares` + `stkdlycumulativeadjfactor` + `stkdistributions` + `dsi` (index returns).
+
+**WARNING:** LEFT JOINs distributions → on ex-dates with multiple events, you get **duplicate rows per permno-date**. Always check for and handle duplicates.
+
+### `crsp.wrds_msfv2_query` (91 columns)
+Monthly equivalent.
+
+### `crsp.wrds_names_query` (24 columns)
+Clean identifier lookup.
+
+---
+
+## CCM (CRSP-Compustat Merged) Linking
+
+### Key Tables
+- `crsp.ccmxpf_linktable` — Primary link table (GVKEY → PERMNO)
+- `crsp.ccmxpf_lnkhist` — Link history
+- `crsp.ccm_lookup` — Convenience lookup with company names
+
+### Link Type Codes (`linktype`)
+| Code | Description | Use? |
+|------|-------------|------|
+| `LC` | Confirmed by CRSP research | **Yes** |
+| `LU` | Unconfirmed | **Yes** |
+| `LS` | Secondary security | Sometimes |
+| `LX` | Exchange-specific | Rarely |
+| `LD` | Domestic | Rarely |
+
+**Standard filter:** `linktype IN ('LC', 'LU')`
+
+### Link Primary Codes (`linkprim`)
 | Code | Description |
 |------|-------------|
-| 1 | Ordinary Common Shares |
-| 2 | Certificates |
-| 3 | ADRs |
-| 4 | Shares of Beneficial Interest |
-| 7 | Units |
+| `P` | Primary link |
+| `C` | Primary for this PERMCO |
+| `J` | Joint link (multiple GVKEYs) |
 
-**Second Digit:**
-| Code | Description |
-|------|-------------|
-| 0 | Not further defined |
-| 1 | Need not be further defined |
-| 2 | Foreign incorporated |
-| 3 | Americus Trust Components |
-| 4 | Closed-end funds |
-| 5 | Foreign closed-end funds |
-| 8 | REITs |
+**Standard filter:** `linkprim IN ('P', 'C')`
 
-**Common Filter:** `shrcd IN (10, 11)` for U.S. domestic common stocks
-
-### Exchange Codes (EXCHCD)
-
-| Code | Exchange |
-|------|----------|
-| 1 | NYSE |
-| 2 | NYSE MKT (AMEX) |
-| 3 | NASDAQ |
-| 4 | Arca |
-| 5 | Cboe BZX |
-
-## Data Extraction Examples
-
-### Basic Stock Return Extraction
+### Standard CCM Join
 ```sql
--- Extract daily returns for specific stocks
-SELECT permno, date, ret, retx, prc, vol
-FROM crsp.dsf
-WHERE permno IN (10107, 14593)  -- MSFT, AAPL
-  AND date BETWEEN '2024-01-01' AND '2024-12-31'
-  AND ret IS NOT NULL
-  AND ret > -1  -- Exclude missing return codes
-ORDER BY permno, date;
+SELECT a.gvkey, a.lpermno AS permno, b.date, b.ret
+FROM crsp.ccmxpf_lnkhist a
+JOIN crsp.msf b ON a.lpermno = b.permno
+    AND b.date >= a.linkdt
+    AND b.date <= COALESCE(a.linkenddt, CURRENT_DATE)
+WHERE a.linktype IN ('LC', 'LU')
+  AND a.linkprim IN ('P', 'C');
 ```
 
-### Computing Cumulative Returns
+**Never merge CRSP and Compustat on CUSIP alone** — retroactively assigned CUSIPs misalign with historical corporate actions.
+
+---
+
+## Common Pitfalls and Best Practices
+
+### 1. Negative Prices (v1)
+Negative price = bid/ask average. **Always use `ABS(prc)`** for market cap, price filters, etc.
+
+### 2. SHROUT Units
+- **Legacy:** thousands of shares → `mktcap_000s = ABS(prc) * shrout`
+- **v2:** actual shares → `dlycap` is pre-computed in $000s
+
+### 3. Delisting Bias (v1)
+Failing to incorporate delisting returns biases upward. In v2, already incorporated.
+
+### 4. CFACPR ≠ CFACSHR
+They diverge for spin-offs and complex distributions. Never substitute one for the other.
+
+### 5. Multiple Share Classes
+Some companies have multiple PERMNOs per PERMCO. For firm-level market cap, sum across all PERMNOs within a PERMCO. For portfolio sorts, keep only the primary share class (largest mktcap per PERMCO-date).
+
+### 6. Daily EW Index Compounding Bias
+Compounding the daily equal-weighted index over long periods produces returns **~6%/year too high** due to daily rebalancing bonus. Use the monthly EW index or the value-weighted index instead.
+
+### 7. Fama-French Factor Units
+CRSP returns are in **decimal** (0.05 = 5%). FF factors from Ken French's site are in **percentage** (5.0 = 5%). Divide FF factors by 100 before combining.
+
+### 8. Penny Stock Filtering
+Use **lagged price** to avoid look-ahead bias: `WHERE lag_price >= 5`.
+
+### 9. Survivorship Bias
+Always use **point-in-time** characteristics from date-ranged name tables, not current values.
+
+### 10. `stocknames_v2` Data Quality
+Has reported quality issues (e.g., duplicate entries, incorrect SICCD changes). For production, prefer `stksecurityinfohist`.
+
+### 11. `wrds_dsfv2_query` / `wrds_msfv2_query` Duplicates
+These views LEFT JOIN distributions, producing duplicate rows on ex-dates with multiple events. Always deduplicate.
+
+---
+
+## Date Ranges
+
+| Table | Min Date | Max Date | Notes |
+|-------|----------|----------|-------|
+| `dsf` | 1925-12-31 | 2024-12-31 | Frozen |
+| `dsf_v2` | 1925-12-31 | 2025-12-31 | Updated |
+| `msf` | 1925-12-31 | 2024-12-31 | Frozen |
+| `msf_v2` | 1925-12-31 | 2025-12-31 | Updated |
+| `dsi` / `msi` | 1925-12-31 | 2024-12-31 | |
+| `stkdelists` | 1926-02-24 | 2025-12-30 | |
+| `stkdistributions` | 1926-01-04 | 2025-12-31 | |
+| `riskfree` | 1925-12-31 | **2014-12-31** | Discontinued |
+
+---
+
+## Example Queries
+
+### Standard Clean Sample (v1)
 ```sql
--- Cumulative returns over a date range
+WITH crsp_clean AS (
+    SELECT a.permno, b.permco, a.date, a.ret, a.retx,
+           ABS(a.prc) AS price, a.shrout,
+           ABS(a.prc) * a.shrout AS mktcap,
+           b.shrcd, b.exchcd, b.ticker,
+           CASE
+               WHEN c.dlret IS NOT NULL THEN
+                   (1 + COALESCE(a.ret, 0)) * (1 + c.dlret) - 1
+               WHEN c.dlstcd BETWEEN 500 AND 599 AND c.dlret IS NULL THEN
+                   (1 + COALESCE(a.ret, 0)) * (1 - 0.30) - 1
+               ELSE a.ret
+           END AS ret_adj
+    FROM crsp.msf a
+    JOIN crsp.msenames b ON a.permno = b.permno
+        AND a.date BETWEEN b.namedt AND b.nameendt
+    LEFT JOIN crsp.msedelist c ON a.permno = c.permno
+        AND date_trunc('month', a.date) = date_trunc('month', c.dlstdt)
+    WHERE b.shrcd IN (10, 11)
+      AND b.exchcd IN (1, 2, 3)
+      AND a.ret IS NOT NULL AND a.ret > -1
+)
+SELECT * FROM crsp_clean;
+```
+
+### Standard Clean Sample (v2)
+```sql
+SELECT permno, mthcaldt, mthret, mthretx, mthprc, mthcap,
+       ticker, issuernm, primaryexch, siccd
+FROM crsp.msf_v2
+WHERE sharetype = 'NS'
+  AND securitytype = 'EQTY'
+  AND securitysubtype = 'COM'
+  AND usincflg = 'Y'
+  AND primaryexch IN ('N', 'A', 'Q')
+  AND mthret IS NOT NULL
+  AND mthcaldt BETWEEN '2020-01-01' AND '2024-12-31';
+```
+
+### v2 with Index Returns (Convenience View)
+```sql
+SELECT permno, dlycaldt, dlyret, dlyprc, dlycap,
+       ticker, issuernm, primaryexch,
+       vwretd, sprtrn,
+       dlyret - vwretd AS excess_ret_vw
+FROM crsp.wrds_dsfv2_query
+WHERE sharetype = 'NS'
+  AND securitytype = 'EQTY'
+  AND securitysubtype = 'COM'
+  AND usincflg = 'Y'
+  AND primaryexch IN ('N', 'A', 'Q')
+  AND dlyret IS NOT NULL
+  AND dlyretmissflg IS NULL
+  AND disexdt IS NULL  -- avoid duplicate rows from distributions
+  AND dlycaldt BETWEEN '2024-01-01' AND '2024-12-31';
+```
+
+### Cumulative Returns
+```sql
 SELECT permno,
-       MIN(date) AS first_date,
-       MAX(date) AS last_date,
-       EXP(SUM(LN(1 + ret))) - 1 AS cum_return,
-       COUNT(ret) AS n_periods,
-       COUNT(*) - COUNT(ret) AS n_miss
-FROM crsp.dsf
+       MIN(dlycaldt) AS first_date,
+       MAX(dlycaldt) AS last_date,
+       EXP(SUM(LN(1 + dlyret))) - 1 AS cum_return,
+       COUNT(*) AS n_days
+FROM crsp.dsf_v2
 WHERE permno IN (10107, 14593)
-  AND date BETWEEN '2024-01-01' AND '2024-12-31'
-  AND ret IS NOT NULL
-  AND ret > -1
+  AND dlycaldt BETWEEN '2024-01-01' AND '2024-12-31'
+  AND dlyret IS NOT NULL AND dlyretmissflg IS NULL
 GROUP BY permno;
 ```
 
-### Adjusted Prices Time Series
+### Split-Adjusted Prices
 ```sql
--- Split-adjusted prices
-SELECT permno, date,
-       ABS(prc) AS raw_price,
-       ABS(prc) / cfacpr AS adj_price,
-       cfacpr
-FROM crsp.dsf
+SELECT permno, dlycaldt,
+       dlyprc AS raw_price,
+       dlyprc / dlycumfacpr AS adj_price,
+       dlycumfacpr, dlycumfacshr
+FROM crsp.dsf_v2
 WHERE permno = 10107
-  AND date BETWEEN '2024-01-01' AND '2024-12-31'
-ORDER BY date;
-```
-
-### Handling Delisting Returns
-```sql
--- Incorporate delisting returns
-WITH stock_returns AS (
-    SELECT permno, date, ret
-    FROM crsp.dsf
-    WHERE permno IN (SELECT DISTINCT permno FROM my_sample)
-      AND date BETWEEN '2020-01-01' AND '2024-12-31'
-),
-delist_info AS (
-    SELECT permno, dlstdt AS date, dlret
-    FROM crsp.dsedelist
-    WHERE dlret IS NOT NULL
-)
-SELECT
-    s.permno, s.date,
-    COALESCE(s.ret, 0) AS ret,
-    d.dlret AS delist_ret,
-    -- Total return including delisting
-    COALESCE(s.ret, 0) + COALESCE(d.dlret, 0) +
-        COALESCE(s.ret, 0) * COALESCE(d.dlret, 0) AS total_ret
-FROM stock_returns s
-LEFT JOIN delist_info d
-    ON s.permno = d.permno AND s.date = d.date
-ORDER BY s.permno, s.date;
-```
-
-### Monthly Sample with Common Filters
-```sql
--- Common stock universe with standard filters
-SELECT a.permno, a.date, a.ret, a.prc, a.vol,
-       ABS(a.prc) * a.shrout AS mktcap,
-       b.shrcd, b.exchcd, b.ticker
-FROM crsp.msf a
-INNER JOIN crsp.stocknames b
-    ON a.permno = b.permno
-    AND a.date BETWEEN b.namedt AND b.nameenddt
-WHERE a.date BETWEEN '2020-01-01' AND '2024-12-31'
-  AND b.shrcd IN (10, 11)       -- U.S. common stocks
-  AND b.exchcd IN (1, 2, 3)     -- NYSE, AMEX, NASDAQ
-  AND a.prc IS NOT NULL
-  AND a.ret IS NOT NULL
-  AND a.ret > -1                -- Exclude missing codes
-ORDER BY a.permno, a.date;
-```
-
-### Identifying ETFs
-```sql
--- Find ETFs (post-2000 method)
-SELECT DISTINCT permno, ticker, comnam, shrcd
-FROM crsp.stocknames
-WHERE shrcd IN (73);  -- ETF share code
-
--- Or check for common ETF characteristics
-SELECT DISTINCT s.permno, s.ticker, s.comnam
-FROM crsp.stocknames s
-WHERE s.ticker IN ('SPY', 'QQQ', 'IWM', 'EEM', 'VTI', 'VOO');
+  AND dlycaldt BETWEEN '2024-01-01' AND '2024-12-31'
+ORDER BY dlycaldt;
 ```
 
 ### Market Index Data
 ```sql
--- Get market returns for excess return calculations
-SELECT date, vwretd, vwretx, ewretd, ewretx, sprtrn
+SELECT date, vwretd, vwretx, ewretd, ewretx, sprtrn, spindx
 FROM crsp.dsi
 WHERE date BETWEEN '2024-01-01' AND '2024-12-31'
 ORDER BY date;
-
--- vwretd = value-weighted return including dividends
--- vwretx = value-weighted return excluding dividends
--- ewretd = equal-weighted return including dividends
--- sprtrn = S&P 500 return
 ```
 
-## Best Practices
-
-### 1. Filter Early and Use Indexes
+### Firm-Level Market Cap (Handling Multiple Share Classes)
 ```sql
--- Good: Filter on indexed columns (permno, date) first
-SELECT permno, date, ret, prc
-FROM crsp.dsf
-WHERE permno IN (10107, 14593)
-  AND date BETWEEN '2024-01-01' AND '2024-12-31';
-
--- Avoid: Filtering on computed columns
--- WHERE ABS(prc) > 5  -- Can't use index
-```
-
-### 2. Use CTEs for Complex Queries
-```sql
--- Clean, readable multi-step queries
-WITH universe AS (
-    SELECT DISTINCT permno
-    FROM crsp.stocknames
-    WHERE shrcd IN (10, 11)
-      AND exchcd IN (1, 2, 3)
-      AND nameenddt >= '2024-01-01'
-),
-returns AS (
-    SELECT permno, date, ret
-    FROM crsp.dsf
-    WHERE permno IN (SELECT permno FROM universe)
-      AND date BETWEEN '2024-01-01' AND '2024-12-31'
-      AND ret IS NOT NULL AND ret > -1
+WITH firm_mktcap AS (
+    SELECT permco, mthcaldt,
+           SUM(mthcap) AS firm_mktcap,
+           COUNT(DISTINCT permno) AS n_share_classes
+    FROM crsp.msf_v2
+    WHERE mthcaldt = '2024-12-31'
+      AND mthcap IS NOT NULL
+    GROUP BY permco, mthcaldt
 )
-SELECT permno,
-       EXP(SUM(LN(1 + ret))) - 1 AS annual_return
-FROM returns
-GROUP BY permno;
+SELECT * FROM firm_mktcap WHERE n_share_classes > 1 ORDER BY firm_mktcap DESC LIMIT 20;
 ```
 
-### 3. Handle Missing Returns Appropriately
+### CCM Merge
 ```sql
--- Check return data quality
-SELECT
-    CASE
-        WHEN ret IS NULL THEN 'NULL'
-        WHEN ret <= -1 THEN 'Missing Code (' || ret::text || ')'
-        ELSE 'Valid'
-    END AS ret_status,
-    COUNT(*) AS n_obs
-FROM crsp.dsf
-WHERE permno = 10107
-GROUP BY 1;
-
--- Standard filter for valid returns
-WHERE ret IS NOT NULL AND ret > -1
+SELECT a.gvkey, a.lpermno AS permno, b.mthcaldt, b.mthret
+FROM crsp.ccmxpf_lnkhist a
+JOIN crsp.msf_v2 b ON a.lpermno = b.permno
+    AND b.mthcaldt >= a.linkdt
+    AND b.mthcaldt <= COALESCE(a.linkenddt, CURRENT_DATE)
+WHERE a.linktype IN ('LC', 'LU')
+  AND a.linkprim IN ('P', 'C')
+  AND b.mthcaldt BETWEEN '2020-01-01' AND '2024-12-31';
 ```
 
-### 4. Validate Identifier Matches
-```sql
--- Tickers are reused! Always check date ranges
-SELECT permno, ticker, comnam, namedt, nameenddt
-FROM crsp.stocknames
-WHERE ticker = 'META'
-ORDER BY namedt;
-
--- Safe ticker lookup for a specific date
-SELECT permno, ticker, comnam
-FROM crsp.stocknames
-WHERE ticker = 'AAPL'
-  AND '2024-06-01' BETWEEN namedt AND nameenddt;
-```
-
-### 5. Export Results Efficiently
-```sql
--- Export to CSV using psql
-\copy (SELECT permno, date, ret, prc FROM crsp.dsf WHERE permno = 10107) TO 'output.csv' WITH CSV HEADER;
-
--- Or using COPY command
+### Export to CSV
+```bash
+psql service=wrds -c "
 COPY (
-    SELECT permno, date, ret, prc
-    FROM crsp.dsf
+    SELECT permno, mthcaldt, mthret, mthprc, mthcap
+    FROM crsp.msf_v2
     WHERE permno IN (10107, 14593)
-      AND date BETWEEN '2024-01-01' AND '2024-12-31'
-) TO STDOUT WITH CSV HEADER;
-```
-
-## Common Research Applications
-
-### Fama-French Portfolio Sorts
-```sql
--- Monthly rebalanced size decile portfolios
-WITH lagged_mktcap AS (
-    SELECT permno, date,
-           ABS(prc) * shrout AS mktcap,
-           date + INTERVAL '1 month' AS next_month
-    FROM crsp.msf
-    WHERE date BETWEEN '2019-12-01' AND '2024-11-30'
-),
-deciles AS (
-    SELECT
-        m.permno, m.date, m.ret,
-        l.mktcap,
-        NTILE(10) OVER (PARTITION BY m.date ORDER BY l.mktcap) AS size_decile
-    FROM crsp.msf m
-    INNER JOIN lagged_mktcap l
-        ON m.permno = l.permno
-        AND DATE_TRUNC('month', m.date) = DATE_TRUNC('month', l.next_month)
-    INNER JOIN crsp.stocknames s
-        ON m.permno = s.permno
-        AND m.date BETWEEN s.namedt AND s.nameenddt
-    WHERE m.date BETWEEN '2020-01-01' AND '2024-12-31'
-      AND s.shrcd IN (10, 11)
-      AND s.exchcd IN (1, 2, 3)
-      AND m.ret IS NOT NULL AND m.ret > -1
-)
-SELECT date, size_decile,
-       AVG(ret) AS equal_weighted_ret,
-       SUM(ret * mktcap) / SUM(mktcap) AS value_weighted_ret
-FROM deciles
-GROUP BY date, size_decile
-ORDER BY date, size_decile;
-```
-
-### Event Study Returns
-```sql
--- Cumulative abnormal returns around events
-WITH event_window AS (
-    SELECT
-        e.permno,
-        e.event_date,
-        d.date,
-        d.date - e.event_date AS relative_day,
-        d.ret,
-        i.vwretd AS market_ret,
-        d.ret - i.vwretd AS abnormal_ret
-    FROM my_events e
-    INNER JOIN crsp.dsf d
-        ON e.permno = d.permno
-        AND d.date BETWEEN e.event_date - 10 AND e.event_date + 10
-    INNER JOIN crsp.dsi i
-        ON d.date = i.date
-    WHERE d.ret IS NOT NULL AND d.ret > -1
-)
-SELECT
-    event_date, permno,
-    SUM(abnormal_ret) FILTER (WHERE relative_day BETWEEN -1 AND 1) AS car_3day,
-    SUM(abnormal_ret) FILTER (WHERE relative_day BETWEEN -5 AND 5) AS car_11day
-FROM event_window
-GROUP BY event_date, permno;
-```
-
-### Value-Weighted Market Return
-```sql
--- Compute VW market return from individual stocks
-WITH stock_data AS (
-    SELECT
-        m.date,
-        m.permno,
-        m.ret,
-        LAG(ABS(m.prc) * m.shrout) OVER (PARTITION BY m.permno ORDER BY m.date) AS lag_mktcap
-    FROM crsp.msf m
-    INNER JOIN crsp.stocknames s
-        ON m.permno = s.permno
-        AND m.date BETWEEN s.namedt AND s.nameenddt
-    WHERE m.date BETWEEN '2024-01-01' AND '2024-12-31'
-      AND s.shrcd IN (10, 11)
-      AND s.exchcd IN (1, 2, 3)
-      AND m.ret IS NOT NULL AND m.ret > -1
-)
-SELECT date,
-       SUM(ret * lag_mktcap) / NULLIF(SUM(lag_mktcap), 0) AS vw_ret,
-       AVG(ret) AS ew_ret,
-       COUNT(*) AS n_stocks
-FROM stock_data
-WHERE lag_mktcap IS NOT NULL
-GROUP BY date
-ORDER BY date;
-```
-
-## Running Queries
-
-### Interactive psql Session
-```bash
-# Connect
-psql service=wrds
-
-# Run query and export
-\o output.csv
-\a
-\f ','
-SELECT permno, date, ret FROM crsp.dsf WHERE permno = 10107 LIMIT 100;
-\o
-```
-
-### Python with psycopg2
-```python
-import psycopg2
-import pandas as pd
-
-conn = psycopg2.connect("service=wrds")
-cur = conn.cursor()
-
-cur.execute("""
-    SELECT permno, date, ret, prc
-    FROM crsp.dsf
-    WHERE permno IN (10107, 14593)
-      AND date BETWEEN '2024-01-01' AND '2024-12-31'
-""")
-cols = [d[0] for d in cur.description]
-df = pd.DataFrame(cur.fetchall(), columns=cols)
-
-cur.close()
-conn.close()
-```
-
-### Command Line Export
-```bash
-# Single query to CSV
-psql service=wrds \
-    -c "COPY (SELECT permno, date, ret FROM crsp.dsf WHERE permno = 10107) TO STDOUT WITH CSV HEADER" \
-    > output.csv
+      AND mthcaldt BETWEEN '2024-01-01' AND '2024-12-31'
+) TO STDOUT WITH CSV HEADER
+" > output.csv
 ```
