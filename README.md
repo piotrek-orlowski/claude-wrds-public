@@ -1,12 +1,17 @@
 # Claude Code WRDS Toolkit
 
-A set of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) agents, skills, and configuration files that let Claude autonomously query [WRDS](https://wrds-www.wharton.upenn.edu/) databases — CRSP, OptionMetrics, Compustat, and TAQ — directly from your terminal.
+> **Based on [Piotr Orłowski's claude-wrds-public](https://github.com/piotrek-orlowski/claude-wrds-public).** This fork adds IBES, Compustat, and Fama-French expert agents.
+
+A set of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) agents, skills, and configuration files that let Claude autonomously query [WRDS](https://wrds-www.wharton.upenn.edu/) databases — CRSP, Compustat, IBES, OptionMetrics, Fama-French, and TAQ — directly from your terminal.
 
 ## What's included
 
 ```
 agents/
-  crsp-wrds-expert.md          # CRSP returns, prices, identifiers, delisting
+  compustat-wrds-expert.md      # Compustat fundamentals, book equity, CCM linking
+  crsp-wrds-expert.md           # CRSP returns, prices, identifiers, delisting
+  ff-wrds-expert.md             # Fama-French 5 factors, momentum, risk-free rate
+  ibes-wrds-expert.md           # IBES analyst forecasts, consensus, actuals, IBES-CRSP link
   optionmetrics-wrds-expert.md  # IvyDB option prices, IVs, Greeks, surfaces
   taq-wrds-expert.md            # TAQ high-frequency trades/quotes (SSH + SAS)
   wrds-query-orchestrator.md    # Coordinates multi-database queries
