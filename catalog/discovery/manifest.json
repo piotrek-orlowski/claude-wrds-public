@@ -1,0 +1,2188 @@
+{
+  "format_version": 1,
+  "service": "wrds",
+  "scope": "Visible non-system PostgreSQL relation metadata; no research observation scans",
+  "access_semantics": "ACL flags and accepted zero-row planning probes do not prove data-return access or completeness",
+  "taq_semantics": "PostgreSQL metadata only; access probing and extraction use the separate SAS workflow",
+  "events": [
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:24:53.887042+00:00",
+      "finished_at": "2026-10-05T22:25:05.435861+00:00",
+      "query": "scripts/wrds_catalog/relations.sql",
+      "query_sha256": "503debd56ce49836082dcd444154f7e33d30bd45869bb1dacce9afaffb076b49",
+      "variables": {},
+      "records": 118646,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/relations.jsonl.gz",
+      "error": null,
+      "output_sha256": "7d9495e4f17e4e6cf44bb4cf466e78e33c4d25ffe8e820d126bad6441d274aa3"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:25:05.437468+00:00",
+      "finished_at": "2026-10-05T22:25:09.302486+00:00",
+      "query": "scripts/wrds_catalog/dependencies.sql",
+      "query_sha256": "d93f27d0ba15b99a86b30b752672c55e2d92963bedcb97bdb4eaabdf5d9c204b",
+      "variables": {},
+      "records": 48470,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/dependencies.jsonl.gz",
+      "error": null,
+      "output_sha256": "443f88d280b78a6bacec684a43e94cc56d8e117e0947cdec003df264c53bd363"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:25:40.913408+00:00",
+      "finished_at": "2026-10-05T22:25:42.624422+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"comp\",\"crsp\",\"optionm\"]"
+      },
+      "records": 557,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-prototype/0000.jsonl.gz",
+      "error": null,
+      "output_sha256": "2978b5fd71bce74e48aff0bf44b62d85d57a4fbe269680f54e8272a578fd9e91"
+    },
+    {
+      "phase": "column_layouts",
+      "finished_at": "2026-10-05T22:25:42.803421+00:00",
+      "output": "catalog/discovery/column-layouts-prototype.jsonl.gz",
+      "layouts": 557,
+      "relations": 1304,
+      "columns": 41949,
+      "schemas": 3,
+      "prototype": true
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:28:37.705031+00:00",
+      "finished_at": "2026-10-05T22:28:38.274925+00:00",
+      "query": "catalog/discovery/access-batches-prototype/00000.sql",
+      "query_sha256": "8d933358ae8ecb6d25b7fabd61be219ce57305e386ef9811043c459aef8c83b0",
+      "stderr": "catalog/discovery/access-batches-prototype/00000.stderr.txt",
+      "requested": 7,
+      "recorded": 7,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_summary",
+      "finished_at": "2026-10-05T22:28:38.276777+00:00",
+      "prototype": true,
+      "output": "catalog/discovery/access-probes-prototype.jsonl",
+      "relations": 8,
+      "statuses": {
+        "not_probed_no_schema_usage": 1,
+        "guard_denied": 2,
+        "planning_accepted": 4,
+        "runtime_error": 1
+      }
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:28:42.589086+00:00",
+      "finished_at": "2026-10-05T22:28:46.468703+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"aha\",\"aha_common\",\"aha_common_old\",\"aha_hcris_3years\",\"aha_hcris_3years_old\",\"aha_hcris_recent\",\"aha_hcris_recent_old\",\"aha_it_survey_3years\",\"aha_it_survey_3years_old\",\"aha_it_survey_recent\",\"aha_it_survey_recent_old\",\"aha_sample\",\"ahasamp\",\"altrata\",\"altrata_exec_eur\",\"altrata_exec_eur_old\",\"altrata_exec_na\",\"altrata_exec_na_old\",\"altrata_exec_row\",\"altrata_exec_row_old\",\"altrata_exec_samp\",\"altrata_exec_samp_old\",\"altrata_exec_uk\",\"altrata_exec_uk_old\",\"altsamp\",\"audit\",\"audit_acct_os\",\"audit_acct_os_old\",\"audit_audit_comp\",\"audit_audit_comp_old\",\"audit_common\",\"audit_common_old\",\"audit_corp_legal\",\"audit_corp_legal_old\",\"audit_esg_funds\",\"audit_esg_funds_old\",\"audit_europe\",\"audit_europe_old\",\"audit_oia\",\"audit_oia_old\",\"audit_sedar\",\"audit_sedar_old\",\"auditsmp\",\"auditsmp_all\",\"bank\",\"bank_all\",\"bank_all_old\",\"bank_premium\",\"bank_premium_old\",\"bank_premium_samp\",\"bank_premium_samp_old\",\"banksamp\",\"block\",\"block_all\",\"boardex\",\"boardex_eur\",\"boardex_eur_old\",\"boardex_na\",\"boardex_na_old\",\"boardex_row\",\"boardex_row_old\",\"boardex_trial\",\"boardex_trial_old\"]"
+      },
+      "records": 1867,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0000.jsonl.gz",
+      "error": null,
+      "output_sha256": "97648ef1f0c3cb9d50019914ec33542d6458946af21f80d9465ec662a7585836"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:28:46.470234+00:00",
+      "finished_at": "2026-10-05T22:28:49.159147+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"boardex_uk\",\"boardex_uk_old\",\"boardsmp\",\"bvd\",\"bvd_ama_large\",\"bvd_ama_large_old\",\"bvd_ama_medium\",\"bvd_ama_medium_old\",\"bvd_ama_small\",\"bvd_ama_small_old\",\"bvd_ama_verylarge\",\"bvd_ama_verylarge_old\",\"bvd_amadeus_trial\",\"bvd_bvdbankf\",\"bvd_bvdbankf_old\",\"bvd_bvdbankf_trial\",\"bvd_orbis_large\",\"bvd_orbis_large_old\",\"bvd_orbis_medium\",\"bvd_orbis_medium_old\",\"bvd_orbis_small\",\"bvd_orbis_small_old\",\"bvd_orbis_trial\",\"bvd_osiris\",\"bvd_osiris_old\",\"bvdsamp\",\"calcbench_ap_ar\",\"calcbench_ap_ar_old\",\"calcbench_business_combinations\",\"calcbench_business_combinations_old\",\"calcbench_business_segments\",\"calcbench_business_segments_old\",\"calcbench_commitment_contingency\",\"calcbench_commitment_contingency_old\",\"calcbench_common\",\"calcbench_common_old\",\"calcbench_concentration_risk\",\"calcbench_concentration_risk_old\",\"calcbench_derivatives_hedging\",\"calcbench_derivatives_hedging_old\",\"calcbench_discontinued_ops\",\"calcbench_discontinued_ops_old\",\"calcbench_equity_compensation\",\"calcbench_equity_compensation_old\",\"calcbench_equity_investments\",\"calcbench_equity_investments_old\",\"calcbench_equity_repurchases\",\"calcbench_equity_repurchases_old\",\"calcbench_fair_value\",\"calcbench_fair_value_old\",\"calcbench_goodwill\",\"calcbench_goodwill_old\",\"calcbench_income_tax\",\"calcbench_income_tax_old\",\"calcbench_inventory\",\"calcbench_inventory_old\",\"calcbench_leases\",\"calcbench_leases_old\",\"calcbench_trial\",\"calcbnch\",\"candid\",\"candid_3yr\",\"candid_3yr_old\",\"candid_6yr\",\"candid_6yr_old\",\"candid_9yr\",\"candid_9yr_old\",\"candid_samp\",\"candid_samp_old\",\"cboe\",\"cboe_all\",\"cboe_all_old\",\"cboe_eod\",\"cboe_eod_old\",\"cboe_sample\",\"cboesamp\",\"cddsamp\",\"ciq\",\"ciq_capstrct\",\"ciq_capstrct_old\",\"ciq_common\",\"ciq_common_old\",\"ciq_keydev\",\"ciq_keydev_old\",\"ciq_pplintel\",\"ciq_pplintel_old\",\"ciq_ratings\",\"ciq_ratings_old\",\"ciq_transactions\",\"ciq_transactions_old\",\"ciq_transcripts\",\"ciq_transcripts_old\",\"ciqsamp\",\"ciqsamp_capstrct\",\"ciqsamp_common\",\"ciqsamp_common_old\",\"ciqsamp_keydev\",\"ciqsamp_pplintel\",\"ciqsamp_ratings\",\"ciqsamp_transactions\",\"ciqsamp_transactions_old\",\"ciqsamp_transcripts\",\"cisdm\",\"cisdmsmp\",\"columnar\",\"columnar_internal\"]"
+      },
+      "records": 1852,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0001.jsonl.gz",
+      "error": null,
+      "output_sha256": "9e87d25ecff83920cf463a29a3d0f3a2d796f3ca7b1848b13010587999dbb3f1"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:28:49.160313+00:00",
+      "finished_at": "2026-10-05T22:28:53.520912+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"comp\",\"comp_bank_daily\",\"comp_bank_daily_old\",\"comp_execucomp\",\"comp_execucomp_old\",\"comp_filings\",\"comp_global_daily\",\"comp_global_daily_old\",\"comp_na_daily_all\",\"comp_na_daily_all_old\",\"comp_na_daily_current_old\",\"comp_ph\",\"comp_ph_old\",\"comp_pit\",\"comp_pit_old\",\"comp_ratings\",\"comp_segments_hist_daily\",\"comp_segments_hist_daily_old\",\"comp_snapshot\",\"comp_snapshot_old\",\"comp_urq\",\"comp_urq_old\",\"comph\",\"compsamp\",\"compsamp_all\",\"compsamp_computext\",\"compsamp_computext_old\",\"compsamp_snapshot\",\"compseg\",\"compsnap\",\"comscore\",\"comscore_2002\",\"comscore_2002_old\",\"comscore_2004\",\"comscore_2004_old\",\"comscore_2006\",\"comscore_2006_old\",\"comscore_2007\",\"comscore_2007_old\",\"comscore_2008\",\"comscore_2008_old\",\"comscore_2009\",\"comscore_2009_old\",\"comscore_2010\",\"comscore_2010_old\",\"comscore_2011\",\"comscore_2011_old\",\"comscore_2012\",\"comscore_2012_old\",\"comscore_2013\",\"comscore_2013_old\",\"comscore_2014\",\"comscore_2014_old\",\"comscore_2015\",\"comscore_2015_old\"]"
+      },
+      "records": 1865,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0002.jsonl.gz",
+      "error": null,
+      "output_sha256": "5928a86e4573a90db5b607963948b2c092f438ea95a9c61689865cdc286b99f7"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:28:53.522871+00:00",
+      "finished_at": "2026-10-05T22:28:54.846778+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"comscore_2016\",\"comscore_2016_old\",\"comscore_2017\",\"comscore_2017_old\",\"comscore_2018\",\"comscore_2018_old\",\"comscore_2019\",\"comscore_2019_old\",\"comscore_2020\",\"comscore_2020_old\",\"comscore_2021\",\"comscore_2021_old\",\"comscore_2022\",\"comscore_2022_old\",\"comscore_2023\",\"comscore_2023_old\",\"comscore_2024\",\"comscore_2025\",\"comscore_common\",\"comscore_common_old\",\"contrib\",\"contrib_bond_dickerson\",\"contrib_bond_dickerson_old\",\"contrib_bond_firm_link\",\"contrib_bond_firm_link_old\",\"contrib_ceo_turnover\",\"contrib_char_returns\",\"contrib_corp_fed_litigation\",\"contrib_corporate_bond_returns\",\"contrib_corporate_culture\",\"contrib_corporate_culture_old\",\"contrib_general\",\"contrib_general_old\",\"contrib_global_factor\",\"contrib_global_factor_old\",\"contrib_green_returns\",\"contrib_intangible_value\",\"contrib_kpss\",\"contrib_liquidity_taq\",\"contrib_liva\",\"contrib_patent_firm_link\",\"contrib_patent_firm_link_old\",\"crsp\",\"crsp_a_ccm\",\"crsp_a_ccm_old\",\"crsp_a_indexes\",\"crsp_a_indexes_old\",\"crsp_a_stock\",\"crsp_a_stock62\",\"crsp_a_stock62_old\",\"crsp_a_stock_old\",\"crsp_a_treasuries\",\"crsp_a_treasuries_old\",\"crsp_a_ziman\",\"crsp_a_ziman_old\",\"crsp_m_ccm\",\"crsp_m_ccm_old\",\"crsp_m_indexes\",\"crsp_m_indexes_old\",\"crsp_m_stock\",\"crsp_m_stock62\",\"crsp_m_stock62_old\",\"crsp_m_stock_old\",\"crsp_m_treasuries\",\"crsp_m_treasuries_old\",\"crsp_m_ziman\",\"crsp_m_ziman_old\",\"crsp_q_ccm\",\"crsp_q_ccm_old\",\"crsp_q_indexes\"]"
+      },
+      "records": 1708,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0003.jsonl.gz",
+      "error": null,
+      "output_sha256": "12241d526ea173e5431f3d4844a62943b0e1d2ce91d6091515ef3b1060d4b59c"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:28:54.847783+00:00",
+      "finished_at": "2026-10-05T22:28:56.284196+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"crsp_q_indexes_old\",\"crsp_q_indexhist\",\"crsp_q_indexhist_old\",\"crsp_q_mi_hist\",\"crsp_q_mi_hist_old\",\"crsp_q_mutualfunds\",\"crsp_q_mutualfunds_old\",\"crsp_q_stock\",\"crsp_q_stock62\",\"crsp_q_stock62_old\",\"crsp_q_stock_old\",\"crsp_q_treasuries\",\"crsp_q_treasuries_old\",\"crsp_q_ziman\",\"crsp_q_ziman_old\",\"crspa\",\"crspm\",\"crspq\",\"crspsamp\",\"crspsamp_all\",\"crspsamp_mf\",\"csmar\",\"csmar_af\",\"csmar_af_old\",\"csmar_cd\",\"csmar_cd_old\",\"csmar_cg\",\"csmar_cg_old\",\"csmar_colc\",\"csmar_colc_old\",\"csmar_financial\",\"csmar_financial_old\",\"csmar_funds\",\"csmar_funds_old\",\"csmar_hld\",\"csmar_hld_old\",\"csmar_ini\",\"csmar_ini_old\",\"csmar_ipo_a\",\"csmar_ipo_a_old\",\"csmar_ma\"]"
+      },
+      "records": 1778,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0004.jsonl.gz",
+      "error": null,
+      "output_sha256": "1bdff5c41d7f95f9d5fafe15d1f8f259969291e758b9160307024c34ded01ce8"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:28:56.285304+00:00",
+      "finished_at": "2026-10-05T22:28:58.516166+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"csmar_ma_old\",\"csmar_rs\",\"csmar_rs_old\",\"csmar_trade\",\"csmar_trade_old\",\"csmsamp_all\",\"cusip_all\",\"cusipm\",\"dealscan\",\"django_wrds_web\",\"djones\",\"djones_all\",\"dmef\",\"dmef_all\",\"doe\",\"doe_all\",\"estimize\",\"estimize_estimates_consensus\",\"estimize_estimates_consensus_old\",\"etfg\",\"etfg_analytics\",\"etfg_analytics_old\",\"etfg_constituents\",\"etfg_constituents_old\",\"etfg_fund_flow\",\"etfg_fund_flow_old\",\"etfg_industry\",\"etfg_industry_old\",\"etfg_samp\",\"etfgsamp\",\"eventus\",\"evts_all\",\"evts_all_old\",\"execcomp\",\"factsamp_all\",\"factsamp_revere\",\"factset\",\"factset_common\",\"factset_common_old\",\"factset_ff_int\",\"factset_ff_int_old\",\"factset_ff_usc\",\"factset_ff_usc_old\",\"factset_own\",\"factset_own_old\",\"factset_revere_common\",\"factset_revere_common_old\",\"factset_revere_geo_rev\",\"factset_revere_geo_rev_old\",\"factset_revere_ind_class\",\"factset_revere_ind_class_old\",\"factset_revere_supply_chain\",\"factset_revere_supply_chain_old\",\"ff\",\"ff_all\",\"ff_all_old\",\"fisd\",\"fisd_common\",\"fisd_common_old\",\"fisd_fisd\",\"fisd_fisd_old\",\"fisd_naic\",\"fisd_naic_old\",\"fisdsamp\",\"fisdsamp_all\",\"fjc\",\"fjc_linking\",\"fjc_linking_old\",\"fjc_litigation\",\"fjc_litigation_old\"]"
+      },
+      "records": 1525,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0005.jsonl.gz",
+      "error": null,
+      "output_sha256": "3b1e3afa7d4c7dcbf2ed4f9bea671c19f80d8a2702710cd45dc3b3663c8ebf43"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:28:58.517541+00:00",
+      "finished_at": "2026-10-05T22:29:01.808349+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"form_metadata\"]"
+      },
+      "records": 2139,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0006.jsonl.gz",
+      "error": null,
+      "output_sha256": "f1858eaff8ff8d406cce93df2be9413af9446b0a9315861ae8e38f7c2739007c"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:00.600092+00:00",
+      "finished_at": "2026-10-05T22:29:03.113016+00:00",
+      "query": "catalog/discovery/access-batches/00000.sql",
+      "query_sha256": "b4736c0775b46cba765be56225aa0a1c759c318e44e38994b1ab1b7b62239add",
+      "stderr": "catalog/discovery/access-batches/00000.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:01.809606+00:00",
+      "finished_at": "2026-10-05T22:29:05.425061+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"form_metadata_20230206\"]"
+      },
+      "records": 2936,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0007.jsonl.gz",
+      "error": null,
+      "output_sha256": "501cc91261198d5514de9dcb50fbca98b3e9cb41dc44ffd53ffeddd36eeec233"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:03.115736+00:00",
+      "finished_at": "2026-10-05T22:29:06.378234+00:00",
+      "query": "catalog/discovery/access-batches/00001.sql",
+      "query_sha256": "e8bde0f0d3f7c65ce5f359ade0735d0e3c2e9606868d46c488a0363ce7e3c73b",
+      "stderr": "catalog/discovery/access-batches/00001.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:06.380470+00:00",
+      "finished_at": "2026-10-05T22:29:07.397507+00:00",
+      "query": "catalog/discovery/access-batches/00002.sql",
+      "query_sha256": "d17a5f67f687212cf9c5da9b4f37ea31727d6b18acfa7189879f1765f73a1134",
+      "stderr": "catalog/discovery/access-batches/00002.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:05.426361+00:00",
+      "finished_at": "2026-10-05T22:29:08.228283+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"frb\",\"frb_all\",\"frb_all_old\",\"fssamp\",\"ftse\",\"ftse_russell_us\",\"ftse_russell_us_old\",\"ftsesamp\",\"ftsesamp_russell_us\",\"gmi\",\"gmi_all\",\"gutenberg\",\"hfr\",\"hfr_academic_dead\",\"hfr_academic_dead_old\",\"hfr_academic_live\",\"hfr_academic_live_old\",\"hfr_hfrdb\",\"hfr_hfrdb_dead\",\"hfr_hfrdb_dead_old\",\"hfr_hfrdb_old\",\"hfrsamp\",\"hfrsamp_hfrdb\",\"ibes\",\"ibescorp\",\"ibeskpi\",\"ibessamp_kpi\",\"ifgr\",\"ifgrsamp\",\"ims\",\"ims_hist_3yr_obp_premium\",\"ims_hist_3yr_obp_standard_plus\",\"ims_hist_5yr_obp_premium\",\"ims_hist_5yr_obp_standard_plus\",\"ims_hist_obp_premium\",\"ims_hist_obp_standard\",\"ims_hist_obp_standard_plus\",\"ims_obp_premium\",\"ims_obp_standard\",\"ims_obp_standard_plus\",\"ims_obp_trial\",\"imssamp\",\"infasamp\",\"infogroup_business_academic\",\"infogroup_business_academic_old\",\"infogroup_residential\",\"infogroupsamp_business\",\"infogroupsamp_residential\",\"infraclear_metadata\",\"infraclear_metadata_old\",\"infraclear_samp\",\"infraclear_sector_ind\",\"infraclear_sector_ind_old\",\"infraclear_sector_mog\",\"infraclear_sector_mog_old\",\"infraclear_sector_mshd\",\"infraclear_sector_mshd_old\",\"infraclear_sector_pow\",\"infraclear_sector_pow_old\",\"infraclear_sector_trn\",\"infraclear_sector_trn_old\",\"infraclear_sector_tsc\",\"infraclear_sector_tsc_old\",\"infraclr\",\"insdsamp\",\"iri\",\"iri_all\",\"iss\",\"iss_climate_core\",\"iss_climate_core_old\",\"iss_climate_emissions\",\"iss_climate_emissions_old\",\"iss_climate_energy\",\"iss_climate_energy_old\",\"iss_climate_impact\",\"iss_climate_impact_old\",\"iss_climate_physical_risk\",\"iss_climate_physical_risk_old\",\"iss_compensation_analytics\",\"iss_compensation_analytics_old\",\"iss_compensation_peers\",\"iss_compensation_peers_old\",\"iss_directors_global\",\"iss_directors_global_old\",\"iss_incentive_lab\",\"iss_incentive_lab_europe\",\"iss_incentive_lab_europe_old\",\"iss_incentive_lab_old\",\"iss_va_mf\",\"iss_va_mf_old\",\"iss_va_shareholder\",\"iss_va_shareholder_old\",\"iss_va_vote_global\",\"iss_va_vote_global_old\",\"iss_va_vote_us\",\"iss_va_vote_us_old\",\"issm\",\"issm_nasd1987\",\"issm_nasd1988\",\"issm_nasd1989\",\"issm_nasd1990\",\"issm_nasd1991\",\"issm_nasd1992\",\"issm_nyam1983\",\"issm_nyam1984\",\"issm_nyam1985\",\"issm_nyam1986\",\"issm_nyam1987\",\"issm_nyam1988\",\"issm_nyam1989\",\"issm_nyam1990\",\"issm_nyam1991\",\"issm_nyam1992\",\"kld\",\"kld_histall\",\"kpisamp\",\"lexisnexis_metabase\",\"lspd\",\"lspd_daily\",\"lspd_daily_old\",\"lspd_monthly\",\"lspd_monthly_old\",\"lspdsamp\",\"lspdsamp_all\",\"macrofin\",\"macrofin_comm_trade\",\"markit\",\"markit_cds\",\"markit_cds_old\",\"markit_cdxcomps\",\"markit_cdxcomps_old\",\"markit_cdxconst\",\"markit_cdxconst_old\",\"markit_itraxxascomps\",\"markit_itraxxascomps_old\",\"markit_itraxxasconst\",\"markit_itraxxasconst_old\",\"markit_itraxxeucomps\",\"markit_itraxxeucomps_old\",\"markit_itraxxeuconst\",\"markit_itraxxeuconst_old\",\"markit_itraxxsocomps\",\"markit_itraxxsocomps_old\",\"markit_itraxxsoconst\",\"markit_itraxxsoconst_old\",\"markit_msf_analytics_bonds\",\"markit_msf_analytics_bonds_old\",\"markit_msf_analytics_eqty_amer\",\"markit_msf_analytics_eqty_amer_old\",\"markit_msf_analytics_eqty_asia\",\"markit_msf_analytics_eqty_asia_old\",\"markit_msf_analytics_eqty_euro\",\"markit_msf_analytics_eqty_euro_old\",\"markit_msf_analytics_eqty_other\",\"markit_msf_analytics_eqty_other_old\",\"markit_msf_inst_bonds\",\"markit_msf_inst_bonds_old\",\"markit_msf_inst_eqty_amer\",\"markit_msf_inst_eqty_amer_old\",\"markit_msf_inst_eqty_asia\",\"markit_msf_inst_eqty_asia_old\",\"markit_msf_inst_eqty_euro\",\"markit_msf_inst_eqty_euro_old\",\"markit_msf_inst_eqty_other\",\"markit_msf_inst_eqty_other_old\",\"markit_red\",\"markit_red_old\",\"mfl\",\"mflinks_all\",\"mflinks_all_old\",\"midas\",\"morningstar_cisdm\",\"morningstar_cisdm_old\",\"morningstarsamp_cisdm\",\"mpsych\",\"mpsych_commodities\",\"mpsych_commodities_old\",\"mpsych_companies\",\"mpsych_companies_old\",\"mpsych_crypto\",\"mpsych_crypto_old\",\"mpsych_currencies\",\"mpsych_currencies_old\",\"mpsych_esg_companies\",\"mpsych_esg_companies_old\",\"mpsych_esg_countries\",\"mpsych_esg_countries_old\",\"mpsych_locations\",\"mpsych_locations_old\",\"mpsych_sample\",\"mpsych_sample_old\",\"mpsych_sectors\",\"mpsych_sectors_old\",\"mrktsamp\",\"mrktsamp_cds\",\"mrktsamp_cds_old\",\"mrktsamp_cdx\",\"mrktsamp_cdx_old\",\"mrktsamp_msf\",\"mrktsamp_msf_old\",\"mrktsamp_red\",\"msci_climate\",\"msci_climate_old\",\"msci_climate_samp\",\"msci_common\",\"msci_common_old\",\"msci_common_samp\",\"msci_common_samp_old\",\"msci_esg\",\"msci_esg_old\"]"
+      },
+      "records": 1226,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0008.jsonl.gz",
+      "error": null,
+      "output_sha256": "54d4e9bbfc02254bb07dd2630f6f6726b0310f3f949ee12c4457e8e2ad3659f3"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:07.399587+00:00",
+      "finished_at": "2026-10-05T22:29:08.948123+00:00",
+      "query": "catalog/discovery/access-batches/00003.sql",
+      "query_sha256": "612702ec0932e2a2d766ec589e840425ad37e6723c6f4a87dcdc6149bb571d8d",
+      "stderr": "catalog/discovery/access-batches/00003.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:08.950576+00:00",
+      "finished_at": "2026-10-05T22:29:10.254003+00:00",
+      "query": "catalog/discovery/access-batches/00004.sql",
+      "query_sha256": "c0f25bfab3be7efb54856659a35f9d1f2638fac8684e0e62c53dbabff63b8814",
+      "stderr": "catalog/discovery/access-batches/00004.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:08.229469+00:00",
+      "finished_at": "2026-10-05T22:29:10.258868+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"msci_esg_samp\",\"msci_esg_samp_old\",\"msciclim\",\"mscicom\",\"mscicoms\",\"mscicsmp\",\"msciesg\",\"msciesmp\",\"msfanly\",\"msfinst\",\"msrb\",\"msrb_all\",\"msrb_all_old\",\"msrbsamp\",\"msrbsamp_all\",\"niq_product_attr_artificial_food\",\"niq_product_attr_artificial_food_old\",\"niq_product_attr_better_for_seg\",\"niq_product_attr_better_for_seg_old\",\"niq_product_attr_clean_label\",\"niq_product_attr_clean_label_old\",\"niq_product_attr_esg\",\"niq_product_attr_esg_old\",\"niq_rsd_alcohol\",\"niq_rsd_alcohol_old\",\"niq_rsd_food_bev\",\"niq_rsd_food_bev_old\",\"niq_rsd_personal_care\",\"niq_rsd_personal_care_old\",\"niq_rsd_pet_care\",\"niq_rsd_pet_care_old\",\"niq_rsd_tobacco\",\"niq_rsd_tobacco_old\",\"niq_samp\",\"niq_samp_old\",\"omtrial\",\"optionm\",\"optionm_all\",\"optionm_all_old\",\"optionm_europe\",\"optionmsamp_europe\",\"optionmsamp_us\",\"otc\",\"otc_endofday\",\"otc_endofday_old\",\"pacap\",\"pacap_indonesia\",\"pacap_japan\",\"pacap_korea\",\"pacap_malaysia\",\"pacap_singapore\",\"pacap_taiwan\",\"panjiva\",\"panjiva_old\",\"panjiva_samp\",\"permstub_all\",\"permstub_all_old\",\"pgaudit\",\"phlx\",\"phlx_all\"]"
+      },
+      "records": 607,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0009.jsonl.gz",
+      "error": null,
+      "output_sha256": "7a198a233151d3de12d0245d7c552a1966c2e564ba3d4fc6602d4c7d474a3403"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:10.259842+00:00",
+      "finished_at": "2026-10-05T22:29:12.418685+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"pitchbk\",\"pitchbk_common\",\"pitchbk_common_old\",\"pitchbk_companies_deals\",\"pitchbk_companies_deals_old\",\"pitchbk_fund_returns\",\"pitchbk_fund_returns_old\",\"pitchbk_investors_funds_lps\",\"pitchbk_investors_funds_lps_old\",\"pitchbk_other_na\",\"pitchbk_other_na_old\",\"pitchbk_other_row\",\"pitchbk_other_row_old\",\"pitchbk_pe_na\",\"pitchbk_pe_na_old\",\"pitchbk_pe_row\",\"pitchbk_pe_row_old\",\"pitchbk_people\",\"pitchbk_people_old\",\"pitchbk_vc_na\",\"pitchbk_vc_na_old\",\"pitchbk_vc_row\",\"pitchbk_vc_row_old\",\"pitchsmp\",\"pitchsmp_old\",\"pnjvasmp\",\"preqin\",\"preqin_cashflow\",\"preqin_cashflow_old\",\"preqin_deals\",\"preqin_deals_old\",\"preqin_gp\",\"preqin_gp_old\",\"preqin_lp\",\"preqin_lp_old\",\"preqin_pe\",\"preqin_vc\",\"preqsamp\",\"preqsamp_all\",\"public\",\"public_all\",\"public_all_new\",\"pwt\",\"pwt_all\",\"ravenpack_common\",\"ravenpack_common_old\",\"ravenpack_dj\",\"ravenpack_dj_old\",\"ravenpack_full\",\"ravenpack_full_old\",\"ravenpack_trial\",\"ravenpack_web\",\"ravenpack_web_old\",\"reprisk\",\"reprisk_common\",\"reprisk_pm\",\"reprisk_sample\",\"reprisk_std\",\"reprisk_v2\",\"reprisk_v2_old\",\"repsamp\",\"revelio\",\"revelio_common\",\"revelio_common_old\",\"revelio_individual\",\"revelio_individual_old\",\"revelio_job_postings\",\"revelio_job_postings_old\",\"revelio_layoffs\",\"revelio_layoffs_old\",\"revelio_samp\",\"revelio_samp_old\",\"revelio_sentiment\",\"revelio_sentiment_old\",\"revelio_workforce_dynamics\",\"revelio_workforce_dynamics_old\",\"revere\",\"revsamp\",\"risk\",\"risk_directors\",\"risk_directors_old\",\"risk_governance\",\"risk_governance_old\",\"risk_proposals\",\"risk_proposals_old\",\"risk_votes\",\"risksamp\",\"risksamp_all\",\"risksamp_all_old\",\"rpa1_0_dj_pr_editions_new\",\"rpa1_0_full_edition_new\",\"rpna\",\"rpnasamp\",\"rq_all\",\"rq_all_old\",\"rstat\",\"rstat_royalty\",\"rstat_samp\",\"rstatsmp\",\"sdc\",\"sdcsamp\",\"secsamp\",\"secsamp_all\",\"secsamp_all_old\",\"shortint\",\"shortvol\",\"shvlsamp\",\"snapsamp\",\"snlsamp\",\"snlsamp_fig\",\"sp_esg\",\"sp_esg_old\",\"sprat\",\"spre\",\"spre_apac\",\"spre_apac_old\",\"spre_emea\",\"spre_emea_old\",\"spre_latam\",\"spre_latam_old\",\"spre_na\",\"spre_na_old\",\"spre_usa\",\"spre_usa_old\",\"sustain\",\"sustainalytics_all\",\"sustainalytics_all_old\",\"sustainalyticssamp_all\",\"sustainalyticssamp_all_old\",\"sustsamp\",\"taq_common_new\"]"
+      },
+      "records": 1534,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0010.jsonl.gz",
+      "error": null,
+      "output_sha256": "a730c1864b643ff2d72bb4118c1cde62b31af16978b536d705041de9ca66e93a"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:12.420006+00:00",
+      "finished_at": "2026-10-05T22:29:13.239479+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2003\",\"taqm_2004\"]"
+      },
+      "records": 24,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0011.jsonl.gz",
+      "error": null,
+      "output_sha256": "73984be08d2ccb4bd0defc4e729cdd554acfc2abf48c70b89ce62f799a7ae976"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:13.241765+00:00",
+      "finished_at": "2026-10-05T22:29:14.108956+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2005\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0012.jsonl.gz",
+      "error": null,
+      "output_sha256": "71a9ff2012b5915be8ccd88ecb311a75793cd23fa22bf6ab52ec915cee81bed4"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:14.111383+00:00",
+      "finished_at": "2026-10-05T22:29:14.991363+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2006\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0013.jsonl.gz",
+      "error": null,
+      "output_sha256": "0cda6e75681993ab9935a7770aba1dad4455e0b8cb3a8efe280c59b5657edb9a"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:14.993922+00:00",
+      "finished_at": "2026-10-05T22:29:15.821047+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2007\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0014.jsonl.gz",
+      "error": null,
+      "output_sha256": "9d3b45f34452ec014adc4f2e2bf8a421fd7f958b35afbf6260a23fc8df53cad9"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:15.822039+00:00",
+      "finished_at": "2026-10-05T22:29:16.618010+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2008\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0015.jsonl.gz",
+      "error": null,
+      "output_sha256": "b4649be8305cea1de2431262fd3657125d55e0f13309c2b7e35289adff578b21"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:10.254920+00:00",
+      "finished_at": "2026-10-05T22:29:16.873191+00:00",
+      "query": "catalog/discovery/access-batches/00005.sql",
+      "query_sha256": "6767ad3279055c22b731428892adc681590e5a362ed1af80044930986a153666",
+      "stderr": "catalog/discovery/access-batches/00005.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:16.619565+00:00",
+      "finished_at": "2026-10-05T22:29:17.403339+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2009\",\"taqm_2009_new\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0016.jsonl.gz",
+      "error": null,
+      "output_sha256": "39a6f79aab1a25c7bf1b776357b8a8e3054ddcabdfd278cfdb80a96cbbf38a05"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:17.404469+00:00",
+      "finished_at": "2026-10-05T22:29:18.244250+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2010\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0017.jsonl.gz",
+      "error": null,
+      "output_sha256": "a3c4cd2a231276db94820886d428471f564d7bb222993949657d6bf6748365af"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:16.875675+00:00",
+      "finished_at": "2026-10-05T22:29:18.781991+00:00",
+      "query": "catalog/discovery/access-batches/00006.sql",
+      "query_sha256": "abdcd24199cea18e355cb9a65cd37f16142035bd5ea503918e04d5686d43391c",
+      "stderr": "catalog/discovery/access-batches/00006.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:18.246552+00:00",
+      "finished_at": "2026-10-05T22:29:19.252609+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2011\",\"taqm_2011_new\"]"
+      },
+      "records": 18,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0018.jsonl.gz",
+      "error": null,
+      "output_sha256": "837f5f8427d6b49a1d6051fca54c1649c2ff889982cc61a0fede06e366925ed0"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:18.784469+00:00",
+      "finished_at": "2026-10-05T22:29:20.028003+00:00",
+      "query": "catalog/discovery/access-batches/00007.sql",
+      "query_sha256": "f806401c93b795fca16a94d7d6bf04cf2da40eafd4c9b167e5958403cda03268",
+      "stderr": "catalog/discovery/access-batches/00007.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:19.254648+00:00",
+      "finished_at": "2026-10-05T22:29:20.299086+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2012\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0019.jsonl.gz",
+      "error": null,
+      "output_sha256": "23eb2bb64e4fd9571876c90eca543ec52ec76211906273f46a2d82589e8ce91d"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:20.301470+00:00",
+      "finished_at": "2026-10-05T22:29:21.218330+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2013\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0020.jsonl.gz",
+      "error": null,
+      "output_sha256": "a994fa9a70b0e6d34665fa1e5a9924821c244563937830b56cf596f875f43faa"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:21.221054+00:00",
+      "finished_at": "2026-10-05T22:29:22.236562+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2014\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0021.jsonl.gz",
+      "error": null,
+      "output_sha256": "14e3a4a00e5668a459a195c0edb9b8eb11a547577489a4bd4a29d36b5ba92a83"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:22.239236+00:00",
+      "finished_at": "2026-10-05T22:29:23.312191+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2015\"]"
+      },
+      "records": 12,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0022.jsonl.gz",
+      "error": null,
+      "output_sha256": "4d245f92bb4ce1e9b9003580379f535f2a9e2ea2710a0e8237c642713ee61a46"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:20.029804+00:00",
+      "finished_at": "2026-10-05T22:29:23.557872+00:00",
+      "query": "catalog/discovery/access-batches/00008.sql",
+      "query_sha256": "505a3d994d8d7d0b7b3ab0027f6dc92c1896ba3ca24514dc91c9e6ff6772ebea",
+      "stderr": "catalog/discovery/access-batches/00008.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:23.314759+00:00",
+      "finished_at": "2026-10-05T22:29:24.614755+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2016\"]"
+      },
+      "records": 13,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0023.jsonl.gz",
+      "error": null,
+      "output_sha256": "6b7fdfab8833e9037a2211bf71aa9219e9497dab2c01f8476af70440385815fd"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:24.617331+00:00",
+      "finished_at": "2026-10-05T22:29:25.841009+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2017\"]"
+      },
+      "records": 13,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0024.jsonl.gz",
+      "error": null,
+      "output_sha256": "612d7a13fc9fa9fa2743e1e3084982242e508bcf7ec38e7a22ad51a0cc6bc96a"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:23.560649+00:00",
+      "finished_at": "2026-10-05T22:29:26.263547+00:00",
+      "query": "catalog/discovery/access-batches/00009.sql",
+      "query_sha256": "195bfb00f10878063dad78ad097dd4f685365a47f1960df3a6a0d593ab1bca25",
+      "stderr": "catalog/discovery/access-batches/00009.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:25.842825+00:00",
+      "finished_at": "2026-10-05T22:29:26.945791+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2018\"]"
+      },
+      "records": 17,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0025.jsonl.gz",
+      "error": null,
+      "output_sha256": "246bcf48a1c0a117ae980d759403257da1d4217bea02c0c2377ab3bd92c11506"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:26.948296+00:00",
+      "finished_at": "2026-10-05T22:29:28.063367+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2019\"]"
+      },
+      "records": 17,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0026.jsonl.gz",
+      "error": null,
+      "output_sha256": "6a68295419c2b0370cb82323c1906194f9823875bd25bfd6fa7eb617c7356412"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:26.266202+00:00",
+      "finished_at": "2026-10-05T22:29:28.503178+00:00",
+      "query": "catalog/discovery/access-batches/00010.sql",
+      "query_sha256": "952da0ab39dc5dcc9927b3115d16f863707d1725c72d938e03d24e165a42a93e",
+      "stderr": "catalog/discovery/access-batches/00010.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:28.064904+00:00",
+      "finished_at": "2026-10-05T22:29:29.126607+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2020\"]"
+      },
+      "records": 17,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0027.jsonl.gz",
+      "error": null,
+      "output_sha256": "91222232ac65631a1eed85d484704190331e15b888d564ab971d373823b0d706"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:28.505953+00:00",
+      "finished_at": "2026-10-05T22:29:29.462351+00:00",
+      "query": "catalog/discovery/access-batches/00011.sql",
+      "query_sha256": "877f5a212bc13e84a2038ddf9f5f5ee39b94e4a7407205fe16e0d6e912ccf89a",
+      "stderr": "catalog/discovery/access-batches/00011.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:29.129088+00:00",
+      "finished_at": "2026-10-05T22:29:30.301510+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2021\"]"
+      },
+      "records": 17,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0028.jsonl.gz",
+      "error": null,
+      "output_sha256": "2849fa9b0cc4baa25a744400ea05028cb7445d6ec72007abc7b9d25f5a67d6da"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:30.303947+00:00",
+      "finished_at": "2026-10-05T22:29:31.516431+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2022\"]"
+      },
+      "records": 17,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0029.jsonl.gz",
+      "error": null,
+      "output_sha256": "75ab9b65cbd96e4362f954629421c76657b961f0246c64a71b99ea0378c703d6"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:31.518793+00:00",
+      "finished_at": "2026-10-05T22:29:32.748779+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2023\",\"taqm_2023_new\"]"
+      },
+      "records": 18,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0030.jsonl.gz",
+      "error": null,
+      "output_sha256": "402566de870f4cfe033821467279c7a8a1eac2dad80f97ca792fc13c86a045ce"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:29.464931+00:00",
+      "finished_at": "2026-10-05T22:29:33.489614+00:00",
+      "query": "catalog/discovery/access-batches/00012.sql",
+      "query_sha256": "279d0dba9a8000f534cae987c57972b72902b6fd807c9b1461e6e9830ddcb56d",
+      "stderr": "catalog/discovery/access-batches/00012.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:32.751239+00:00",
+      "finished_at": "2026-10-05T22:29:33.898540+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2024\"]"
+      },
+      "records": 17,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0031.jsonl.gz",
+      "error": null,
+      "output_sha256": "c1a0d3de9a2734ece5753281715fcb2ae7dace6fb15cf9e06a156ef2e856572a"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:33.899618+00:00",
+      "finished_at": "2026-10-05T22:29:35.482745+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2025\"]"
+      },
+      "records": 17,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0032.jsonl.gz",
+      "error": null,
+      "output_sha256": "b5d3340cf4fcfc550a162ac70852af0c29ca4bf6c3053b291a352af86dce09d0"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:35.484266+00:00",
+      "finished_at": "2026-10-05T22:29:36.941946+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqm_2026\",\"taqm_2026_old\",\"taqmsamp\",\"taqmsamp_all\"]"
+      },
+      "records": 55,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0033.jsonl.gz",
+      "error": null,
+      "output_sha256": "5399efbf9a010fc76f31f40d27092d3650d73445e856e6c409ea3992f65c1e54"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:33.491890+00:00",
+      "finished_at": "2026-10-05T22:29:40.076616+00:00",
+      "query": "catalog/discovery/access-batches/00013.sql",
+      "query_sha256": "910c4cdb1ddda17a83724d112410e88f51b46e49784dad2769a60cfc881d3761",
+      "stderr": "catalog/discovery/access-batches/00013.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:40.079477+00:00",
+      "finished_at": "2026-10-05T22:29:45.946514+00:00",
+      "query": "catalog/discovery/access-batches/00014.sql",
+      "query_sha256": "0567d4c42c696cb1e7dc75ba3289c54cd5c026e48826d911ba195fc37088bd19",
+      "stderr": "catalog/discovery/access-batches/00014.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:45.947675+00:00",
+      "finished_at": "2026-10-05T22:29:48.258768+00:00",
+      "query": "catalog/discovery/access-batches/00015.sql",
+      "query_sha256": "0bae797472e4a1fab1e61ec5cebf7417b41ce2bbdb222d5fc1697475acab6c86",
+      "stderr": "catalog/discovery/access-batches/00015.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:48.261210+00:00",
+      "finished_at": "2026-10-05T22:29:49.915459+00:00",
+      "query": "catalog/discovery/access-batches/00016.sql",
+      "query_sha256": "0568997b8688f08e9485ad59960db7f28d6fad7b17107636b96526b757d20dab",
+      "stderr": "catalog/discovery/access-batches/00016.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:36.943072+00:00",
+      "finished_at": "2026-10-05T22:29:49.963997+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqmsec\"]"
+      },
+      "records": 63,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0034.jsonl.gz",
+      "error": null,
+      "output_sha256": "9a3e044215fc1bb43d762c39c3a24bb2de0d60f8505a7e8ae411999c64ca339f"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:49.916845+00:00",
+      "finished_at": "2026-10-05T22:29:50.877621+00:00",
+      "query": "catalog/discovery/access-batches/00017.sql",
+      "query_sha256": "01bd2642ec6b6c2360944b5e8e120a3b93c3eadfd5a8f787540aafaf76021661",
+      "stderr": "catalog/discovery/access-batches/00017.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:49.965099+00:00",
+      "finished_at": "2026-10-05T22:29:51.724226+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"taqsamp\",\"taqsamp_all\",\"tass\",\"tfn\",\"tfn_common\",\"totalq\",\"totalq_all\",\"totalq_all_old\",\"tr_13f\",\"tr_13f_old\",\"tr_common\",\"tr_common_old\",\"tr_dandb_dmi_us\",\"tr_dandb_dmi_us_old\",\"tr_dandb_wb_af\",\"tr_dandb_wb_ap\",\"tr_dandb_wb_eu\",\"tr_dandb_wb_la\",\"tr_dandb_wb_me\",\"tr_dandb_wb_na\",\"tr_dandb_wb_unknown\",\"tr_dealscan\",\"tr_dealscan_old\",\"tr_ds_comds\",\"tr_ds_comds_old\",\"tr_ds_econ\",\"tr_ds_econ_old\",\"tr_ds_equities\",\"tr_ds_equities_old\",\"tr_ds_fut\",\"tr_ds_fut_old\",\"tr_esg\",\"tr_esg_old\",\"tr_ibes\",\"tr_ibes_corporate\",\"tr_ibes_guidance\",\"tr_ibes_guidance_old\",\"tr_ibes_iga\",\"tr_ibes_iga_old\",\"tr_ibes_old\",\"tr_ibeskpi\",\"tr_ibeskpi_old\",\"tr_insiders\",\"tr_insiders_old\",\"tr_mutualfunds\",\"tr_mutualfunds_old\",\"tr_ownership\",\"tr_ownership_old\",\"tr_sdc_joint_ventures\",\"tr_sdc_joint_ventures_old\",\"tr_sdc_ma\",\"tr_sdc_ma_old\",\"tr_sdc_municipals\",\"tr_sdc_municipals_old\",\"tr_sdc_ni\",\"tr_sdc_ni_old\",\"tr_sdc_private_equity\",\"tr_sdc_private_equity_old\",\"tr_sdc_samples\",\"tr_tass\",\"tr_tass_old\",\"tr_worldscope\",\"tr_worldscope_old\",\"trace\",\"trace_enhanced\",\"trace_enhanced_old\",\"trace_standard\",\"trace_standard_old\",\"trcommon\",\"trcstsmp\"]"
+      },
+      "records": 1146,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0035.jsonl.gz",
+      "error": null,
+      "output_sha256": "3f1ce946ec4982e7dda6c3e9745d4a86ddcd80d58bd9bf05e2635e4d70b3f058"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:50.880318+00:00",
+      "finished_at": "2026-10-05T22:29:53.665928+00:00",
+      "query": "catalog/discovery/access-batches/00018.sql",
+      "query_sha256": "71927c4e749c606fd15742917b0e2636b8565c53b27af310b23cfab1f8340437",
+      "stderr": "catalog/discovery/access-batches/00018.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:51.725473+00:00",
+      "finished_at": "2026-10-05T22:29:53.676376+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"trdandb\",\"trdbdmismp\",\"trdbwbsmp\",\"trdssamp\",\"trdstrm\",\"tresg\",\"tresgsmp\",\"trown\",\"trsamp\",\"trsamp_all\",\"trsamp_db_dmi\",\"trsamp_db_wb\",\"trsamp_ds_eq\",\"trsamp_dscom\",\"trsamp_dsecon\",\"trsamp_dsfut\",\"trsamp_esg\",\"trsamp_sdc_ma\",\"trsamp_sdc_ni\",\"trsamp_worldscope\",\"trucost\",\"trucost_carbon\",\"trucost_carbon_old\",\"trucost_common\",\"trucost_common_old\",\"trucost_environ\",\"trucost_environ_old\",\"trucost_fossilfuel\",\"trucost_fossilfuel_old\",\"trucost_paris\",\"trucost_paris_old\",\"trucost_risk\",\"trucost_risk_old\",\"trucost_samp\",\"trucost_samp_old\",\"trucost_sector\",\"trucost_sector_ff\",\"trucost_sector_ff_old\",\"trucost_sector_revenue\",\"trucost_sector_revenue_old\",\"trws\",\"twoiq\",\"twoiq_all\",\"twoiq_all_old\",\"twoiq_samp\",\"twoiqsmp\",\"wabssamp\",\"wappsamp\",\"wenvsmp\",\"wharton_shared_data\",\"wind\",\"wind_ashare\",\"wind_code\",\"windsmp\",\"wmfsmp\",\"wrds_abs\",\"wrds_abs_old\",\"wrds_abs_samp\",\"wrds_abs_samp_old\",\"wrds_attribute_search\",\"wrds_backtest\",\"wrds_backtest_old\",\"wrds_environmental\",\"wrds_environmental_old\",\"wrds_environmental_samp\",\"wrds_environmental_samp_old\",\"wrds_finra_short_interest\",\"wrds_finra_short_interest_old\",\"wrds_insiders\",\"wrds_insiders_old\",\"wrds_insiders_samp\",\"wrds_insiders_samp_old\",\"wrds_internal\",\"wrds_internal_old\",\"wrds_labs\",\"wrds_metadata\",\"wrds_mutualfund\",\"wrds_mutualfund_old\",\"wrds_mutualfund_samp\",\"wrds_sec_search\",\"wrds_short_volume\",\"wrds_short_volume_old\",\"wrds_shortvolume_samp\",\"wrds_trade_exec_samp\",\"wrds_trade_exec_samp_old\",\"wrds_trade_execution\",\"wrds_trade_execution_old\",\"wrds_trading_suite\",\"wrds_xbrl_fundamental\",\"wrds_xbrl_fundamental_old\",\"wrdsabs\",\"wrdsapps\",\"wrdsapps_backtest_basic\",\"wrdsapps_backtest_basic_old\",\"wrdsapps_backtest_plus\",\"wrdsapps_backtest_plus_old\",\"wrdsapps_bondret\",\"wrdsapps_bondret_old\",\"wrdsapps_eushort\",\"wrdsapps_eushort_old\",\"wrdsapps_evtstudy_int\",\"wrdsapps_evtstudy_int_ginsight\",\"wrdsapps_evtstudy_intraday_rav\",\"wrdsapps_evtstudy_intraday_rav_old\",\"wrdsapps_evtstudy_lr\",\"wrdsapps_evtstudy_lr_ciq\",\"wrdsapps_evtstudy_lr_old\",\"wrdsapps_evtstudy_us\",\"wrdsapps_finratio\",\"wrdsapps_finratio_ccm\",\"wrdsapps_finratio_ccm_old\",\"wrdsapps_finratio_ibes\",\"wrdsapps_finratio_ibes_ccm\",\"wrdsapps_finratio_ibes_ccm_old\",\"wrdsapps_finratio_ibes_old\",\"wrdsapps_finratio_old\",\"wrdsapps_link_comp_eushort\",\"wrdsapps_link_comp_eushort_old\",\"wrdsapps_link_crsp_bond\",\"wrdsapps_link_crsp_bond_old\",\"wrdsapps_link_crsp_comp_bdx\",\"wrdsapps_link_crsp_comp_bdx_old\",\"wrdsapps_link_crsp_factset\",\"wrdsapps_link_crsp_factset_old\",\"wrdsapps_link_crsp_ibes\",\"wrdsapps_link_crsp_ibes_old\",\"wrdsapps_link_crsp_optionm\",\"wrdsapps_link_crsp_optionm_old\",\"wrdsapps_link_crsp_taq\",\"wrdsapps_link_crsp_taqm\",\"wrdsapps_link_crsp_taqm_old\",\"wrdsapps_link_datastream_wscope\",\"wrdsapps_link_datastream_wscope_old\",\"wrdsapps_link_dealscan_wscope\",\"wrdsapps_link_supplychain\",\"wrdsapps_link_supplychain_old\",\"wrdsapps_link_trinsider_bdx\",\"wrdsapps_link_trinsider_bdx_old\",\"wrdsapps_patents\",\"wrdsapps_plink_boardex_ciq\",\"wrdsapps_plink_boardex_ciq_old\",\"wrdsapps_plink_boardex_trinsider\",\"wrdsapps_plink_boardex_trinsider_old\",\"wrdsapps_plink_boardex_twoiq\",\"wrdsapps_plink_boardex_twoiq_old\",\"wrdsapps_plink_exec_boardex\",\"wrdsapps_plink_exec_boardex_old\",\"wrdsapps_plink_exec_ciq\",\"wrdsapps_plink_exec_ciq_old\",\"wrdsapps_plink_exec_trinsider\",\"wrdsapps_plink_exec_trinsider_old\",\"wrdsapps_plink_exec_twoiq\",\"wrdsapps_plink_exec_twoiq_old\",\"wrdsapps_plink_trinsider_ciq\",\"wrdsapps_plink_trinsider_ciq_old\",\"wrdsapps_plink_trinsider_twoiq\",\"wrdsapps_plink_trinsider_twoiq_old\",\"wrdsapps_plink_twoiq_ciq\",\"wrdsapps_plink_twoiq_ciq_old\",\"wrdsapps_subsidiary\",\"wrdsapps_subsidiary_old\",\"wrdsapps_windices\",\"wrdsapps_windices_old\",\"wrdsappssamp_all\",\"wrdsenv\",\"wrdsfd\",\"wrdsinsd\"]"
+      },
+      "records": 1845,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0036.jsonl.gz",
+      "error": null,
+      "output_sha256": "be264f634ce2f59e57b4840283f364a81a7e193e66d7ad4074ffa4ebdd6a9b75"
+    },
+    {
+      "phase": "collection",
+      "started_at": "2026-10-05T22:29:53.677813+00:00",
+      "finished_at": "2026-10-05T22:29:54.386285+00:00",
+      "query": "scripts/wrds_catalog/columns.sql",
+      "query_sha256": "6aeaa7013030229cdbd9f22a7e5fa961d98c88620d6f5a0e0b2bc38a5797aa2c",
+      "variables": {
+        "catalog_schemas": "[\"wrdsmf\",\"wrdssec\",\"wrdssec_all\",\"wrdssec_all_old\",\"wrdssec_bow\",\"wrdssec_bow_old\",\"wrdssec_common\",\"wrdssec_common_old\",\"wrdssec_insiders\",\"wrdssec_midas\",\"wrdssec_midas_old\",\"wrdssec_premium\",\"wrdssec_secsa\",\"wrdssec_secsa_old\",\"wte\",\"wtesamp\",\"wts\",\"zacks\",\"zacks_all\",\"zacks_all_old\",\"zacksamp\",\"zacksamp_all\"]"
+      },
+      "records": 817,
+      "exit_code": 0,
+      "statement_timeout_ms": 60000,
+      "output": "catalog/discovery/column-batches/0037.jsonl.gz",
+      "error": null,
+      "output_sha256": "d9fda91ffe8160d78d9a6522825f12cdbe6cb9f395edbb78e69ac2ae2c82656f"
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:53.666994+00:00",
+      "finished_at": "2026-10-05T22:29:56.176564+00:00",
+      "query": "catalog/discovery/access-batches/00019.sql",
+      "query_sha256": "6cac198063d5656724e48b980e9e183c51d581eba5869f446a0edd413cb82232",
+      "stderr": "catalog/discovery/access-batches/00019.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:56.177680+00:00",
+      "finished_at": "2026-10-05T22:29:57.532189+00:00",
+      "query": "catalog/discovery/access-batches/00020.sql",
+      "query_sha256": "c97d9dedd95154b15985e5260155e6d41df2af674c81c37de93f84b09b511951",
+      "stderr": "catalog/discovery/access-batches/00020.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:57.533437+00:00",
+      "finished_at": "2026-10-05T22:29:58.852254+00:00",
+      "query": "catalog/discovery/access-batches/00021.sql",
+      "query_sha256": "db07472edb377412b020dda05321ef3a0e3daaecbbcc9df06374cbd4cee5c784",
+      "stderr": "catalog/discovery/access-batches/00021.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "column_layouts",
+      "finished_at": "2026-10-05T22:29:59.230435+00:00",
+      "output": "catalog/discovery/column-layouts.jsonl.gz",
+      "layouts": 23288,
+      "relations": 118646,
+      "columns": 3092679,
+      "schemas": 1098,
+      "prototype": false
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:29:58.853393+00:00",
+      "finished_at": "2026-10-05T22:30:00.879349+00:00",
+      "query": "catalog/discovery/access-batches/00022.sql",
+      "query_sha256": "940ff6f5d37b365c87645bd1fa5835c0c908731f4cb4aaacc2bfcfe7795ad9a4",
+      "stderr": "catalog/discovery/access-batches/00022.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:00.880484+00:00",
+      "finished_at": "2026-10-05T22:30:01.591351+00:00",
+      "query": "catalog/discovery/access-batches/00023.sql",
+      "query_sha256": "ae2d44dbd7f9632ca3efe6a2ec4a5a720117c6f38b92d07adf6a8f96e9ec9200",
+      "stderr": "catalog/discovery/access-batches/00023.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:01.594374+00:00",
+      "finished_at": "2026-10-05T22:30:03.171598+00:00",
+      "query": "catalog/discovery/access-batches/00024.sql",
+      "query_sha256": "e1073b6f0e9227bd3512c6fde70410a963d970cd542cb86e15244825a1cb586a",
+      "stderr": "catalog/discovery/access-batches/00024.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:03.174641+00:00",
+      "finished_at": "2026-10-05T22:30:04.859536+00:00",
+      "query": "catalog/discovery/access-batches/00025.sql",
+      "query_sha256": "9d00f4c06c898b08e28fcf9083f751e74dd9e32701dcaa7c276db46366346fb8",
+      "stderr": "catalog/discovery/access-batches/00025.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:04.862457+00:00",
+      "finished_at": "2026-10-05T22:30:08.370731+00:00",
+      "query": "catalog/discovery/access-batches/00026.sql",
+      "query_sha256": "b0eb12470999358e4ceff2d419d76f39be9312209e05dff5ca2c2513c7dd48b0",
+      "stderr": "catalog/discovery/access-batches/00026.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:08.373596+00:00",
+      "finished_at": "2026-10-05T22:30:10.027414+00:00",
+      "query": "catalog/discovery/access-batches/00027.sql",
+      "query_sha256": "34833bd3daf493ea2da23b6a1462f0b0d5ade652271a846e4be04396a9d21139",
+      "stderr": "catalog/discovery/access-batches/00027.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:10.028798+00:00",
+      "finished_at": "2026-10-05T22:30:11.276623+00:00",
+      "query": "catalog/discovery/access-batches/00028.sql",
+      "query_sha256": "ebd24f5db889929decd6859da53c95e977ae192baf7016a62ace2c62e49fe934",
+      "stderr": "catalog/discovery/access-batches/00028.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:11.279615+00:00",
+      "finished_at": "2026-10-05T22:30:12.027751+00:00",
+      "query": "catalog/discovery/access-batches/00029.sql",
+      "query_sha256": "64b181a4d3207c337c7ac89397c64eb0028cbd255eb4ebe59b046d0178c24277",
+      "stderr": "catalog/discovery/access-batches/00029.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:12.030810+00:00",
+      "finished_at": "2026-10-05T22:30:12.954681+00:00",
+      "query": "catalog/discovery/access-batches/00030.sql",
+      "query_sha256": "8182b5c1d36a1b0bd8876cd5e19d3f1a9cc16e577400a23d9e9cca9afcbbf2ab",
+      "stderr": "catalog/discovery/access-batches/00030.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:12.957715+00:00",
+      "finished_at": "2026-10-05T22:30:13.475883+00:00",
+      "query": "catalog/discovery/access-batches/00031.sql",
+      "query_sha256": "969646830dbe58403ee1782026904d2dff11abaea5bc2c043bd521d5a4a93e7e",
+      "stderr": "catalog/discovery/access-batches/00031.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:13.476982+00:00",
+      "finished_at": "2026-10-05T22:30:16.212323+00:00",
+      "query": "catalog/discovery/access-batches/00032.sql",
+      "query_sha256": "1a837499d3c4b64f8c05e45236b3cb240030b2174c5da2e30b3b6f76b2604f16",
+      "stderr": "catalog/discovery/access-batches/00032.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:16.215460+00:00",
+      "finished_at": "2026-10-05T22:30:18.367644+00:00",
+      "query": "catalog/discovery/access-batches/00033.sql",
+      "query_sha256": "cd5c1ce99965e40267a3f238e20a60928e193693e9a76fcd57244a23ec4d90c5",
+      "stderr": "catalog/discovery/access-batches/00033.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:18.370344+00:00",
+      "finished_at": "2026-10-05T22:30:20.224598+00:00",
+      "query": "catalog/discovery/access-batches/00034.sql",
+      "query_sha256": "b1687521b53846f98f4bdd4a48aa0e0481fb28e097733adad3d6760c392ddfb5",
+      "stderr": "catalog/discovery/access-batches/00034.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:20.227646+00:00",
+      "finished_at": "2026-10-05T22:30:24.238195+00:00",
+      "query": "catalog/discovery/access-batches/00035.sql",
+      "query_sha256": "be489e60e1dfb04c21cd63a2df2321101b6ba5042b6a2667d91819ab302f01ae",
+      "stderr": "catalog/discovery/access-batches/00035.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:24.241300+00:00",
+      "finished_at": "2026-10-05T22:30:28.459778+00:00",
+      "query": "catalog/discovery/access-batches/00036.sql",
+      "query_sha256": "376a51276b3646bd704ecfd636de6bf542fc86c5f9beac91c0a3968444d406d7",
+      "stderr": "catalog/discovery/access-batches/00036.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:28.462925+00:00",
+      "finished_at": "2026-10-05T22:30:32.114298+00:00",
+      "query": "catalog/discovery/access-batches/00037.sql",
+      "query_sha256": "1446603758595a6ca0364ea1288c1ccc9524efa55987878f9bf45f7a3ad004c1",
+      "stderr": "catalog/discovery/access-batches/00037.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:32.115596+00:00",
+      "finished_at": "2026-10-05T22:30:33.509869+00:00",
+      "query": "catalog/discovery/access-batches/00038.sql",
+      "query_sha256": "97f6b03613b55cf870c7a5644f674cf30502924b1c1e41d9d7e976ab26ece1b8",
+      "stderr": "catalog/discovery/access-batches/00038.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:33.512546+00:00",
+      "finished_at": "2026-10-05T22:30:35.458401+00:00",
+      "query": "catalog/discovery/access-batches/00039.sql",
+      "query_sha256": "4eb346d23d5bd8f2b90cac0551934fc1987e952fac5577d0c42502a00cb68b44",
+      "stderr": "catalog/discovery/access-batches/00039.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:35.461617+00:00",
+      "finished_at": "2026-10-05T22:30:37.056637+00:00",
+      "query": "catalog/discovery/access-batches/00040.sql",
+      "query_sha256": "3342a2f09767a9a447124143550b74f044831c1c1cd692fa746030c0f5ceed2e",
+      "stderr": "catalog/discovery/access-batches/00040.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:37.059786+00:00",
+      "finished_at": "2026-10-05T22:30:38.679484+00:00",
+      "query": "catalog/discovery/access-batches/00041.sql",
+      "query_sha256": "d9d54807c469ce0ce089af36840721478f5a38b7aaa913de61f2f6d88d1dd543",
+      "stderr": "catalog/discovery/access-batches/00041.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:38.682003+00:00",
+      "finished_at": "2026-10-05T22:30:40.275194+00:00",
+      "query": "catalog/discovery/access-batches/00042.sql",
+      "query_sha256": "ee058def91e200509c0159dc2b14db148fdeb0dd0b32573f67b017a3093fc2a4",
+      "stderr": "catalog/discovery/access-batches/00042.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:40.277996+00:00",
+      "finished_at": "2026-10-05T22:30:41.320877+00:00",
+      "query": "catalog/discovery/access-batches/00043.sql",
+      "query_sha256": "f9607827ddbab2d1e702937a68fa8f1a977197b0fcf93e094cf205b30995b76d",
+      "stderr": "catalog/discovery/access-batches/00043.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:41.323735+00:00",
+      "finished_at": "2026-10-05T22:30:41.882889+00:00",
+      "query": "catalog/discovery/access-batches/00044.sql",
+      "query_sha256": "338bfccb24ebab50dfab35f29f0cda7cc5cb11434f805e697888ec0d1bd5aad1",
+      "stderr": "catalog/discovery/access-batches/00044.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:41.886018+00:00",
+      "finished_at": "2026-10-05T22:30:42.478280+00:00",
+      "query": "catalog/discovery/access-batches/00045.sql",
+      "query_sha256": "5495cfdc53e74d39f91b9827747d04195d794da5672404af5bb3b8ca38aac1ee",
+      "stderr": "catalog/discovery/access-batches/00045.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:42.481790+00:00",
+      "finished_at": "2026-10-05T22:30:43.862772+00:00",
+      "query": "catalog/discovery/access-batches/00046.sql",
+      "query_sha256": "71bbcf05cd7ae5e882e474cd5d97e40aec67430bd31ae179bd6f668cf59044c6",
+      "stderr": "catalog/discovery/access-batches/00046.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:43.866342+00:00",
+      "finished_at": "2026-10-05T22:30:44.764100+00:00",
+      "query": "catalog/discovery/access-batches/00047.sql",
+      "query_sha256": "268d6571c40366944e1374308ebecd104e5104380b69c39a6d4fb680f8d37e26",
+      "stderr": "catalog/discovery/access-batches/00047.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:44.767709+00:00",
+      "finished_at": "2026-10-05T22:30:45.498852+00:00",
+      "query": "catalog/discovery/access-batches/00048.sql",
+      "query_sha256": "1c416a548848829630e2dfbc06a19c6fc7ebfdd6d6d6c7fd7e7ffe1d24c00477",
+      "stderr": "catalog/discovery/access-batches/00048.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:45.502493+00:00",
+      "finished_at": "2026-10-05T22:30:46.319449+00:00",
+      "query": "catalog/discovery/access-batches/00049.sql",
+      "query_sha256": "1e872fa3edb825a7efb0b149602a775c5d36b450f4d1d35baeb8e9194e3465d6",
+      "stderr": "catalog/discovery/access-batches/00049.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:46.323152+00:00",
+      "finished_at": "2026-10-05T22:30:48.493060+00:00",
+      "query": "catalog/discovery/access-batches/00050.sql",
+      "query_sha256": "392468631afa0e307446dc80323b6d57befdd7f9aaa16e9b2a97b0c58c95e65d",
+      "stderr": "catalog/discovery/access-batches/00050.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:48.496398+00:00",
+      "finished_at": "2026-10-05T22:30:50.118013+00:00",
+      "query": "catalog/discovery/access-batches/00051.sql",
+      "query_sha256": "a9ebbc56c74262497fd423debc75e8397f653c04f9bc3deed1755d14e1afd0ce",
+      "stderr": "catalog/discovery/access-batches/00051.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:50.121403+00:00",
+      "finished_at": "2026-10-05T22:30:52.045105+00:00",
+      "query": "catalog/discovery/access-batches/00052.sql",
+      "query_sha256": "191197d2ae8f3ae6ab2468e0efa7ae03efb976c2b2825c03457a0abeea28d43d",
+      "stderr": "catalog/discovery/access-batches/00052.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:52.048190+00:00",
+      "finished_at": "2026-10-05T22:30:53.951917+00:00",
+      "query": "catalog/discovery/access-batches/00053.sql",
+      "query_sha256": "994810085d71bec9821d0b52d062ba86daa9aa644f0e247e68f0eda775486dbc",
+      "stderr": "catalog/discovery/access-batches/00053.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:53.953675+00:00",
+      "finished_at": "2026-10-05T22:30:55.977286+00:00",
+      "query": "catalog/discovery/access-batches/00054.sql",
+      "query_sha256": "be5b4af339b5ee3cf90cb735b7b57000135a0db649fb0ec230506c84fb666a10",
+      "stderr": "catalog/discovery/access-batches/00054.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:55.978550+00:00",
+      "finished_at": "2026-10-05T22:30:57.890458+00:00",
+      "query": "catalog/discovery/access-batches/00055.sql",
+      "query_sha256": "24965719a0a7cad783977d8ab1be2dac4825e06e20125177d4b850fd5901a58f",
+      "stderr": "catalog/discovery/access-batches/00055.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:57.894063+00:00",
+      "finished_at": "2026-10-05T22:30:59.677221+00:00",
+      "query": "catalog/discovery/access-batches/00056.sql",
+      "query_sha256": "90c3e248402f8d29d3d2412300adfefbdee437308e93a838481218ca1537c813",
+      "stderr": "catalog/discovery/access-batches/00056.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:30:59.680524+00:00",
+      "finished_at": "2026-10-05T22:31:01.405756+00:00",
+      "query": "catalog/discovery/access-batches/00057.sql",
+      "query_sha256": "3ee4f20de9e33932cb13ad3bc0224edc4e9c2b8c9bba9b79909717badbce4c55",
+      "stderr": "catalog/discovery/access-batches/00057.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:01.408917+00:00",
+      "finished_at": "2026-10-05T22:31:03.412221+00:00",
+      "query": "catalog/discovery/access-batches/00058.sql",
+      "query_sha256": "1c678c7b9d39d3f22f30c821be378ea7639a67943785333063ecdbb1155db204",
+      "stderr": "catalog/discovery/access-batches/00058.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:03.415423+00:00",
+      "finished_at": "2026-10-05T22:31:06.279691+00:00",
+      "query": "catalog/discovery/access-batches/00059.sql",
+      "query_sha256": "9b620042b92dd3be4b4d76644450a848d9672fa7d616c00240c7f9d8ae73697a",
+      "stderr": "catalog/discovery/access-batches/00059.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:06.282919+00:00",
+      "finished_at": "2026-10-05T22:31:08.912258+00:00",
+      "query": "catalog/discovery/access-batches/00060.sql",
+      "query_sha256": "2c99719a356dbf0ae50e0d5de8791a94ca1913e0d9334fa5c1b1e6277b135b23",
+      "stderr": "catalog/discovery/access-batches/00060.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:08.916155+00:00",
+      "finished_at": "2026-10-05T22:31:10.953137+00:00",
+      "query": "catalog/discovery/access-batches/00061.sql",
+      "query_sha256": "7c2b20f6ff6d799412c5a1ad572ef2d4fa7637a4a87199e43736607cd446d4fe",
+      "stderr": "catalog/discovery/access-batches/00061.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:10.956469+00:00",
+      "finished_at": "2026-10-05T22:31:12.808260+00:00",
+      "query": "catalog/discovery/access-batches/00062.sql",
+      "query_sha256": "3d7e375813d9c0ed6c66c9a348d39274db50f8ef76ed0b78dbb4242a49d938be",
+      "stderr": "catalog/discovery/access-batches/00062.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:12.811551+00:00",
+      "finished_at": "2026-10-05T22:31:15.941646+00:00",
+      "query": "catalog/discovery/access-batches/00063.sql",
+      "query_sha256": "0d955104813a22f06da85390c4e556d9a9811fba2b652a48fdeff0ae5d0ce454",
+      "stderr": "catalog/discovery/access-batches/00063.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:15.945036+00:00",
+      "finished_at": "2026-10-05T22:31:18.208787+00:00",
+      "query": "catalog/discovery/access-batches/00064.sql",
+      "query_sha256": "9c3ce343c51ce5c99459c9b4dea1242bbc1e2c0aee86115b64c720b8b86d3937",
+      "stderr": "catalog/discovery/access-batches/00064.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:18.211276+00:00",
+      "finished_at": "2026-10-05T22:31:19.745478+00:00",
+      "query": "catalog/discovery/access-batches/00065.sql",
+      "query_sha256": "80b3ec6e8a10069fbf6a661531bf616c5d5ba68d76f5f911cf5b6e948a98015f",
+      "stderr": "catalog/discovery/access-batches/00065.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:19.746833+00:00",
+      "finished_at": "2026-10-05T22:31:22.260056+00:00",
+      "query": "catalog/discovery/access-batches/00066.sql",
+      "query_sha256": "7b17ba0333289f27471446d0ddb0235be677c4309be420b74ca8ef27aa7e7512",
+      "stderr": "catalog/discovery/access-batches/00066.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:22.263589+00:00",
+      "finished_at": "2026-10-05T22:31:23.301825+00:00",
+      "query": "catalog/discovery/access-batches/00067.sql",
+      "query_sha256": "1e6886299c7f0ee2b37d5a86c0304899ab9509d0ce87ce5d1a3db321453d6d97",
+      "stderr": "catalog/discovery/access-batches/00067.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:23.303833+00:00",
+      "finished_at": "2026-10-05T22:31:25.142983+00:00",
+      "query": "catalog/discovery/access-batches/00068.sql",
+      "query_sha256": "266463c8ce7459074ce4a5ffb3fa10a66266db9e8926b3422434727aadbf02fa",
+      "stderr": "catalog/discovery/access-batches/00068.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:25.145738+00:00",
+      "finished_at": "2026-10-05T22:31:27.623415+00:00",
+      "query": "catalog/discovery/access-batches/00069.sql",
+      "query_sha256": "cbcd4ea02e6f1b0fd3645d4cca67e45c783aab37eb7d22af6b50201ba950d6ad",
+      "stderr": "catalog/discovery/access-batches/00069.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:27.626756+00:00",
+      "finished_at": "2026-10-05T22:31:30.307030+00:00",
+      "query": "catalog/discovery/access-batches/00070.sql",
+      "query_sha256": "17e312ef9db2728fa70753ce4e83777811ea09a0f1b7179fd725b80a67eae562",
+      "stderr": "catalog/discovery/access-batches/00070.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:30.310396+00:00",
+      "finished_at": "2026-10-05T22:31:33.342374+00:00",
+      "query": "catalog/discovery/access-batches/00071.sql",
+      "query_sha256": "02b61055e5cb3749617b92aee39b003e2f7d1a72bb4de1bee26c39cb8ecc41f4",
+      "stderr": "catalog/discovery/access-batches/00071.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:33.345874+00:00",
+      "finished_at": "2026-10-05T22:31:35.289041+00:00",
+      "query": "catalog/discovery/access-batches/00072.sql",
+      "query_sha256": "d24d93d659bb5741faed8547ad191c91a35663621e05099f6225f7accf3ad7e2",
+      "stderr": "catalog/discovery/access-batches/00072.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:35.292565+00:00",
+      "finished_at": "2026-10-05T22:31:37.564835+00:00",
+      "query": "catalog/discovery/access-batches/00073.sql",
+      "query_sha256": "e76cdc37d37aedc0d6740a6875a567cf5510479dacc88e89e76d27e29d39c4ae",
+      "stderr": "catalog/discovery/access-batches/00073.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:37.567890+00:00",
+      "finished_at": "2026-10-05T22:31:39.696147+00:00",
+      "query": "catalog/discovery/access-batches/00074.sql",
+      "query_sha256": "d0c66e4c749fa39007927c8ab3a5d874a190807626d016a639a278c4a0976f4e",
+      "stderr": "catalog/discovery/access-batches/00074.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:39.699543+00:00",
+      "finished_at": "2026-10-05T22:31:42.048965+00:00",
+      "query": "catalog/discovery/access-batches/00075.sql",
+      "query_sha256": "985f54d54c41ec8ebf0619f79725c585235704f1e07cd6d9cc47bcca28c9fd2e",
+      "stderr": "catalog/discovery/access-batches/00075.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:42.051784+00:00",
+      "finished_at": "2026-10-05T22:31:44.535598+00:00",
+      "query": "catalog/discovery/access-batches/00076.sql",
+      "query_sha256": "25ab2a0e2d6e6e808fca357d8c19c4859f80fafc890bac96e9ed4ecfbdae4e69",
+      "stderr": "catalog/discovery/access-batches/00076.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:44.538527+00:00",
+      "finished_at": "2026-10-05T22:31:46.498636+00:00",
+      "query": "catalog/discovery/access-batches/00077.sql",
+      "query_sha256": "defa2e05ee51ddacd458bc19f05d8b23849d42a8696c50a54427c3e5123c86d5",
+      "stderr": "catalog/discovery/access-batches/00077.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:46.501015+00:00",
+      "finished_at": "2026-10-05T22:31:47.926629+00:00",
+      "query": "catalog/discovery/access-batches/00078.sql",
+      "query_sha256": "17d8871d062659608bd177024516117cee2171ed909e099582dfd0311eb6f2f0",
+      "stderr": "catalog/discovery/access-batches/00078.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:47.929379+00:00",
+      "finished_at": "2026-10-05T22:31:50.255833+00:00",
+      "query": "catalog/discovery/access-batches/00079.sql",
+      "query_sha256": "44b2c200786cc22b63948841ae5d59498323d2289202d05de597966e99d11648",
+      "stderr": "catalog/discovery/access-batches/00079.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:50.257340+00:00",
+      "finished_at": "2026-10-05T22:31:51.784889+00:00",
+      "query": "catalog/discovery/access-batches/00080.sql",
+      "query_sha256": "a5746c52742a84f035b339a2ceb8527f1fab0b6bf347745008bd1c5e2f836375",
+      "stderr": "catalog/discovery/access-batches/00080.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:51.788582+00:00",
+      "finished_at": "2026-10-05T22:31:54.433651+00:00",
+      "query": "catalog/discovery/access-batches/00081.sql",
+      "query_sha256": "3875a1769d5d7a1cb39d12a2d2dc6bc7fafd86aa7e3ad058c0b25a2ea389ba8d",
+      "stderr": "catalog/discovery/access-batches/00081.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:54.437335+00:00",
+      "finished_at": "2026-10-05T22:31:57.539378+00:00",
+      "query": "catalog/discovery/access-batches/00082.sql",
+      "query_sha256": "c09487cfb094dcee83049253bd0e7f843f7166e9e8224d22615bc7e4fd4f6a5b",
+      "stderr": "catalog/discovery/access-batches/00082.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:31:57.542454+00:00",
+      "finished_at": "2026-10-05T22:32:00.825096+00:00",
+      "query": "catalog/discovery/access-batches/00083.sql",
+      "query_sha256": "efc76c8c02383824ab42763f2229f924dd417efc30e4ec0139c2c6e95ef500de",
+      "stderr": "catalog/discovery/access-batches/00083.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:00.828481+00:00",
+      "finished_at": "2026-10-05T22:32:04.428309+00:00",
+      "query": "catalog/discovery/access-batches/00084.sql",
+      "query_sha256": "f206df7d49c69de54192df04e435d1b9e6cbf8b0ec9151abce07043433870c6c",
+      "stderr": "catalog/discovery/access-batches/00084.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:04.432023+00:00",
+      "finished_at": "2026-10-05T22:32:07.122530+00:00",
+      "query": "catalog/discovery/access-batches/00085.sql",
+      "query_sha256": "5a373a0cf0b0487c07b8046b59c516224c0510639d9ebe874251dcd4aff90096",
+      "stderr": "catalog/discovery/access-batches/00085.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:07.125897+00:00",
+      "finished_at": "2026-10-05T22:32:09.693646+00:00",
+      "query": "catalog/discovery/access-batches/00086.sql",
+      "query_sha256": "b21e88f3bc95cb65f473b31c67379f7cf4f720cbb6d329821126e9dafd365cf8",
+      "stderr": "catalog/discovery/access-batches/00086.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:09.697247+00:00",
+      "finished_at": "2026-10-05T22:32:12.221204+00:00",
+      "query": "catalog/discovery/access-batches/00087.sql",
+      "query_sha256": "3266780259b9e793eeb55358cd7a7cc736d890ea05493bbd86701548622198d5",
+      "stderr": "catalog/discovery/access-batches/00087.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:12.223503+00:00",
+      "finished_at": "2026-10-05T22:32:15.054738+00:00",
+      "query": "catalog/discovery/access-batches/00088.sql",
+      "query_sha256": "1957d1680a81a8a96adc81968d450d692bdecfdfacd7acb54fa0fb1b4b1a39ff",
+      "stderr": "catalog/discovery/access-batches/00088.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:15.057520+00:00",
+      "finished_at": "2026-10-05T22:32:17.651104+00:00",
+      "query": "catalog/discovery/access-batches/00089.sql",
+      "query_sha256": "ad981461ddd54871e23b6bd1e6d26f8d46f01df4363566ad6aa09708d274b0ca",
+      "stderr": "catalog/discovery/access-batches/00089.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:17.654160+00:00",
+      "finished_at": "2026-10-05T22:32:20.373021+00:00",
+      "query": "catalog/discovery/access-batches/00090.sql",
+      "query_sha256": "be9f330e61486869ade70890d514af6f9590bc0e3d4073d379513545b6f20fbf",
+      "stderr": "catalog/discovery/access-batches/00090.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:20.376658+00:00",
+      "finished_at": "2026-10-05T22:32:23.112941+00:00",
+      "query": "catalog/discovery/access-batches/00091.sql",
+      "query_sha256": "1c5e8d0eb37660d4d5e2439c3a20acee3ad5be271cfe7fbdf7265530043d7013",
+      "stderr": "catalog/discovery/access-batches/00091.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:23.116616+00:00",
+      "finished_at": "2026-10-05T22:32:23.715807+00:00",
+      "query": "catalog/discovery/access-batches/00092.sql",
+      "query_sha256": "c0d513c29b7aedd97e4c789813dee1a2e0594b61ef5d10a3e29156ab7fde6004",
+      "stderr": "catalog/discovery/access-batches/00092.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:23.719215+00:00",
+      "finished_at": "2026-10-05T22:32:24.524811+00:00",
+      "query": "catalog/discovery/access-batches/00093.sql",
+      "query_sha256": "69c495f95202387089493f4e0fceec878b0be08a22e72d34f0f14bbf31a46996",
+      "stderr": "catalog/discovery/access-batches/00093.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:24.528863+00:00",
+      "finished_at": "2026-10-05T22:32:25.556981+00:00",
+      "query": "catalog/discovery/access-batches/00094.sql",
+      "query_sha256": "7ff81c57b64ed88733d7dd55f151a0cc3acd7861b3c1fbd5094b7e5c20de0c03",
+      "stderr": "catalog/discovery/access-batches/00094.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:25.559069+00:00",
+      "finished_at": "2026-10-05T22:32:26.532084+00:00",
+      "query": "catalog/discovery/access-batches/00095.sql",
+      "query_sha256": "d435ac1b264640b3155e2fc76133ead65997daacd41e7b551a812bf36f31dd0e",
+      "stderr": "catalog/discovery/access-batches/00095.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:26.535646+00:00",
+      "finished_at": "2026-10-05T22:32:28.232375+00:00",
+      "query": "catalog/discovery/access-batches/00096.sql",
+      "query_sha256": "b063a0484e282ef6e4740677b9ca89693f2f80a10c03f122cf2fa0c5d2f2247c",
+      "stderr": "catalog/discovery/access-batches/00096.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:28.234065+00:00",
+      "finished_at": "2026-10-05T22:32:30.427167+00:00",
+      "query": "catalog/discovery/access-batches/00097.sql",
+      "query_sha256": "c39d462d61ee3b3ed34687d535d445d3bca703bb8da76eaa66c7832ae1f69598",
+      "stderr": "catalog/discovery/access-batches/00097.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:30.431262+00:00",
+      "finished_at": "2026-10-05T22:32:32.563684+00:00",
+      "query": "catalog/discovery/access-batches/00098.sql",
+      "query_sha256": "2672ffe01a9b3dcecb6ebf552764fb906cee9650e9f1b86aa80fc43d124541ec",
+      "stderr": "catalog/discovery/access-batches/00098.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:32.565730+00:00",
+      "finished_at": "2026-10-05T22:32:33.975298+00:00",
+      "query": "catalog/discovery/access-batches/00099.sql",
+      "query_sha256": "2125b201a5891cf209906d830134013675d78bbeb5dd151f17a45b82574d887f",
+      "stderr": "catalog/discovery/access-batches/00099.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:33.978907+00:00",
+      "finished_at": "2026-10-05T22:32:35.382487+00:00",
+      "query": "catalog/discovery/access-batches/00100.sql",
+      "query_sha256": "cd32d50d999364e42322606065b17dfba0d04d61f7d9a38c9c1ce9b3bbc71ae8",
+      "stderr": "catalog/discovery/access-batches/00100.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:35.384837+00:00",
+      "finished_at": "2026-10-05T22:32:37.027348+00:00",
+      "query": "catalog/discovery/access-batches/00101.sql",
+      "query_sha256": "235ae595600541d58b238c35acd3cc342f0d65feda4ca6019a7853d9051598de",
+      "stderr": "catalog/discovery/access-batches/00101.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:37.030577+00:00",
+      "finished_at": "2026-10-05T22:32:38.375957+00:00",
+      "query": "catalog/discovery/access-batches/00102.sql",
+      "query_sha256": "b05b9b5a72e32ac6e2c8fdade153df6dbc73ef64e37f6bca8f26457be3f0fc11",
+      "stderr": "catalog/discovery/access-batches/00102.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:38.379170+00:00",
+      "finished_at": "2026-10-05T22:32:40.068957+00:00",
+      "query": "catalog/discovery/access-batches/00103.sql",
+      "query_sha256": "dab209522ecdd696117d3d3223e62403c771dbe8d0cb91e277c8d093230fd8dd",
+      "stderr": "catalog/discovery/access-batches/00103.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:40.070738+00:00",
+      "finished_at": "2026-10-05T22:32:42.659869+00:00",
+      "query": "catalog/discovery/access-batches/00104.sql",
+      "query_sha256": "3a9f0fad965c1a34a540443192dbb6498650d6d3553a679790431a2b4ec984af",
+      "stderr": "catalog/discovery/access-batches/00104.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:42.662214+00:00",
+      "finished_at": "2026-10-05T22:32:44.921777+00:00",
+      "query": "catalog/discovery/access-batches/00105.sql",
+      "query_sha256": "861bd0ea18097281586045bea0c7ea7403152afef449a979dd0120915c5b972a",
+      "stderr": "catalog/discovery/access-batches/00105.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:44.926011+00:00",
+      "finished_at": "2026-10-05T22:32:46.751774+00:00",
+      "query": "catalog/discovery/access-batches/00106.sql",
+      "query_sha256": "1353bcd14e9f44ccc9dd53515c1650e6d242000767c56ac182839776f7128e89",
+      "stderr": "catalog/discovery/access-batches/00106.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:46.755931+00:00",
+      "finished_at": "2026-10-05T22:32:49.557606+00:00",
+      "query": "catalog/discovery/access-batches/00107.sql",
+      "query_sha256": "6f488afc3713af31bd4569deffb2b152a77da1d4d5b5413521be1694b877ff40",
+      "stderr": "catalog/discovery/access-batches/00107.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:49.561128+00:00",
+      "finished_at": "2026-10-05T22:32:51.040872+00:00",
+      "query": "catalog/discovery/access-batches/00108.sql",
+      "query_sha256": "1c654505d233200db52247e0f9dd9e9b99cd0b2893c5d0313718c65aedd42831",
+      "stderr": "catalog/discovery/access-batches/00108.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:51.044462+00:00",
+      "finished_at": "2026-10-05T22:32:52.141469+00:00",
+      "query": "catalog/discovery/access-batches/00109.sql",
+      "query_sha256": "1a1495749af32f96dba5c181fc2b1b6f1f48851b110ead7b0407b1559ee0bec3",
+      "stderr": "catalog/discovery/access-batches/00109.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:52.144810+00:00",
+      "finished_at": "2026-10-05T22:32:54.005640+00:00",
+      "query": "catalog/discovery/access-batches/00110.sql",
+      "query_sha256": "b01d526101e4d220a2602429a580543777a7cb4de184841463ab2962e008b0cc",
+      "stderr": "catalog/discovery/access-batches/00110.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:54.009877+00:00",
+      "finished_at": "2026-10-05T22:32:55.460538+00:00",
+      "query": "catalog/discovery/access-batches/00111.sql",
+      "query_sha256": "0f364304d3a837da6670fa46af95b9fdd97be7b7c6348f676a7801e4e37b3036",
+      "stderr": "catalog/discovery/access-batches/00111.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:55.462651+00:00",
+      "finished_at": "2026-10-05T22:32:58.581803+00:00",
+      "query": "catalog/discovery/access-batches/00112.sql",
+      "query_sha256": "aebb9f495676937631a44cb52443049609f2025a559180fac09be44eaeb25b4e",
+      "stderr": "catalog/discovery/access-batches/00112.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:32:58.584993+00:00",
+      "finished_at": "2026-10-05T22:33:02.260163+00:00",
+      "query": "catalog/discovery/access-batches/00113.sql",
+      "query_sha256": "89e73d271d9af3efa0e4716a4c3bbddeafb5cd287d6b98692f26c8cd1fb7b213",
+      "stderr": "catalog/discovery/access-batches/00113.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:02.263985+00:00",
+      "finished_at": "2026-10-05T22:33:05.220503+00:00",
+      "query": "catalog/discovery/access-batches/00114.sql",
+      "query_sha256": "dff3b0235d11220546595a0f1c4f54aae98b674ba3f957088aeffdb3ca76d754",
+      "stderr": "catalog/discovery/access-batches/00114.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:05.224080+00:00",
+      "finished_at": "2026-10-05T22:33:07.744098+00:00",
+      "query": "catalog/discovery/access-batches/00115.sql",
+      "query_sha256": "40c8e91e1022517df1949ddb6d4903677bdfd5818d1db63950ed8944e4291020",
+      "stderr": "catalog/discovery/access-batches/00115.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:07.748134+00:00",
+      "finished_at": "2026-10-05T22:33:09.797801+00:00",
+      "query": "catalog/discovery/access-batches/00116.sql",
+      "query_sha256": "836aebf9cfc71c651d52c96ff0e01e7a6a3d19e65cef29a75615dbc21701c2b3",
+      "stderr": "catalog/discovery/access-batches/00116.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:09.801262+00:00",
+      "finished_at": "2026-10-05T22:33:11.623901+00:00",
+      "query": "catalog/discovery/access-batches/00117.sql",
+      "query_sha256": "6d0cd293d02fa8bb7fb7ac8b7657c25c37d83a92a5c4b96aabf001e923fffcfc",
+      "stderr": "catalog/discovery/access-batches/00117.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:11.626082+00:00",
+      "finished_at": "2026-10-05T22:33:13.068595+00:00",
+      "query": "catalog/discovery/access-batches/00118.sql",
+      "query_sha256": "cd92a44b0ea58066b81c46cac79e5a19b87f643e28592835f0efcff3c646d838",
+      "stderr": "catalog/discovery/access-batches/00118.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:13.070569+00:00",
+      "finished_at": "2026-10-05T22:33:14.825349+00:00",
+      "query": "catalog/discovery/access-batches/00119.sql",
+      "query_sha256": "ce37e78a361a43f1a4aa0c85698e8ce1b6c99f8b934f5387f349ab281751c332",
+      "stderr": "catalog/discovery/access-batches/00119.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:14.829005+00:00",
+      "finished_at": "2026-10-05T22:33:16.502646+00:00",
+      "query": "catalog/discovery/access-batches/00120.sql",
+      "query_sha256": "2cc47a35009104b2e69d746555c79f71dfbb6f34a23107d2086897c43846d3cb",
+      "stderr": "catalog/discovery/access-batches/00120.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:16.506398+00:00",
+      "finished_at": "2026-10-05T22:33:17.880495+00:00",
+      "query": "catalog/discovery/access-batches/00121.sql",
+      "query_sha256": "2c3682b2df7b5a7d12bc9aca54e42d16f2a62f9d9ad48c888375fe0c27d5b9f9",
+      "stderr": "catalog/discovery/access-batches/00121.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:17.884141+00:00",
+      "finished_at": "2026-10-05T22:33:19.266288+00:00",
+      "query": "catalog/discovery/access-batches/00122.sql",
+      "query_sha256": "53170d187a42382813a75960bf6af037971868fab13f4cefc8c3e54340455e1e",
+      "stderr": "catalog/discovery/access-batches/00122.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:19.270086+00:00",
+      "finished_at": "2026-10-05T22:33:21.085555+00:00",
+      "query": "catalog/discovery/access-batches/00123.sql",
+      "query_sha256": "e25fafd44f42d7e49af23ba507a3da154ec387ee8fd2a486f75337e8b10074a4",
+      "stderr": "catalog/discovery/access-batches/00123.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:21.088369+00:00",
+      "finished_at": "2026-10-05T22:33:22.791405+00:00",
+      "query": "catalog/discovery/access-batches/00124.sql",
+      "query_sha256": "434215e0abb000bc384dff056b15789fc1f8ec4f2704c0580fcc3c89d53c8ae4",
+      "stderr": "catalog/discovery/access-batches/00124.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:22.792837+00:00",
+      "finished_at": "2026-10-05T22:33:25.124789+00:00",
+      "query": "catalog/discovery/access-batches/00125.sql",
+      "query_sha256": "56310f7fe953dc3df9476f47a7307d4a059c68ae5dbdb68c74987d9d5d213691",
+      "stderr": "catalog/discovery/access-batches/00125.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:25.128918+00:00",
+      "finished_at": "2026-10-05T22:33:27.196129+00:00",
+      "query": "catalog/discovery/access-batches/00126.sql",
+      "query_sha256": "2cb366c1bb9d23ae15785b4d31ccf542fe4883533a050d8acc4eea1c972300d8",
+      "stderr": "catalog/discovery/access-batches/00126.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:27.199823+00:00",
+      "finished_at": "2026-10-05T22:33:28.554554+00:00",
+      "query": "catalog/discovery/access-batches/00127.sql",
+      "query_sha256": "a53a0b8ecd994ed2d299c26a322eb803c5fea83fac4cbf0e430ed01261e8b169",
+      "stderr": "catalog/discovery/access-batches/00127.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:28.558843+00:00",
+      "finished_at": "2026-10-05T22:33:29.803830+00:00",
+      "query": "catalog/discovery/access-batches/00128.sql",
+      "query_sha256": "4f0e8de01ee6c43063f3a75cb7d3714b90e60352da0119803be1e14600d11cad",
+      "stderr": "catalog/discovery/access-batches/00128.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:29.807703+00:00",
+      "finished_at": "2026-10-05T22:33:31.733322+00:00",
+      "query": "catalog/discovery/access-batches/00129.sql",
+      "query_sha256": "d786801ca739a3c8a82188e95dffe8ffcf92b7e8755ca32013cb56a9d75fbb8d",
+      "stderr": "catalog/discovery/access-batches/00129.stderr.txt",
+      "requested": 100,
+      "recorded": 100,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_batch",
+      "started_at": "2026-10-05T22:33:31.735800+00:00",
+      "finished_at": "2026-10-05T22:33:33.399547+00:00",
+      "query": "catalog/discovery/access-batches/00130.sql",
+      "query_sha256": "d98cd96693dc8cd001d2fe0c85a6a42d60a02fe6d5f304c756b428add9cbc604",
+      "stderr": "catalog/discovery/access-batches/00130.stderr.txt",
+      "requested": 91,
+      "recorded": 91,
+      "exit_code": 0
+    },
+    {
+      "phase": "access_summary",
+      "finished_at": "2026-10-05T22:33:33.645709+00:00",
+      "prototype": false,
+      "output": "catalog/discovery/access-probes.jsonl",
+      "relations": 118646,
+      "statuses": {
+        "not_probed_no_schema_usage": 26543,
+        "not_probed_no_select_privilege": 2,
+        "taq_sas_required": 79010,
+        "guard_denied": 6604,
+        "planning_accepted": 6244,
+        "runtime_error": 243
+      }
+    },
+    {
+      "phase": "integrity_validation",
+      "validated_at": "2026-10-05T22:34:25.043272+00:00",
+      "schemas": 1098,
+      "relations": 118646,
+      "columns": 3092679,
+      "globally_distinct_column_layouts": 9430,
+      "dependency_edges": 48470,
+      "dependencies_on_system_relations": 0,
+      "access_statuses": {
+        "not_probed_no_schema_usage": 26543,
+        "not_probed_no_select_privilege": 2,
+        "taq_sas_required": 79010,
+        "guard_denied": 6604,
+        "planning_accepted": 6244,
+        "runtime_error": 243
+      },
+      "meaning": "Structural coverage validated; planning acceptance and alias-guard success do not prove data-return behavior or current-product lifecycle",
+      "input_sha256": {
+        "schemas.jsonl": "d788066656502c08bb425009e6557ba5e552e30fc0c0b49c89ff5084051569d0",
+        "relations.jsonl.gz": "7d9495e4f17e4e6cf44bb4cf466e78e33c4d25ffe8e820d126bad6441d274aa3",
+        "dependencies.jsonl.gz": "443f88d280b78a6bacec684a43e94cc56d8e117e0947cdec003df264c53bd363",
+        "column-layouts.jsonl.gz": "7258c6074e8ac219e4d3c519835f122b38faac0538aef14653a638efc1ce9896",
+        "access-probes.jsonl": "583432c90d9d07ddb3a3023dfef77d89373f326cab0674535e0023ba06ff67a7"
+      }
+    }
+  ],
+  "updated_at": "2026-10-05T22:34:25.070132+00:00"
+}

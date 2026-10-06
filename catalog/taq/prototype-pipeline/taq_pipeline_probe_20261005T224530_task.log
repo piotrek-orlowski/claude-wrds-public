@@ -1,0 +1,860 @@
+
+
+1          /* Metadata only. Never select observations from TAQ members. */
+2          options notes source errorabend;
+3          %let output_dir=%sysget(HOME)/scratch/wrds_taq_inventory;
+4          %let run=taq_pipeline_probe_20261005T224530;
+5          
+6          proc sql;
+7            create table work.taq_libraries as
+8            select distinct libname,engine,path
+9            from dictionary.libnames
+10           where libname in ('TAQ','TAQMSEC','TAQSAMP','TAQMSAMP')
+11           order by libname,path;
+NOTE: Table WORK.TAQ_LIBRARIES created, with 16 rows and 3 columns.
+
+12         
+13           create table work.taq_members as
+14           select distinct libname,memname,memtype,memlabel,nvar,nobs,
+15                  crdate format=datetime26.6,modate format=datetime26.6
+16           from dictionary.tables
+17           where libname='TAQMSEC'
+18             and memname in ('CTM_20241007','CTM_20241008','CQM_20241007')
+19             and memtype='DATA'
+20           order by libname,memname;
+NOTE: Table WORK.TAQ_MEMBERS created, with 3 rows and 8 columns.
+
+21         
+22           create table work.taq_columns as
+23           select distinct
+23       ! libname,memname,name,type,length,varnum,label,format,informat
+24           from dictionary.columns
+25           where libname='TAQMSEC'
+26             and memname in ('CTM_20241007','CTM_20241008','CQM_20241007')
+27             and memtype='DATA'
+28           order by libname,memname,varnum;
+NOTE: Table WORK.TAQ_COLUMNS created, with 59 rows and 9 columns.
+
+29         quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           43.11 seconds
+      cpu time            8.46 seconds
+      
+
+30         
+31         /* Fixed-length hashes of every field avoid ambiguous delimiter
+31       ! concatenation.
+32            Ordered MD5 chains identify equal metadata layouts, not
+32       ! observation content. */
+33         data work.taq_layout_map;
+34           set work.taq_columns;
+35           by libname memname varnum;
+36           length layout_id $32;
+37           retain layout_id column_count;
+38           if first.memname then do;
+39             layout_id='';
+40             column_count=0;
+41           end;
+42           column_count+1;
+43           layout_id=put(md5(cats(
+44             layout_id,
+45             put(md5(strip(put(varnum,best32.))),hex32.),
+46             put(md5(trim(name)),hex32.),
+47             put(md5(trim(type)),hex32.),
+48             put(md5(strip(put(length,best32.))),hex32.),
+49             put(md5(trim(label)),hex32.),
+50             put(md5(trim(format)),hex32.),
+51             put(md5(trim(informat)),hex32.)
+52           )),hex32.);
+53           if last.memname then output;
+54           keep libname memname layout_id column_count;
+55         run;
+
+NOTE: There were 59 observations read from the data set WORK.TAQ_COLUMNS.
+NOTE: The data set WORK.TAQ_LAYOUT_MAP has 3 observations and 4 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.03 seconds
+      cpu time            0.01 seconds
+      
+
+56         
+57         proc sort data=work.taq_layout_map out=work.sorted_layout_map;
+58           by layout_id libname memname;
+59         run;
+
+NOTE: There were 3 observations read from the data set WORK.TAQ_LAYOUT_MAP.
+NOTE: The data set WORK.SORTED_LAYOUT_MAP has 3 observations and 4 variables.
+NOTE: PROCEDURE SORT used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+60         
+61         data work.layout_representatives;
+62           set work.sorted_layout_map;
+63           by layout_id;
+64           if first.layout_id;
+65         run;
+
+NOTE: There were 3 observations read from the data set WORK.SORTED_LAYOUT_MAP.
+NOTE: The data set WORK.LAYOUT_REPRESENTATIVES has 2 observations and 4 
+      variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+66         
+67         proc sql;
+68           create table work.taq_layout_columns as
+69           select r.layout_id,c.*
+70           from work.taq_columns as c
+71           inner join work.layout_representatives as r
+72             on c.libname=r.libname and c.memname=r.memname
+73           order by r.layout_id,c.varnum;
+NOTE: Table WORK.TAQ_LAYOUT_COLUMNS created, with 42 rows and 10 columns.
+
+74         
+75           create table work.taq_validation as
+76           select t.libname,t.memname,t.nvar,m.column_count,m.layout_id,
+77                  (t.nvar=m.column_count) as column_count_matches
+78           from work.taq_members as t
+79           left join work.taq_layout_map as m
+80             on t.libname=m.libname and t.memname=m.memname
+81           where missing(m.layout_id) or t.nvar ne m.column_count;
+NOTE: Table WORK.TAQ_VALIDATION created, with 0 rows and 6 columns.
+
+82         quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.01 seconds
+      
+
+83         
+84         %macro export_metadata(table,suffix);
+85           proc export data=work.&table.
+86             outfile="&output_dir./&run._&suffix..csv"
+87             dbms=csv replace;
+88           run;
+89         %mend;
+90         %export_metadata(taq_libraries,libraries);
+
+91          /*******************************************************************
+91       ! ***
+92          *   PRODUCT:   SAS
+93          *   VERSION:   9.4
+94          *   CREATOR:   External File Interface
+95          *   DATE:      05OCT26
+96          *   DESC:      Generated SAS Datastep Code
+97          *   TEMPLATE SOURCE:  (None Specified.)
+98          ********************************************************************
+98       ! ***/
+99             data _null_;
+100            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+101            %let _EFIREC_ = 0;     /* clear export record count macro
+101      ! variable */
+102            file
+102      ! '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261
+102      ! 005T224530_libraries.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+103            if _n_ = 1 then        /* write column names or labels */
+104             do;
+105               put
+106                  "libname"
+107               ','
+108                  "engine"
+109               ','
+110                  "path"
+111               ;
+112             end;
+113           set  WORK.TAQ_LIBRARIES   end=EFIEOD;
+114               format libname $8. ;
+115               format engine $8. ;
+116               format path $1024. ;
+117             do;
+118               EFIOUT + 1;
+119               put libname $ @;
+120               put engine $ @;
+121               put path $ ;
+122               ;
+123             end;
+124            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR
+124      ! detection macro variable */
+125            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+126            run;
+
+NOTE: The file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_libraries.csv' is:
+      
+      Filename=<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20
+      261005T224530_libraries.csv,
+      Owner Name=<ACCOUNT>,Group Name=<GROUP>,
+      Access Permission=-rw-r--r--,
+      Last Modified=05Oct2026:18:46:41
+
+NOTE: 17 records were written to the file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_libraries.csv'.
+      The minimum record length was 19.
+      The maximum record length was 45.
+NOTE: There were 16 observations read from the data set WORK.TAQ_LIBRARIES.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+16 records created in 
+<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T224530_l
+ibraries.csv from WORK.TAQ_LIBRARIES.
+  
+  
+NOTE: "<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_libraries.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.12 seconds
+      cpu time            0.05 seconds
+      
+
+127        %export_metadata(taq_members,members);
+
+128         /*******************************************************************
+128      ! ***
+129         *   PRODUCT:   SAS
+130         *   VERSION:   9.4
+131         *   CREATOR:   External File Interface
+132         *   DATE:      05OCT26
+133         *   DESC:      Generated SAS Datastep Code
+134         *   TEMPLATE SOURCE:  (None Specified.)
+135         ********************************************************************
+135      ! ***/
+136            data _null_;
+137            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+138            %let _EFIREC_ = 0;     /* clear export record count macro
+138      ! variable */
+139            file
+139      ! '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261
+139      ! 005T224530_members.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+140            if _n_ = 1 then        /* write column names or labels */
+141             do;
+142               put
+143                  "libname"
+144               ','
+145                  "memname"
+146               ','
+147                  "memtype"
+148               ','
+149                  "memlabel"
+150               ','
+151                  "nvar"
+152               ','
+153                  "nobs"
+154               ','
+155                  "crdate"
+156               ','
+157                  "modate"
+158               ;
+159             end;
+160           set  WORK.TAQ_MEMBERS   end=EFIEOD;
+161               format libname $8. ;
+162               format memname $32. ;
+163               format memtype $8. ;
+164               format memlabel $256. ;
+165               format nvar best12. ;
+166               format nobs best12. ;
+167               format crdate datetime26.6 ;
+168               format modate datetime26.6 ;
+169             do;
+170               EFIOUT + 1;
+171               put libname $ @;
+172               put memname $ @;
+173               put memtype $ @;
+174               put memlabel $ @;
+175               put nvar @;
+176               put nobs @;
+177               put crdate @;
+178               put modate ;
+179               ;
+180             end;
+181            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR
+181      ! detection macro variable */
+182            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+183            run;
+
+NOTE: The file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_members.csv' is:
+      
+      Filename=<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20
+      261005T224530_members.csv,
+      Owner Name=<ACCOUNT>,Group Name=<GROUP>,
+      Access Permission=-rw-r--r--,
+      Last Modified=05Oct2026:18:46:41
+
+NOTE: 4 records were written to the file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_members.csv'.
+      The minimum record length was 56.
+      The maximum record length was 115.
+NOTE: There were 3 observations read from the data set WORK.TAQ_MEMBERS.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+3 records created in 
+<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T224530_m
+embers.csv from WORK.TAQ_MEMBERS.
+  
+  
+NOTE: "<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_members.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.02 seconds
+      
+
+184        %export_metadata(taq_layout_map,layout_map);
+
+185         /*******************************************************************
+185      ! ***
+186         *   PRODUCT:   SAS
+187         *   VERSION:   9.4
+188         *   CREATOR:   External File Interface
+189         *   DATE:      05OCT26
+190         *   DESC:      Generated SAS Datastep Code
+191         *   TEMPLATE SOURCE:  (None Specified.)
+192         ********************************************************************
+192      ! ***/
+193            data _null_;
+194            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+195            %let _EFIREC_ = 0;     /* clear export record count macro
+195      ! variable */
+196            file
+196      ! '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261
+196      ! 005T224530_layout_map.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+197            if _n_ = 1 then        /* write column names or labels */
+198             do;
+199               put
+200                  "libname"
+201               ','
+202                  "memname"
+203               ','
+204                  "layout_id"
+205               ','
+206                  "column_count"
+207               ;
+208             end;
+209           set  WORK.TAQ_LAYOUT_MAP   end=EFIEOD;
+210               format libname $8. ;
+211               format memname $32. ;
+212               format layout_id $32. ;
+213               format column_count best12. ;
+214             do;
+215               EFIOUT + 1;
+216               put libname $ @;
+217               put memname $ @;
+218               put layout_id $ @;
+219               put column_count ;
+220               ;
+221             end;
+222            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR
+222      ! detection macro variable */
+223            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+224            run;
+
+NOTE: The file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_layout_map.csv' is:
+      
+      Filename=<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20
+      261005T224530_layout_map.csv,
+      Owner Name=<ACCOUNT>,Group Name=<GROUP>,
+      Access Permission=-rw-r--r--,
+      Last Modified=05Oct2026:18:46:42
+
+NOTE: 4 records were written to the file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_layout_map.csv'.
+      The minimum record length was 38.
+      The maximum record length was 56.
+NOTE: There were 3 observations read from the data set WORK.TAQ_LAYOUT_MAP.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+3 records created in 
+<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T224530_l
+ayout_map.csv from WORK.TAQ_LAYOUT_MAP.
+  
+  
+NOTE: "<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_layout_map.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+225        %export_metadata(taq_layout_columns,layout_columns);
+
+226         /*******************************************************************
+226      ! ***
+227         *   PRODUCT:   SAS
+228         *   VERSION:   9.4
+229         *   CREATOR:   External File Interface
+230         *   DATE:      05OCT26
+231         *   DESC:      Generated SAS Datastep Code
+232         *   TEMPLATE SOURCE:  (None Specified.)
+233         ********************************************************************
+233      ! ***/
+234            data _null_;
+235            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+236            %let _EFIREC_ = 0;     /* clear export record count macro
+236      ! variable */
+237            file
+237      ! '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261
+237      ! 005T224530_layout_columns.csv' delimiter=',' DSD DROPOVER lrecl=32767
+237      ! ;
+238            if _n_ = 1 then        /* write column names or labels */
+239             do;
+240               put
+241                  "layout_id"
+242               ','
+243                  "libname"
+244               ','
+245                  "memname"
+246               ','
+247                  "name"
+248               ','
+249                  "type"
+250               ','
+251                  "length"
+252               ','
+253                  "varnum"
+254               ','
+255                  "label"
+256               ','
+257                  "format"
+258               ','
+259                  "informat"
+260               ;
+261             end;
+262           set  WORK.TAQ_LAYOUT_COLUMNS   end=EFIEOD;
+263               format layout_id $32. ;
+264               format libname $8. ;
+265               format memname $32. ;
+266               format name $32. ;
+267               format type $4. ;
+268               format length best12. ;
+269               format varnum best12. ;
+270               format label $256. ;
+271               format format $49. ;
+272               format informat $49. ;
+273             do;
+274               EFIOUT + 1;
+275               put layout_id $ @;
+276               put libname $ @;
+277               put memname $ @;
+278               put name $ @;
+279               put type $ @;
+280               put length @;
+281               put varnum @;
+282               put label $ @;
+283               put format $ @;
+284               put informat $ ;
+285               ;
+286             end;
+287            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR
+287      ! detection macro variable */
+288            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+289            run;
+
+NOTE: The file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_layout_columns.csv' is:
+      
+      Filename=<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20
+      261005T224530_layout_columns.csv,
+      Owner Name=<ACCOUNT>,Group Name=<GROUP>,
+      Access Permission=-rw-r--r--,
+      Last Modified=05Oct2026:18:46:42
+
+NOTE: 43 records were written to the file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_layout_columns.csv'.
+      The minimum record length was 71.
+      The maximum record length was 171.
+NOTE: There were 42 observations read from the data set WORK.TAQ_LAYOUT_COLUMNS.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+42 records created in 
+<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T224530_l
+ayout_columns.csv from WORK.TAQ_LAYOUT_COLUMNS.
+  
+  
+NOTE: "<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_layout_columns.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+290        %export_metadata(taq_validation,validation);
+
+NOTE: No observations in data set WORK.TAQ_VALIDATION.
+NOTE: Data set has 0 observations.
+291         /*******************************************************************
+291      ! ***
+292         *   PRODUCT:   SAS
+293         *   VERSION:   9.4
+294         *   CREATOR:   External File Interface
+295         *   DATE:      05OCT26
+296         *   DESC:      Generated SAS Datastep Code
+297         *   TEMPLATE SOURCE:  (None Specified.)
+298         ********************************************************************
+298      ! ***/
+299            data _null_;
+300            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+301            %let _EFIREC_ = 0;     /* clear export record count macro
+301      ! variable */
+302            file
+302      ! '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261
+302      ! 005T224530_validation.csv' delimiter=',' DSD DROPOVER lrecl=32767;
+303            if _n_ = 1 then        /* write column names or labels */
+304             do;
+305               put
+306                  "libname"
+307               ','
+308                  "memname"
+309               ','
+310                  "nvar"
+311               ','
+312                  "column_count"
+313               ','
+314                  "layout_id"
+315               ','
+316                  "column_count_matches"
+317               ;
+318             end;
+319           set  WORK.TAQ_VALIDATION   end=EFIEOD;
+320               format libname $8. ;
+321               format memname $32. ;
+322               format nvar best12. ;
+323               format column_count best12. ;
+324               format layout_id $32. ;
+325               format column_count_matches best12. ;
+326             do;
+327               EFIOUT + 1;
+328               put libname $ @;
+329               put memname $ @;
+330               put nvar @;
+331               put column_count @;
+332               put layout_id $ @;
+333               put column_count_matches ;
+334               ;
+335             end;
+336            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR
+336      ! detection macro variable */
+337            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+338            run;
+
+NOTE: The file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_validation.csv' is:
+      
+      Filename=<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20
+      261005T224530_validation.csv,
+      Owner Name=<ACCOUNT>,Group Name=<GROUP>,
+      Access Permission=-rw-r--r--,
+      Last Modified=05Oct2026:18:46:42
+
+NOTE: 1 record was written to the file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_validation.csv'.
+      The minimum record length was 64.
+      The maximum record length was 64.
+NOTE: There were 0 observations read from the data set WORK.TAQ_VALIDATION.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+0 records created in 
+<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T224530_v
+alidation.csv from WORK.TAQ_VALIDATION.
+  
+  
+NOTE: "<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_validation.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.07 seconds
+      cpu time            0.02 seconds
+      
+
+339        
+340        
+341        /* Compare the production nested CATS expression against an explicit
+341      ! buffer.
+342           Synthetic metadata varies every field independently, including the
+342      !  last
+343           three fields that could otherwise be lost by a short temporary
+343      ! buffer. */
+344        data work.hash_buffer_probe;
+345          length layout_id $32 name type $32 label $256 format informat $49;
+346          length hash_input $256 hash_original hash_explicit $32;
+347          do initial_row=0 to 1;
+348            do test_case=1 to 8;
+349              layout_id=repeat('A',31);
+350              if initial_row then layout_id='';
+351              varnum=2; name='TIME_M'; type='num'; length=8;
+352              label='Test timestamp'; format='TIME20.9';
+352      ! informat='B8601TM20.9';
+353              if test_case=2 then label='Changed label';
+354              if test_case=3 then format='TIME20.6';
+355              if test_case=4 then informat='B8601TM20.6';
+356              if test_case=5 then name='PART_TIME';
+357              if test_case=6 then type='char';
+358              if test_case=7 then length=4;
+359              if test_case=8 then varnum=3;
+360              hash_original=put(md5(cats(
+361            layout_id,
+362            put(md5(strip(put(varnum,best32.))),hex32.),
+363            put(md5(trim(name)),hex32.),
+364            put(md5(trim(type)),hex32.),
+365            put(md5(strip(put(length,best32.))),hex32.),
+366            put(md5(trim(label)),hex32.),
+367            put(md5(trim(format)),hex32.),
+368            put(md5(trim(informat)),hex32.)
+369          )),hex32.);
+370              hash_input=cats(
+371            layout_id,
+372            put(md5(strip(put(varnum,best32.))),hex32.),
+373            put(md5(trim(name)),hex32.),
+374            put(md5(trim(type)),hex32.),
+375            put(md5(strip(put(length,best32.))),hex32.),
+376            put(md5(trim(label)),hex32.),
+377            put(md5(trim(format)),hex32.),
+378            put(md5(trim(informat)),hex32.)
+379          );
+380              hash_explicit=put(md5(trim(hash_input)),hex32.);
+381              buffer_length=lengthn(hash_input);
+382              matches=(hash_original=hash_explicit);
+383              output;
+384            end;
+385          end;
+386          keep initial_row test_case buffer_length hash_original
+386      ! hash_explicit matches;
+387        run;
+
+NOTE: The data set WORK.HASH_BUFFER_PROBE has 16 observations and 6 variables.
+NOTE: DATA statement used (Total process time):
+      real time           0.01 seconds
+      cpu time            0.00 seconds
+      
+
+388        proc sql;
+389          create table work.hash_buffer_validation as
+390          select initial_row,count(*) as test_count,
+391                 count(distinct hash_original) as distinct_original,
+392                 count(distinct hash_explicit) as distinct_explicit,
+393                 sum(matches=0) as mismatch_count
+394          from work.hash_buffer_probe
+395          group by initial_row;
+NOTE: Table WORK.HASH_BUFFER_VALIDATION created, with 2 rows and 5 columns.
+
+396        quit;
+NOTE: PROCEDURE SQL used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.01 seconds
+      
+
+397        %export_metadata(hash_buffer_probe,hash_buffer_probe);
+
+398         /*******************************************************************
+398      ! ***
+399         *   PRODUCT:   SAS
+400         *   VERSION:   9.4
+401         *   CREATOR:   External File Interface
+402         *   DATE:      05OCT26
+403         *   DESC:      Generated SAS Datastep Code
+404         *   TEMPLATE SOURCE:  (None Specified.)
+405         ********************************************************************
+405      ! ***/
+406            data _null_;
+407            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+408            %let _EFIREC_ = 0;     /* clear export record count macro
+408      ! variable */
+409            file
+409      ! '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261
+409      ! 005T224530_hash_buffer_probe.csv' delimiter=',' DSD DROPOVER
+409      ! lrecl=32767;
+410            if _n_ = 1 then        /* write column names or labels */
+411             do;
+412               put
+413                  "hash_original"
+414               ','
+415                  "hash_explicit"
+416               ','
+417                  "initial_row"
+418               ','
+419                  "test_case"
+420               ','
+421                  "buffer_length"
+422               ','
+423                  "matches"
+424               ;
+425             end;
+426           set  WORK.HASH_BUFFER_PROBE   end=EFIEOD;
+427               format hash_original $32. ;
+428               format hash_explicit $32. ;
+429               format initial_row best12. ;
+430               format test_case best12. ;
+431               format buffer_length best12. ;
+432               format matches best12. ;
+433             do;
+434               EFIOUT + 1;
+435               put hash_original $ @;
+436               put hash_explicit $ @;
+437               put initial_row @;
+438               put test_case @;
+439               put buffer_length @;
+440               put matches ;
+441               ;
+442             end;
+443            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR
+443      ! detection macro variable */
+444            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+445            run;
+
+NOTE: The file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_hash_buffer_probe.csv' is:
+      
+      Filename=<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20
+      261005T224530_hash_buffer_probe.csv,
+      Owner Name=<ACCOUNT>,Group Name=<GROUP>,
+      Access Permission=-rw-r--r--,
+      Last Modified=05Oct2026:18:46:42
+
+NOTE: 17 records were written to the file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_hash_buffer_probe.csv'.
+      The minimum record length was 71.
+      The maximum record length was 75.
+NOTE: There were 16 observations read from the data set WORK.HASH_BUFFER_PROBE.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+16 records created in 
+<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T224530_h
+ash_buffer_probe.csv from WORK.HASH_BUFFER_PROBE.
+  
+  
+NOTE: "<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_hash_buffer_probe.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.03 seconds
+      
+
+446        %export_metadata(hash_buffer_validation,hash_buffer_validation);
+
+447         /*******************************************************************
+447      ! ***
+448         *   PRODUCT:   SAS
+449         *   VERSION:   9.4
+450         *   CREATOR:   External File Interface
+451         *   DATE:      05OCT26
+452         *   DESC:      Generated SAS Datastep Code
+453         *   TEMPLATE SOURCE:  (None Specified.)
+454         ********************************************************************
+454      ! ***/
+455            data _null_;
+456            %let _EFIERR_ = 0; /* set the ERROR detection macro variable */
+457            %let _EFIREC_ = 0;     /* clear export record count macro
+457      ! variable */
+458            file
+458      ! '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261
+458      ! 005T224530_hash_buffer_validation.csv' delimiter=',' DSD DROPOVER
+458      ! lrecl=32767;
+459            if _n_ = 1 then        /* write column names or labels */
+460             do;
+461               put
+462                  "initial_row"
+463               ','
+464                  "test_count"
+465               ','
+466                  "distinct_original"
+467               ','
+468                  "distinct_explicit"
+469               ','
+470                  "mismatch_count"
+471               ;
+472             end;
+473           set  WORK.HASH_BUFFER_VALIDATION   end=EFIEOD;
+474               format initial_row best12. ;
+475               format test_count best12. ;
+476               format distinct_original best12. ;
+477               format distinct_explicit best12. ;
+478               format mismatch_count best12. ;
+479             do;
+480               EFIOUT + 1;
+481               put initial_row @;
+482               put test_count @;
+483               put distinct_original @;
+484               put distinct_explicit @;
+485               put mismatch_count ;
+486               ;
+487             end;
+488            if _ERROR_ then call symputx('_EFIERR_',1);  /* set ERROR
+488      ! detection macro variable */
+489            if EFIEOD then call symputx('_EFIREC_',EFIOUT);
+490            run;
+
+NOTE: The file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_hash_buffer_validation.csv' is:
+      
+      Filename=<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20
+      261005T224530_hash_buffer_validation.csv,
+      Owner Name=<ACCOUNT>,Group Name=<GROUP>,
+      Access Permission=-rw-r--r--,
+      Last Modified=05Oct2026:18:46:42
+
+NOTE: 3 records were written to the file 
+      '<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_hash_buffer_validation.csv'.
+      The minimum record length was 9.
+      The maximum record length was 73.
+NOTE: There were 2 observations read from the data set 
+      WORK.HASH_BUFFER_VALIDATION.
+NOTE: DATA statement used (Total process time):
+      real time           0.00 seconds
+      cpu time            0.00 seconds
+      
+
+2 records created in 
+<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T224530_h
+ash_buffer_validation.csv from WORK.HASH_BUFFER_VALIDATION.
+  
+  
+NOTE: "<WRDS_HOME>/scratch/wrds_taq_inventory/taq_pipeline_probe_20261005T2
+      24530_hash_buffer_validation.csv" file was successfully created.
+NOTE: PROCEDURE EXPORT used (Total process time):
+      real time           0.06 seconds
+      cpu time            0.02 seconds
+      
+
+491        
+492        %put TAQ_METADATA_INVENTORY_COMPLETE SYSCC=&syscc.;
+TAQ_METADATA_INVENTORY_COMPLETE SYSCC=0
+NOTE: SAS Institute Inc., SAS Campus Drive, Cary, NC USA 27513-2414
+NOTE: The SAS System used:
+      real time           44.26 seconds
+      cpu time            8.94 seconds
+      

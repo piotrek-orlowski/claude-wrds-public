@@ -1,0 +1,392 @@
+{
+  "additional_source_evidence_sha256": {
+    "research/provider-sources.md": "12b334516666796658e84d5a6f23a7a342f5c826f1f0a40bbde7b21eb6070951"
+  },
+  "artifact_sha256": {
+    "skills/wrds-catalog/SKILL.md": "51cf17351638ceee0e14f04fc504d929b4ca82cc29b7ab0d8cfbaad09c3bda4c",
+    "skills/wrds-catalog/references/coverage.json": "8c1ca549b9bc941030e00d95f3192984df9bbefc97aa2640d3ebb3db4b5c114c",
+    "skills/wrds-catalog/references/layouts.jsonl.gz": "3ddaa378815f0a1d04878ed7355b02b1d992adfda2d5d9519f2d15b15fb87422",
+    "skills/wrds-catalog/references/method.md": "556fd7b83fa0228012180b2459523a74eb298d1a42f10b74b0ead7cd8a5730a1",
+    "skills/wrds-catalog/references/products.json": "98a3235eb260fa156784760f806660b0cd71c2fd5ad8e7f93651d061b89a386f",
+    "skills/wrds-catalog/references/relations.jsonl.gz": "01dfe553a3a9240df3519a76627d42d2724ad495bc68eb585ef1eff2504dc4b3",
+    "skills/wrds-catalog/references/schemas.json": "8e0e1d266cd9ffe0732321065473225486ea52a13c130a4199304973667b8983",
+    "skills/wrds-catalog/references/taq-layouts.jsonl.gz": "b37d2a0e0ea6623ffd4898b1e20ec8a1e9e2c4a471974de08ee297870c48d6c7",
+    "skills/wrds-catalog/references/taq-members.jsonl.gz": "6ea2cfaf812e33525349228f07e55e2daaf232c4a32c39baea0c000c377b5e71",
+    "skills/wrds-catalog/references/taq-summary.json": "cc2ffb4b621de3142fb818e0370977e01c79dff869fb876dd1fcb2bfc1a5f7df",
+    "skills/wrds-catalog/scripts/catalog.py": "ad884ddf170b2ed2636834dfc715f08f95ba691f500f9363aee3564007cd860f"
+  },
+  "catalog_built_at": "2026-10-06T00:09:32.503815+00:00",
+  "catalog_input_hashes": {
+    "catalog/canonical-crsp.json": "0c24f6f6f8e2fe8ce2e9df780a1090c95884f9462ba81b38e19de3c1897b0158",
+    "catalog/canonical-other.json": "a08f116ee38ce4c8cedcdd64fc6d2d96b232510f8a082781df916344b7c9ff57",
+    "catalog/discovery/access-probes.jsonl": "583432c90d9d07ddb3a3023dfef77d89373f326cab0674535e0023ba06ff67a7",
+    "catalog/discovery/column-layouts.jsonl.gz": "7258c6074e8ac219e4d3c519835f122b38faac0538aef14653a638efc1ce9896",
+    "catalog/discovery/dependencies.jsonl.gz": "443f88d280b78a6bacec684a43e94cc56d8e117e0947cdec003df264c53bd363",
+    "catalog/discovery/relations.jsonl.gz": "7d9495e4f17e4e6cf44bb4cf466e78e33c4d25ffe8e820d126bad6441d274aa3",
+    "catalog/discovery/schemas.jsonl": "d788066656502c08bb425009e6557ba5e552e30fc0c0b49c89ff5084051569d0",
+    "catalog/product-policy.json": "d71058d2de3e67c3fa7a04e5a13802a41061b96da9edba194aef9ab81b88e0e3",
+    "catalog/taq/summary.json": "cc2ffb4b621de3142fb818e0370977e01c79dff869fb876dd1fcb2bfc1a5f7df",
+    "catalog/taq/taq_metadata_inventory_20261005T223200_layout_columns.csv": "85a65e32c6ba86d3afd29daedcf97b1c8b0e04c9609b444522e26bdd132842ac",
+    "catalog/taq/taq_metadata_inventory_20261005T223200_layout_map.csv": "280489a0753bde4deb9e2a70db4c6bf4f4321df0c9c32809bc7c292f1e238c39",
+    "catalog/taq/taq_metadata_inventory_20261005T223200_libraries.csv": "25df065c1ae80a6b9b227069f93a69f36e5048a5de9ceceaf75d08a64906e3dc",
+    "catalog/taq/taq_metadata_inventory_20261005T223200_members.csv": "38c954d9a134782b2a12e160e99938b8fafba513b4062ec290633019a07f51a4",
+    "catalog/taq/taq_metadata_inventory_20261005T223200_validation.csv": "c369c20d8131bda0b729e727f001a3538fcb440066400025b50cb7b735a0a413",
+    "research/current-product-overrides.json": "1dda15c8c62f8e92a759e2d39730946ba55f593173211451b99540ce0ea93926",
+    "research/product-docs.json": "6002c06e812b73971254fe4f406d6ec657ae39ce363d589def3560959f7bd057",
+    "scripts/build_skill_catalog.py": "1e88e3c0782202030166386e9df1eabd2e430b77486db95a83ae2b64d17d8e30"
+  },
+  "checked": {
+    "canonical_policy_roots": 78,
+    "canonical_unresolved_preflight": 115,
+    "cli_cases": 32,
+    "column_instances": 3092679,
+    "current_preflight_relations": 5560,
+    "default_relations": 5675,
+    "dependency_edges": 48470,
+    "global_column_layouts": 9430,
+    "installed_skill_owners": 16,
+    "product_descriptions": 575,
+    "relations": 118646,
+    "unresolved_excluded_preflight": 38
+  },
+  "checked_at_utc": "2026-10-06T00:18:42.625724+00:00",
+  "cli_cases": [
+    {
+      "arguments": [
+        "coverage"
+      ],
+      "label": "coverage",
+      "matches": null,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "schemas",
+        "--limit",
+        "2000"
+      ],
+      "label": "current_schemas",
+      "matches": 249,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "crsp",
+        "--limit",
+        "2000"
+      ],
+      "label": "crsp_search",
+      "matches": 548,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "tables",
+        "crsp",
+        "--limit",
+        "2000"
+      ],
+      "label": "crsp_tables",
+      "matches": 188,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "crsp.msf_v2"
+      ],
+      "label": "current_crsp",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "crsp.dsf"
+      ],
+      "label": "deprecated_crsp",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "crsp.ccmxpf_lnkhist"
+      ],
+      "label": "denied_ccm",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "auditsmp_all.accfiler"
+      ],
+      "label": "audit_sample",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "optionmsamp_us.distrd"
+      ],
+      "label": "optionmetrics_sample",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "contrib_global_factor.global_factor"
+      ],
+      "label": "jkp",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "bank.wrds_bank_reg_vars"
+      ],
+      "label": "unfamiliar_bank_product",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "table",
+        "comp_global_daily.g_tmptable_pkg6775_tbl5551"
+      ],
+      "label": "unresolved_product",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "comp_global_daily.g_tmptable_pkg6775_tbl5551"
+      ],
+      "label": "unresolved_default_search",
+      "matches": 0,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "comp_global_daily.g_tmptable_pkg6775_tbl5551",
+        "--all"
+      ],
+      "label": "unresolved_explicit_search",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "columns",
+        "mthret",
+        "--schema",
+        "crsp",
+        "--limit",
+        "2000"
+      ],
+      "label": "crsp_columns",
+      "matches": 3,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "columns",
+        "gvkey",
+        "--schema",
+        "comp_na_daily_all",
+        "--limit",
+        "2000"
+      ],
+      "label": "compustat_columns",
+      "matches": 142,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "gutenberg.gutenberg_book"
+      ],
+      "label": "selected_gutenberg",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "pwt_all.na"
+      ],
+      "label": "selected_pwt",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "pwt.na"
+      ],
+      "label": "selected_pwt_alias",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "crsp_a_indexes.cs20yr"
+      ],
+      "label": "selected_select_treasury",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "crsp.cs20yr"
+      ],
+      "label": "selected_select_treasury_alias",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "public_all.mepssumm"
+      ],
+      "label": "selected_meps",
+      "matches": 2,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "public.mepssumm"
+      ],
+      "label": "selected_meps_alias",
+      "matches": 2,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "crspsamp_all.ccmxpf_lnkhist"
+      ],
+      "label": "selected_ccm_sample",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "search",
+        "crspsamp.ccmxpf_lnkhist"
+      ],
+      "label": "selected_ccm_sample_alias",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "taq",
+        "--limit",
+        "3"
+      ],
+      "label": "taq_default",
+      "matches": 59479,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "taq",
+        "--all",
+        "--limit",
+        "3"
+      ],
+      "label": "taq_all",
+      "matches": 82212,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "taq",
+        "TAQMSEC.CTM_20241007"
+      ],
+      "label": "taq_exact",
+      "matches": 1,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "taq",
+        "TAQMSAMP.",
+        "--limit",
+        "3"
+      ],
+      "label": "taq_current_sample",
+      "matches": 6,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "taq",
+        "TAQ.",
+        "--limit",
+        "3"
+      ],
+      "label": "taq_legacy_default",
+      "matches": 0,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "taq",
+        "TAQ.",
+        "--all",
+        "--limit",
+        "3"
+      ],
+      "label": "taq_legacy_all",
+      "matches": 22719,
+      "passed": true
+    },
+    {
+      "arguments": [
+        "taq",
+        "TAQSAMP.",
+        "--all",
+        "--limit",
+        "3"
+      ],
+      "label": "taq_legacy_sample",
+      "matches": 14,
+      "passed": true
+    }
+  ],
+  "isolated_installation": {
+    "python_interpreter": "Inherited from uv run; standard library only",
+    "skills_copied": true,
+    "temporary_installation_removed_after_test": true,
+    "unrelated_working_directory": true
+  },
+  "sas_validation": {
+    "access_scope": "SAS metadata opened; observations were not verified.",
+    "current_members": 59479,
+    "expanded_column_count": 1154370,
+    "layouts": 78,
+    "legacy_members": 22733,
+    "library_member_counts": {
+      "TAQ": 22719,
+      "TAQMSAMP": 6,
+      "TAQMSEC": 59473,
+      "TAQSAMP": 14
+    },
+    "members": 82212,
+    "status": "passed"
+  },
+  "scope": "Portable catalog metadata, provenance preservation, and local CLI behavior; no database connection or research-data access.",
+  "status": "passed"
+}

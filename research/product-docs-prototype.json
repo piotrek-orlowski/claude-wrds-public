@@ -1,0 +1,421 @@
+{
+  "directory": "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/",
+  "collected_at": "2026-10-05T22:24:47.086806+00:00",
+  "method": "Public vendor page product cards; facts only. Listing is not subscription or table access evidence.",
+  "pages": [
+    {
+      "url": "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/lseg/",
+      "resolved_url": "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/lseg/",
+      "vendor": "LSEG",
+      "retrieved_at": "2026-10-05T22:24:47.086471+00:00",
+      "sha256": "6b28ccf9b03f71852b4c8d8d6fb92be1b07e28188a2861bfc818f6f002d8e282",
+      "products": [
+        {
+          "schema": "tr_common",
+          "title": "None",
+          "update_frequency": "Weekly",
+          "last_updated": "Sept. 30, 2026, 12:47 p.m.",
+          "identifiers": "cusip_full isin sedol ticker",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_common/"
+        },
+        {
+          "schema": "tr_13f_archive",
+          "title": "Archived snapshot of uncorrected, corrupted data in TR 13F Holdings",
+          "update_frequency": "Legacy Data - No Longer Updated",
+          "last_updated": "None",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "No associated region tags.",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_13f_archive/"
+        },
+        {
+          "schema": "tr_mutualfunds_archive",
+          "title": "Archived snapshot of uncorrected, corrupted data in TR Mutual Funds Holdings",
+          "update_frequency": "Legacy Data - No Longer Updated",
+          "last_updated": "None",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "No associated region tags.",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_mutualfunds_archive/"
+        },
+        {
+          "schema": "tr_dandb_dmi_us",
+          "title": "D&B U.S. DMI",
+          "update_frequency": "Annually",
+          "last_updated": "March 25, 2026, 12:20 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "North America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_dmi_us/"
+        },
+        {
+          "schema": "tr_dandb_wb_af",
+          "title": "D&B’s Global Archive/WorldBase Africa",
+          "update_frequency": "Annually",
+          "last_updated": "Oct. 3, 2025, 12:05 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Africa",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_wb_af/"
+        },
+        {
+          "schema": "tr_dandb_wb_ap",
+          "title": "D&B’s Global Archive/WorldBase Asia Pacific",
+          "update_frequency": "Annually",
+          "last_updated": "Oct. 4, 2025, 12:15 a.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Asia",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_wb_ap/"
+        },
+        {
+          "schema": "tr_dandb_wb_eu",
+          "title": "D&B’s Global Archive/WorldBase Europe",
+          "update_frequency": "Annually",
+          "last_updated": "Oct. 3, 2025, 11:17 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Europe",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_wb_eu/"
+        },
+        {
+          "schema": "tr_dandb_wb_la",
+          "title": "D&B’s Global Archive/WorldBase Latin America",
+          "update_frequency": "Annually",
+          "last_updated": "Oct. 3, 2025, 6:33 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Latin America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_wb_la/"
+        },
+        {
+          "schema": "tr_dandb_wb_me",
+          "title": "D&B’s Global Archive/WorldBase Middle East",
+          "update_frequency": "Annually",
+          "last_updated": "Oct. 3, 2025, 3:03 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Middle East",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_wb_me/"
+        },
+        {
+          "schema": "tr_dandb_wb_na",
+          "title": "D&B’s Global Archive/WorldBase North America",
+          "update_frequency": "Annually",
+          "last_updated": "Oct. 3, 2025, 7:43 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "North America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_wb_na/"
+        },
+        {
+          "schema": "tr_dandb_wb_unknown",
+          "title": "D&B’s Global Archive/WorldBase Unknown Country/Region",
+          "update_frequency": "Annually",
+          "last_updated": "Oct. 3, 2025, 2:50 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dandb_wb_unknown/"
+        },
+        {
+          "schema": "tr_ds_comds",
+          "title": "Datastream Commodities Data",
+          "update_frequency": "Weekly",
+          "last_updated": "Sept. 30, 2026, 1 p.m.",
+          "identifiers": "",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ds_comds/"
+        },
+        {
+          "schema": "tr_ds_econ",
+          "title": "Datastream Economics Data",
+          "update_frequency": "Weekly",
+          "last_updated": "Sept. 30, 2026, 1:20 p.m.",
+          "identifiers": "",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ds_econ/"
+        },
+        {
+          "schema": "tr_ds_equities",
+          "title": "Datastream Equities Data",
+          "update_frequency": "Weekly",
+          "last_updated": "Sept. 24, 2026, 12:49 p.m.",
+          "identifiers": "isin ticker",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ds_equities/"
+        },
+        {
+          "schema": "tr_ds_fut",
+          "title": "Datastream Futures",
+          "update_frequency": "Weekly",
+          "last_updated": "Sept. 23, 2026, 2:18 p.m.",
+          "identifiers": "",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ds_fut/"
+        },
+        {
+          "schema": "tr_ibeskpi",
+          "title": "IBES Key Performance Indicators",
+          "update_frequency": "Quarterly",
+          "last_updated": "Sept. 17, 2026, 7:30 a.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ibeskpi/"
+        },
+        {
+          "schema": "tr_mutualfunds",
+          "title": "LSEG Mutual Funds Holdings",
+          "update_frequency": "Quarterly",
+          "last_updated": "Sept. 8, 2026, 12:18 p.m.",
+          "identifiers": "",
+          "regions": "North America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_mutualfunds/"
+        },
+        {
+          "schema": "tr_esg",
+          "title": "Refinitiv ESG Data",
+          "update_frequency": "Quarterly",
+          "last_updated": "Sept. 28, 2026, 11:42 a.m.",
+          "identifiers": "cusip_full isin sedol ticker",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_esg/"
+        },
+        {
+          "schema": "tr_sdc_joint_ventures",
+          "title": "Thomson Reuters - SDC Joint Ventures",
+          "update_frequency": "Daily",
+          "last_updated": "Oct. 5, 2026, 8:17 a.m.",
+          "identifiers": "cusip_6 ticker",
+          "regions": "North America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_sdc_joint_ventures/"
+        },
+        {
+          "schema": "tr_sdc_ma",
+          "title": "Thomson Reuters - SDC M&A",
+          "update_frequency": "Daily",
+          "last_updated": "Oct. 3, 2026, 6:12 a.m.",
+          "identifiers": "cusip_6 sedol",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_sdc_ma/"
+        },
+        {
+          "schema": "tr_sdc_municipals",
+          "title": "Thomson Reuters - SDC Municipals",
+          "update_frequency": "Daily",
+          "last_updated": "Oct. 3, 2026, 10:33 a.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "No associated region tags.",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_sdc_municipals/"
+        },
+        {
+          "schema": "tr_sdc_ni",
+          "title": "Thomson Reuters - SDC New Issues",
+          "update_frequency": "Daily",
+          "last_updated": "Oct. 3, 2026, 6:15 a.m.",
+          "identifiers": "cusip_6 sedol",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_sdc_ni/"
+        },
+        {
+          "schema": "tr_sdc_private_equity",
+          "title": "Thomson Reuters - SDC Private Equity",
+          "update_frequency": "Weekly",
+          "last_updated": "Oct. 3, 2026, 2:30 p.m.",
+          "identifiers": "",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_sdc_private_equity/"
+        },
+        {
+          "schema": "tr_worldscope",
+          "title": "Thomson Reuters - Worldscope",
+          "update_frequency": "Quarterly",
+          "last_updated": "Oct. 2, 2026, 6:37 p.m.",
+          "identifiers": "cusip_full isin sedol ticker",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_worldscope/"
+        },
+        {
+          "schema": "tr_dealscan",
+          "title": "Thomson Reuters DealScan",
+          "update_frequency": "Quarterly",
+          "last_updated": "Aug. 31, 2026, 2:50 p.m.",
+          "identifiers": "sic ticker",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_dealscan/"
+        },
+        {
+          "schema": "tr_ownership",
+          "title": "Thomson Reuters Global OP Ownership",
+          "update_frequency": "Monthly",
+          "last_updated": "Sept. 1, 2026, 11:12 a.m.",
+          "identifiers": "cik",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ownership/"
+        },
+        {
+          "schema": "tr_ibes_iga",
+          "title": "Thomson Reuters IBES Global Aggregates",
+          "update_frequency": "Quarterly",
+          "last_updated": "Sept. 23, 2026, 2:16 p.m.",
+          "identifiers": "",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ibes_iga/"
+        },
+        {
+          "schema": "tr_ibes_guidance",
+          "title": "Thomson Reuters IBES Guidance",
+          "update_frequency": "Quarterly",
+          "last_updated": "Sept. 21, 2026, 10:54 a.m.",
+          "identifiers": "cusip_full ticker",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ibes_guidance/"
+        },
+        {
+          "schema": "tr_ibes",
+          "title": "Thomson Reuters IBES Historical Estimates (Global)",
+          "update_frequency": "Quarterly",
+          "last_updated": "Sept. 12, 2026, 11:22 p.m.",
+          "identifiers": "cusip_full ticker",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_ibes/"
+        },
+        {
+          "schema": "tr_insiders",
+          "title": "Thomson Reuters Insiders Filing Data",
+          "update_frequency": "Quarterly",
+          "last_updated": "Oct. 3, 2026, 8:16 a.m.",
+          "identifiers": "cusip_6 ticker",
+          "regions": "North America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_insiders/"
+        },
+        {
+          "schema": "tr_13f",
+          "title": "Thomson Reuters Institutional Managers (13f) Holdings",
+          "update_frequency": "Quarterly",
+          "last_updated": "Sept. 14, 2026, 4:34 p.m.",
+          "identifiers": "",
+          "regions": "North America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_13f/"
+        },
+        {
+          "schema": "tr_tass",
+          "title": "Thomson Reuters TASS / Lipper Hedge Fund Database",
+          "update_frequency": "Monthly",
+          "last_updated": "Oct. 2, 2026, 8:04 a.m.",
+          "identifiers": "",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_tass/"
+        },
+        {
+          "schema": "tr_sdc_samples",
+          "title": "None",
+          "update_frequency": "N/A",
+          "last_updated": "March 18, 2024, 2:08 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "No associated region tags.",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/tr_sdc_samples/"
+        },
+        {
+          "schema": "trsamp_db_dmi",
+          "title": "D&B U.S. DMI - Sample Version",
+          "update_frequency": "N/A",
+          "last_updated": "Aug. 13, 2024, 1:59 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "North America",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_db_dmi/"
+        },
+        {
+          "schema": "trsamp_db_wb",
+          "title": "D&B’s Global Archive/WorldBase - Sample Version",
+          "update_frequency": "N/A",
+          "last_updated": "Aug. 15, 2024, 3:03 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_db_wb/"
+        },
+        {
+          "schema": "trsamp_dscom",
+          "title": "Datastream Commodities - Sample Data",
+          "update_frequency": "N/A",
+          "last_updated": "Nov. 22, 2021, 5:19 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_dscom/"
+        },
+        {
+          "schema": "trsamp_dsecon",
+          "title": "Datastream Economics - Sample Data",
+          "update_frequency": "N/A",
+          "last_updated": "Nov. 22, 2021, 3:51 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_dsecon/"
+        },
+        {
+          "schema": "trsamp_ds_eq",
+          "title": "Datastream Equities Sample",
+          "update_frequency": "N/A",
+          "last_updated": "Nov. 22, 2021, 8:38 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_ds_eq/"
+        },
+        {
+          "schema": "trsamp_dsfut",
+          "title": "Datastream Futures - Sample Data",
+          "update_frequency": "N/A",
+          "last_updated": "Nov. 22, 2021, 4:51 p.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_dsfut/"
+        },
+        {
+          "schema": "ibessamp_kpi",
+          "title": "IBES Key Performance Indicators Sample",
+          "update_frequency": "N/A",
+          "last_updated": "None",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/ibessamp_kpi/"
+        },
+        {
+          "schema": "trsamp_esg",
+          "title": "Refinitiv ESG - Sample Version",
+          "update_frequency": "N/A",
+          "last_updated": "Feb. 27, 2024, 10 a.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_esg/"
+        },
+        {
+          "schema": "trsamp_all",
+          "title": "Thomson Reuters Samples",
+          "update_frequency": "N/A",
+          "last_updated": "July 21, 2021, 11:53 a.m.",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "No associated region tags.",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_all/"
+        },
+        {
+          "schema": "trsamp_sdc_ma",
+          "title": "Thomson Reuters SDC Trial / Sample - M&A",
+          "update_frequency": "N/A",
+          "last_updated": "None",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_sdc_ma/"
+        },
+        {
+          "schema": "trsamp_sdc_ni",
+          "title": "Thomson Reuters SDC Trial / Sample - New Issues",
+          "update_frequency": "N/A",
+          "last_updated": "None",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_sdc_ni/"
+        },
+        {
+          "schema": "trsamp_worldscope",
+          "title": "Thomson Reuters Worldscope - Sample/Trial",
+          "update_frequency": "N/A",
+          "last_updated": "None",
+          "identifiers": "No identifiers specified for this product.",
+          "regions": "Global",
+          "dictionary_url": "https://wrds-www.wharton.upenn.edu/data-dictionary/trsamp_worldscope/"
+        }
+      ]
+    }
+  ]
+}

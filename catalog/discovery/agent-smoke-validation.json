@@ -1,0 +1,84 @@
+{
+  "checked_at_utc": "2026-10-06T00:22:11.448096+00:00",
+  "runner": "Claude Code 2.1.289",
+  "scope": "Real agent loading and local metadata lookups in a temporary project; no global installation or live WRDS extraction requested.",
+  "status": "functional_pass_with_instruction_violation",
+  "functional_checks": "Both agents loaded their attached skills, invoked the catalog skill, and returned expected results for all four lookups.",
+  "runtime_error": false,
+  "permission_denials": [],
+  "evidence_limit": "Agent actions are reported by the Claude Code run; this is not a complete tool transcript or a guarantee of compliance in future runs.",
+  "results": {
+    "agents": [
+      {
+        "name": "wrds-psql-agent",
+        "skills_loaded": {
+          "already_loaded_at_start": [
+            "wrds-psql",
+            "wrds-schema"
+          ],
+          "loaded_via_skill_tool": [
+            "wrds-catalog"
+          ],
+          "local_references_read": [
+            ".claude/skills/wrds-catalog/references/method.md"
+          ]
+        },
+        "commands": "uv run --no-project python .claude/skills/wrds-catalog/scripts/catalog.py table <name>  (x3, all exit 0)",
+        "catalog_results": {
+          "crsp.msf_v2": {
+            "selected": true,
+            "lifecycle": "current",
+            "access": "planning_accepted",
+            "skill": "wrds-crsp"
+          },
+          "gutenberg.gutenberg_book": {
+            "selected": true,
+            "lifecycle": "unresolved",
+            "access": "planning_accepted",
+            "note": "only available Gutenberg book table, so treated as canonical; maintenance and product mapping unknown",
+            "skill": "wrds-research"
+          },
+          "crsp.ccmxpf_lnkhist": {
+            "selected": false,
+            "lifecycle": "current",
+            "access": "guard_denied",
+            "access_error": "permission denied for schema crsp_a_ccm",
+            "skill": "wrds-crsp"
+          }
+        },
+        "failures": [],
+        "rule_violations": [
+          "Agent reported briefly creating then deleting a scratch file despite the no-write test instruction; file absence independently verified."
+        ]
+      },
+      {
+        "name": "wrds-taq-agent",
+        "skills_loaded": {
+          "already_loaded_at_start": [
+            "wrds-ssh",
+            "wrds-taq"
+          ],
+          "loaded_via_skill_tool": [
+            "wrds-catalog",
+            "wrds-schema"
+          ],
+          "local_references_read": []
+        },
+        "commands": "uv run --no-project python .claude/skills/wrds-catalog/scripts/catalog.py taq TAQMSEC.CTM_20241007  (exit 0)",
+        "catalog_results": {
+          "TAQMSEC.CTM_20241007": {
+            "column_count": 17,
+            "execution_route": "SAS on WRDS Cloud via SSH (transport: sas), not PostgreSQL",
+            "access": "sas_metadata_opened",
+            "lifecycle": "current",
+            "selected": true,
+            "header_rows": 76280986
+          }
+        },
+        "failures": []
+      }
+    ],
+    "legacy_agents_used": false,
+    "live_wrds_connection": false
+  }
+}

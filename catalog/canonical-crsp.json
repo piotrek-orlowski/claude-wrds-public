@@ -1,0 +1,492 @@
+{
+  "reviewed_at": "2026-10-05",
+  "policy": "User direction: if it is the only available research endpoint with no verified replacement, treat it as canonical. Canonical selection is separate from provider lifecycle, release identity, row access and sample restrictions. Existing retired and superseded exclusions are not changed. Aliases inherit root decisions.",
+  "evidence": [
+    "catalog/lifecycle-review.json",
+    "skills/wrds-catalog/references/relations.jsonl.gz",
+    "skills/wrds-catalog/references/layouts.jsonl.gz",
+    "research/current-product-overrides.json",
+    "research/current-products.md",
+    "skills/wrds-crsp/references/products.md",
+    "skills/wrds-compustat/references/ccm.md"
+  ],
+  "counterparts_note": "Counterparts are reviewed related endpoints, including denied delivery copies, format alternatives and distinct related samples; listing them does not claim accessibility, identical population or interchangeability. Reasons specify the selection.",
+  "decisions": [
+    {
+      "name": "crsp_a_indexes.cs20yr",
+      "canonical": true,
+      "reason": "Canonical available Select Treasury endpoint: no verified interchangeable replacement. Same-named monthly and quarterly delivery copies deny this account schema usage; CTI is a different series and is not a substitute. Exact release identity and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.cs20yr",
+        "crsp_q_indexes.cs20yr"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.cs5yr",
+      "canonical": true,
+      "reason": "Canonical available Select Treasury endpoint: no verified interchangeable replacement. Same-named monthly and quarterly delivery copies deny this account schema usage; CTI is a different series and is not a substitute. Exact release identity and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.cs5yr",
+        "crsp_q_indexes.cs5yr"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.cs90d",
+      "canonical": true,
+      "reason": "Canonical available Select Treasury endpoint: no verified interchangeable replacement. Same-named monthly and quarterly delivery copies deny this account schema usage; CTI is a different series and is not a substitute. Exact release identity and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.cs90d",
+        "crsp_q_indexes.cs90d"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport1",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport1",
+        "crsp_q_indexes.dport1"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport2",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport2",
+        "crsp_q_indexes.dport2"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport3",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport3",
+        "crsp_q_indexes.dport3"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport4",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport4",
+        "crsp_q_indexes.dport4"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport5",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport5",
+        "crsp_q_indexes.dport5"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport6",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport6",
+        "crsp_q_indexes.dport6"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport7",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport7",
+        "crsp_q_indexes.dport7"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport8",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport8",
+        "crsp_q_indexes.dport8"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dport9",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.dport9",
+        "crsp_q_indexes.dport9"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.dsp500list",
+      "canonical": false,
+      "reason": "The accessible current crsp_a_indexes.dsp500list_v2 supplies the documented S&P 500 constituent-history alternative; prefer that endpoint. This selection does not assert row-for-row equivalence.",
+      "counterparts": [
+        "crsp_a_indexes.dsp500list_v2",
+        "crsp_m_indexes.dsp500list",
+        "crsp_q_indexes.dsp500list"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport1",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport1",
+        "crsp_q_indexes.erdport1"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport2",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport2",
+        "crsp_q_indexes.erdport2"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport3",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport3",
+        "crsp_q_indexes.erdport3"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport4",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport4",
+        "crsp_q_indexes.erdport4"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport5",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport5",
+        "crsp_q_indexes.erdport5"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport6",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport6",
+        "crsp_q_indexes.erdport6"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport7",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport7",
+        "crsp_q_indexes.erdport7"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport8",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport8",
+        "crsp_q_indexes.erdport8"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.erdport9",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.erdport9",
+        "crsp_q_indexes.erdport9"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.ermport1",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.ermport1",
+        "crsp_q_indexes.ermport1"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.ermport2",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.ermport2",
+        "crsp_q_indexes.ermport2"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.ermport3",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.ermport3",
+        "crsp_q_indexes.ermport3"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.ermport4",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.ermport4",
+        "crsp_q_indexes.ermport4"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.ermport5",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.ermport5",
+        "crsp_q_indexes.ermport5"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.mport1",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.mport1",
+        "crsp_q_indexes.mport1"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.mport2",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.mport2",
+        "crsp_q_indexes.mport2"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.mport3",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.mport3",
+        "crsp_q_indexes.mport3"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.mport4",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.mport4",
+        "crsp_q_indexes.mport4"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.mport5",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.mport5",
+        "crsp_q_indexes.mport5"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.msic",
+      "canonical": true,
+      "reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_m_indexes.msic",
+        "crsp_q_indexes.msic"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.msp500list",
+      "canonical": false,
+      "reason": "The accessible current crsp_a_indexes.msp500list_v2 supplies the documented S&P 500 constituent-history alternative; prefer that endpoint. This selection does not assert row-for-row equivalence.",
+      "counterparts": [
+        "crsp_a_indexes.msp500list_v2",
+        "crsp_m_indexes.msp500list",
+        "crsp_q_indexes.msp500list"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_dind_legacy",
+      "canonical": false,
+      "reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_dind within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_dind",
+        "crsp_m_indexes.sfz_dind_legacy",
+        "crsp_q_indexes.sfz_dind_legacy"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_indhdr_legacy",
+      "canonical": false,
+      "reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_indhdr within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_indhdr",
+        "crsp_m_indexes.sfz_indhdr_legacy",
+        "crsp_q_indexes.sfz_indhdr_legacy"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_mbr",
+      "canonical": true,
+      "reason": "Canonical unsuffixed SFZ membership or portfolio-assignment endpoint. Prefer this accessible representation over its same-family _legacy twin. No verified current replacement was established; provider lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_mbr_legacy",
+        "crsp_m_indexes.sfz_mbr",
+        "crsp_q_indexes.sfz_mbr"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_mbr_legacy",
+      "canonical": false,
+      "reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_mbr within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_mbr",
+        "crsp_m_indexes.sfz_mbr_legacy",
+        "crsp_q_indexes.sfz_mbr_legacy"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_mind_legacy",
+      "canonical": false,
+      "reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_mind within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_mind",
+        "crsp_m_indexes.sfz_mind_legacy",
+        "crsp_q_indexes.sfz_mind_legacy"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_portd",
+      "canonical": true,
+      "reason": "Canonical unsuffixed SFZ membership or portfolio-assignment endpoint. Prefer this accessible representation over its same-family _legacy twin. No verified current replacement was established; provider lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_portd_legacy",
+        "crsp_m_indexes.sfz_portd",
+        "crsp_q_indexes.sfz_portd"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_portd_legacy",
+      "canonical": false,
+      "reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_portd within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_portd",
+        "crsp_m_indexes.sfz_portd_legacy",
+        "crsp_q_indexes.sfz_portd_legacy"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_portm",
+      "canonical": true,
+      "reason": "Canonical unsuffixed SFZ membership or portfolio-assignment endpoint. Prefer this accessible representation over its same-family _legacy twin. No verified current replacement was established; provider lifecycle and observation freshness remain unresolved.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_portm_legacy",
+        "crsp_m_indexes.sfz_portm",
+        "crsp_q_indexes.sfz_portm"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_portm_legacy",
+      "canonical": false,
+      "reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_portm within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_portm",
+        "crsp_m_indexes.sfz_portm_legacy",
+        "crsp_q_indexes.sfz_portm_legacy"
+      ]
+    },
+    {
+      "name": "crsp_a_indexes.sfz_rb_legacy",
+      "canonical": false,
+      "reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_rb within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+      "counterparts": [
+        "crsp_a_indexes.sfz_rb",
+        "crsp_m_indexes.sfz_rb_legacy",
+        "crsp_q_indexes.sfz_rb_legacy"
+      ]
+    },
+    {
+      "name": "crsp_a_stock.stock_qvards",
+      "canonical": false,
+      "reason": "Do not promote this undocumented query-variable helper to a research dataset merely because it is the available copy. Its combined legacy event-variable layout does not establish a standalone research product. Use documented CIZ stock and event tables for those research concepts.",
+      "counterparts": [
+        "crsp_m_stock.stock_qvards",
+        "crsp_q_stock.stock_qvards"
+      ]
+    },
+    {
+      "name": "crspsamp_all.ccm_qvards",
+      "canonical": false,
+      "reason": "Internal web-query variable helper, not a research dataset: the production counterpart is explicitly commented \"Dummy data set for web query QVARDS use only\". The sample layout contains combined lookup variables and lacks dated research-link intervals. Sole availability does not establish research content.",
+      "counterparts": [
+        "crsp_a_ccm.ccm_qvards",
+        "crsp_m_ccm.ccm_qvards",
+        "crsp_q_ccm.ccm_qvards"
+      ],
+      "sample": true
+    },
+    {
+      "name": "crspsamp_all.ccmlinktable_trial",
+      "canonical": true,
+      "reason": "Canonical restricted CCM sample linktable with usedflag; production CCM delivery access is denied. The sample link-history table lacks usedflag and is not established as an interchangeable population. Retain sample/trial scope; current release and observation coverage remain unresolved.",
+      "counterparts": [
+        "crspsamp_all.ccmxpf_lnkhist",
+        "crsp_a_ccm.ccmxpf_linktable",
+        "crsp_m_ccm.ccmxpf_linktable",
+        "crsp_q_ccm.ccmxpf_linktable"
+      ],
+      "sample": true
+    },
+    {
+      "name": "crspsamp_all.ccmnames_trial",
+      "canonical": true,
+      "reason": "Canonical restricted CCM trial company-header endpoint, including ticker and CUSIP. Production CCM delivery access is denied. The companion sample comphead omits those fields and its population is not established as identical. Retain sample/trial scope; current release and observation coverage remain unresolved.",
+      "counterparts": [
+        "crspsamp_all.comphead",
+        "crsp_a_ccm.comphead",
+        "crsp_m_ccm.comphead",
+        "crsp_q_ccm.comphead"
+      ],
+      "sample": true
+    },
+    {
+      "name": "crspsamp_all.ccmxpf_lnkhist",
+      "canonical": true,
+      "reason": "Canonical restricted CCM sample link history with linkdt/linkenddt, linktype and linkprim; production CCM delivery access is denied. The trial linktable includes usedflag and is not established as the identical history or population. Retain sample scope; current release and observation coverage remain unresolved.",
+      "counterparts": [
+        "crspsamp_all.ccmlinktable_trial",
+        "crsp_a_ccm.ccmxpf_lnkhist",
+        "crsp_m_ccm.ccmxpf_lnkhist",
+        "crsp_q_ccm.ccmxpf_lnkhist"
+      ],
+      "sample": true
+    },
+    {
+      "name": "crspsamp_all.comphead",
+      "canonical": true,
+      "reason": "Canonical restricted CCM sample company-header endpoint. Production CCM delivery access is denied; no verified replacement for this sample population was established. The trial names table has a related expanded layout, but population equivalence is unverified. Retain sample scope; current release and observation coverage remain unresolved.",
+      "counterparts": [
+        "crspsamp_all.ccmnames_trial",
+        "crsp_a_ccm.comphead",
+        "crsp_m_ccm.comphead",
+        "crsp_q_ccm.comphead"
+      ],
+      "sample": true
+    }
+  ]
+}

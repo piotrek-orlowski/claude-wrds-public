@@ -1,0 +1,2 @@
+# Preserve SAS-generated spacing in archived diagnostic logs.
+catalog/taq/**/*.log -whitespace

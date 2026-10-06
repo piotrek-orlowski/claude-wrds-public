@@ -1,0 +1,53 @@
+{
+  "sas_job_id": "40376634",
+  "run_basename": "taq_pipeline_probe_20261005T224530",
+  "validated_at_utc": "2026-10-05T22:54:57.635853+00:00",
+  "collection_date": "2026-10-05",
+  "collection_scope": "three named TAQMSEC members and synthetic hash checks",
+  "status": "complete_metadata_inventory",
+  "sas_version": "SAS (r) Proprietary Software 9.4 (TS1M9 MBCS3170)",
+  "program_sha256": "c4e9cb4dadc00100043f0f25a1e7535ff7143e5c8b01e5951a7eb3073ffe21e8",
+  "member_count": 3,
+  "library_member_counts": {
+    "TAQMSEC": 3
+  },
+  "family_count": 2,
+  "distinct_layout_count": 2,
+  "unique_layout_column_rows": 42,
+  "expanded_column_count": 59,
+  "validation_mismatch_count": 0,
+  "sas_errors": [],
+  "sas_warnings": [
+    "WARNING: Unable to copy SASUSER registry to WORK registry. Because of this, you will not see registry customizations during this "
+  ],
+  "sas_startup_warnings": [
+    "WARNING: Unable to copy SASUSER registry to WORK registry. Because of this, you will not see registry customizations during this "
+  ],
+  "sas_task_warnings": [],
+  "hash_probe_validation": {
+    "cases": 16,
+    "explicit_buffer_mismatches": 0,
+    "field_sensitivity": "all seven metadata fields, initial and subsequent chain steps",
+    "nonblank_buffer_lengths": [
+      224,
+      256
+    ]
+  },
+  "raw_csv_sha256": {
+    "taq_pipeline_probe_20261005T224530_libraries.csv": "25df065c1ae80a6b9b227069f93a69f36e5048a5de9ceceaf75d08a64906e3dc",
+    "taq_pipeline_probe_20261005T224530_members.csv": "07abf895bc5d2599dc1d761a2b43fa46a931273e011f0c897d88d08b9dd36ecb",
+    "taq_pipeline_probe_20261005T224530_layout_map.csv": "7748e94f4b740da8922cf1d24fd08e82b0f9f2b8b1bfd3c2bc404a5aa25f31b4",
+    "taq_pipeline_probe_20261005T224530_layout_columns.csv": "f72f5afe94409fd5d44da0f5e65290a623b4804569e1a07181cbd7f752e8246a",
+    "taq_pipeline_probe_20261005T224530_validation.csv": "c369c20d8131bda0b729e727f001a3538fcb440066400025b50cb7b735a0a413",
+    "taq_pipeline_probe_20261005T224530_hash_buffer_probe.csv": "fa0b586bdd393ff1ff63e5a8383642f05a709ec584dc0a71040b09845bad31be",
+    "taq_pipeline_probe_20261005T224530_hash_buffer_validation.csv": "c1f453f15c021ec47b6006c71ecd75393977b53cbd05cbf1c1329f670979bc5c"
+  },
+  "limits": [
+    "Metadata only; no TAQ observation rows were read.",
+    "A filename period is not validated observation coverage.",
+    "NOBS is SAS header metadata, not a newly counted number of rows.",
+    "Catalog metadata visibility does not prove row-level read permission.",
+    "Concatenated SAS aliases can shadow duplicate physical members.",
+    "An old filename range does not establish provider retirement."
+  ]
+}

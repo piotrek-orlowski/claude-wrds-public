@@ -1,0 +1,42 @@
+{
+  "sas_job_id": "40376344",
+  "run_basename": "taq_metadata_inventory_20261005T223200",
+  "validated_at_utc": "2026-10-05T23:11:25.510305+00:00",
+  "collection_date": "2026-10-05",
+  "collection_scope": "four assigned TAQ libraries",
+  "status": "complete_metadata_inventory",
+  "sas_version": "SAS (r) Proprietary Software 9.4 (TS1M9 MBCS3170)",
+  "program_sha256": "d1837fce0af0ef563eb1661760d74db3659aacf980a7e89aacdaf12efddd9ea9",
+  "member_count": 82212,
+  "library_member_counts": {
+    "TAQ": 22719,
+    "TAQMSAMP": 6,
+    "TAQMSEC": 59473,
+    "TAQSAMP": 14
+  },
+  "family_count": 38,
+  "distinct_layout_count": 78,
+  "unique_layout_column_rows": 2521,
+  "expanded_column_count": 1154370,
+  "validation_mismatch_count": 0,
+  "sas_errors": [],
+  "sas_warnings": [],
+  "sas_startup_warnings": [],
+  "sas_task_warnings": [],
+  "hash_probe_validation": null,
+  "raw_csv_sha256": {
+    "taq_metadata_inventory_20261005T223200_libraries.csv": "25df065c1ae80a6b9b227069f93a69f36e5048a5de9ceceaf75d08a64906e3dc",
+    "taq_metadata_inventory_20261005T223200_members.csv": "38c954d9a134782b2a12e160e99938b8fafba513b4062ec290633019a07f51a4",
+    "taq_metadata_inventory_20261005T223200_layout_map.csv": "280489a0753bde4deb9e2a70db4c6bf4f4321df0c9c32809bc7c292f1e238c39",
+    "taq_metadata_inventory_20261005T223200_layout_columns.csv": "85a65e32c6ba86d3afd29daedcf97b1c8b0e04c9609b444522e26bdd132842ac",
+    "taq_metadata_inventory_20261005T223200_validation.csv": "c369c20d8131bda0b729e727f001a3538fcb440066400025b50cb7b735a0a413"
+  },
+  "limits": [
+    "Metadata only; no TAQ observation rows were read.",
+    "A filename period is not validated observation coverage.",
+    "NOBS is SAS header metadata, not a newly counted number of rows.",
+    "Catalog metadata visibility does not prove row-level read permission.",
+    "Concatenated SAS aliases can shadow duplicate physical members.",
+    "An old filename range does not establish provider retirement."
+  ]
+}

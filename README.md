@@ -1,35 +1,120 @@
-# Claude Code WRDS Toolkit
+# WRDS database skills
 
-A set of [Claude Code](https://docs.anthropic.com/en/docs/claude-code) agents, skills, and configuration files that let Claude autonomously query [WRDS](https://wrds-www.wharton.upenn.edu/) databases — CRSP, OptionMetrics, Compustat, and TAQ — directly from your terminal.
+Reusable WRDS database knowledge with two [Claude Code execution agents](https://code.claude.com/docs/en/sub-agents): one for direct PostgreSQL queries and one for TAQ SAS jobs. Skills hold the schemas, identifiers, filters, and examples. Agents load the skills required for the task and execute a small validated pilot before scaling.
 
-## What's included
+## Structure
 
-```
+```text
 agents/
-  crsp-wrds-expert.md          # CRSP returns, prices, identifiers, delisting
-  optionmetrics-wrds-expert.md  # IvyDB option prices, IVs, Greeks, surfaces
-  taq-wrds-expert.md            # TAQ high-frequency trades/quotes (SSH + SAS)
-  wrds-query-orchestrator.md    # Coordinates multi-database queries
+  wrds-psql-agent.md       # All PostgreSQL requests, including cross-database SQL
+  wrds-taq-agent.md        # TAQ SAS jobs through SSH
+  paper-reader.md         # Existing optional research helper, separate from WRDS
 skills/
-  wrds-psql/SKILL.md            # psql connection patterns and formatting rules
-  wrds-ssh/SKILL.md             # SSH connection, SAS job submission, file transfer
-  wrds-schema/SKILL.md          # Schema pre-loader for starting new sessions
-settings.json                   # Pre-approved permissions for WRDS commands
+  wrds-psql/              # Connection, export, local processing, query workflow
+  wrds-ssh/               # TAQ SAS submission, monitoring, logs, and transfer
+  wrds-schema/            # Select skills and verify needed metadata
+  wrds-catalog/           # Portable catalog, column lookup, versions and access
+  wrds-crsp/              # Stock returns, adjustments, identifiers, version rules
+  wrds-compustat/         # Fundamentals and CRSP-Compustat linking (CCM)
+  wrds-optionmetrics/     # Options, IVs, surfaces, units, quality filters
+  wrds-taq/               # Intraday products, SAS schemas, filters, sampling
+  wrds-linking/           # Cross-database identifiers, date alignment, join checks
+  wrds-fama-french/       # Factor and portfolio returns
+  wrds-jkp/               # Global Factor Data / stock characteristics
+  wrds-bonds/             # TRACE, FISD, MSRB and delivered bond returns
+  wrds-capital-iq/        # Capital structure, transactions, events and people
+  wrds-lseg/              # IBES, Worldscope and LSEG sample products
+  wrds-governance/        # Audit Analytics, BoardEx/Altrata and BvD
+  wrds-esg/               # S&P ESG, Trucost and other climate/ESG samples
+  wrds-public-data/       # Bank reports, rates, courts and macro series
+  wrds-contributed-data/  # Other contributor datasets and their provenance
+  wrds-market-data/       # Cboe and OTC products
+  wrds-research/          # WRDS applications, ratios and SEC samples
+  wrds-vendor-samples/    # Remaining restricted vendor samples/trials
+catalog/                  # Dated raw metadata and validation evidence
+research/                 # Primary documentation and lifecycle decisions
+scripts/                  # Reproducible collection, build and audit tools
+CLAUDE.md                 # Agent routing and repository instructions
+settings.json             # Existing optional command permissions
 ```
 
-**Agents** are autonomous specialists Claude delegates to. Each one knows the schema, gotchas, and best practices for its database.
+Each skill has a short `SKILL.md`. Detailed schemas and examples live in linked `references/` files so a query need not load the whole database catalog. Database knowledge is maintained in one place and shared by both agents where relevant. Historical catalog observations are labeled as snapshots; verify tables and columns needed for a new extraction.
 
-**Skills** are reference documents agents load before running commands. The `wrds-psql` skill, for example, enforces single-line `psql` commands to avoid shell-expansion approval prompts.
+The PostgreSQL agent preloads `wrds-psql` and `wrds-schema`, then loads domain skills as needed. The TAQ agent preloads `wrds-ssh` and `wrds-taq`. For a request combining TAQ and daily stock data, the parent coordinates the two agents with agreed identifiers, dates, and output keys. A separate orchestrator agent is unnecessary.
 
-## Prerequisites
+## Catalog and current products
 
-You need a [WRDS account](https://wrds-www.wharton.upenn.edu/register/) with SSH key access configured through the WRDS website.
+The 2026-10-05 snapshot records 118,646 visible PostgreSQL relations across 1,098 schemas, including exact column types/comments, alias dependencies and an access outcome for each. These are catalog counts, not subscription counts. Query planning and observed privilege-guard checks distinguish usable candidates from denied views; bounded data checks remain part of each requested extraction. TAQ metadata and access follow the separate SAS route.
 
-## First-time setup
+```bash
+uv run --no-project python skills/wrds-catalog/scripts/catalog.py coverage
+uv run --no-project python skills/wrds-catalog/scripts/catalog.py schemas
+uv run --no-project python skills/wrds-catalog/scripts/catalog.py search "bond"
+uv run --no-project python skills/wrds-catalog/scripts/catalog.py table crsp.msf_v2
+```
 
-### 1. PostgreSQL service file
+The default search selects documented current products and reviewed sole available versions that pass access checks. If a dataset has no verified accessible replacement, it is canonical for this account even when its release or maintenance status is unclear. The catalog records that uncertainty separately. Add `--all` to inspect excluded copies, denied products and internal tables. Historical partitions remain included, and samples/trials remain labeled. Primary WRDS/provider documentation supports product decisions; dictionary URLs that require login are identified as links rather than claimed as read.
 
-Create `~/.pg_service.conf`:
+See the [coverage report](research/coverage-report.md), [catalog evidence and limitations](skills/wrds-catalog/references/method.md), [core version decisions](research/current-products.md), and [provider sources](research/provider-sources.md). The lookup and compressed references travel with the skill folders; they do not depend on repository-level files after installation.
+
+The [refresh procedure](scripts/wrds_catalog/README.md) preserves each dated snapshot and runs metadata/access prototypes before full collection. To audit a packaged release locally:
+
+```bash
+uv run --no-project --with pyyaml python scripts/validate_toolkit.py
+uv run --no-project python scripts/validate_skill_catalog.py
+```
+
+These checks validate all reference links and the catalog's correspondence to the source evidence, then exercise the lookup from a temporary installation. They make no WRDS queries.
+
+The same checks run in GitHub Actions on pushes and pull requests. They need no WRDS credentials. They verify the toolkit and saved metadata; a research extraction still needs its own small data test before scaling.
+
+## Install in Claude Code
+
+From this repository, copy the two WRDS agents and all skill folders:
+
+```bash
+mkdir -p ~/.claude/agents ~/.claude/skills
+cp agents/wrds-psql-agent.md agents/wrds-taq-agent.md ~/.claude/agents/
+cp -R skills/. ~/.claude/skills/
+```
+
+Review existing toolkit files before overwriting local customizations. The paper-reader agent is optional and is not needed for WRDS. Merge the relevant instructions from [CLAUDE.md](CLAUDE.md) into your project or user instructions, replacing any old WRDS routing block.
+
+Agents use Claude Code's [`skills` frontmatter](https://code.claude.com/docs/en/sub-agents#preload-skills-into-subagents). Other agent runtimes can reuse the skill content, but need their own agent/tool configuration. The skill entrypoints use shared Agent Skills metadata rather than Claude-only argument hints.
+
+### Upgrading an existing installation
+
+After copying the new agents and skills, retire these old definitions from the installed agents directory, preserving any personal modifications outside that directory:
+
+- `crsp-wrds-expert.md`
+- `optionmetrics-wrds-expert.md`
+- `taq-wrds-expert.md`
+- `wrds-query-orchestrator.md`
+
+Remove instructions that still route to those agents. Do not keep compatibility copies in the discovery directory: they can continue receiving requests and carry stale schemas. No global files are modified by editing this repository.
+
+| Previous knowledge location | New home |
+|---|---|
+| CRSP specialist | `wrds-crsp`; fundamentals and CCM in `wrds-compustat` |
+| OptionMetrics specialist | `wrds-optionmetrics` |
+| TAQ specialist | `wrds-taq`; job mechanics in `wrds-ssh` |
+| Orchestrator joins and identifiers | `wrds-linking` and linked domain references |
+| Orchestrator project workflow | `wrds-psql/references/query-workflow.md` |
+| Repeated catalogs in access/preloader skills | Domain skills; live discovery through `wrds-schema` |
+
+### Optional command permissions
+
+Review and merge only the intended `permissions.allow` entries from `settings.json` into your existing configuration. Do not replace your settings file or import unrelated plugin settings. These rules grant command permission; they do not provide credentials or restrict SQL to read-only statements. The access skill sets read-only mode explicitly. Commands with additional connection options may need separate runtime approval.
+
+## First-time WRDS setup
+
+You need a [WRDS account](https://wrds-www.wharton.upenn.edu/register/), the relevant data subscriptions, and a local `psql` client. SSH access is needed only for TAQ.
+
+Credential files must be created or edited by the user, or with explicit user permission. Agents may use already configured clients but must not inspect credential contents without permission.
+
+### PostgreSQL
+
+Configure `~/.pg_service.conf`:
 
 ```ini
 [wrds]
@@ -39,25 +124,25 @@ dbname=wrds
 user=YOUR_WRDS_USERNAME
 ```
 
-### 2. PostgreSQL password file
+Configure `~/.pgpass` with your own password:
 
-Create `~/.pgpass`:
-
-```
+```text
 wrds-pgdata.wharton.upenn.edu:9737:wrds:YOUR_WRDS_USERNAME:YOUR_PASSWORD
 ```
 
-Then restrict permissions:
+Restrict password-file permissions:
 
 ```bash
 chmod 600 ~/.pgpass
 ```
 
-### 3. SSH config
+Use the bounded, noninteractive connection check in [wrds-psql](skills/wrds-psql/SKILL.md), followed by a small query of the requested dataset. Authentication and subscription access are separate checks. Do not count an entire table to test connectivity.
 
-Add to `~/.ssh/config`:
+### TAQ SSH setup
 
-```
+Register your SSH key with WRDS and configure the host alias in `~/.ssh/config`:
+
+```sshconfig
 Host wrds
     HostName wrds-cloud-sshkey.wharton.upenn.edu
     User YOUR_WRDS_USERNAME
@@ -65,247 +150,35 @@ Host wrds
     Port 22
 ```
 
-Replace `YOUR_WRDS_USERNAME` with your WRDS username and ensure `~/.ssh/wrds` is your WRDS SSH private key.
-
-### 4. WRDS scratch symlink
-
-Run once after SSH is working:
+After SSH is configured, create the scratch symlink once:
 
 ```bash
 ssh wrds 'ln -sf /scratch/$(basename $(dirname $HOME))/$(whoami) ~/scratch'
 ```
 
-This creates `~/scratch` on the WRDS server pointing to your institution's scratch space. All agents use `~/scratch/` paths so no institution-specific values are needed.
-
-### 5. Verify connectivity
-
-```bash
-# PostgreSQL (should return rows)
-psql service=wrds -c "SELECT COUNT(*) FROM crsp.dsf LIMIT 1;"
-
-# SSH (should print your username)
-ssh wrds 'whoami'
-```
-
-## Installation
-
-Copy the agents, skills, and settings into your Claude Code config directory:
-
-```bash
-# From the repo root
-cp -r agents/ ~/.claude/agents/
-cp -r skills/ ~/.claude/skills/
-cp settings.json ~/.claude/settings.json
-```
-
-If you already have a `~/.claude/settings.json`, merge the `permissions.allow` entries manually:
-
-```json
-{
-  "permissions": {
-    "allow": [
-      "Bash(psql service=wrds*)",
-      "Bash(ssh wrds*)",
-      "Bash(scp * wrds:*)",
-      "Bash(scp wrds:*)"
-    ]
-  }
-}
-```
-
-These permission rules let the WRDS agents run `psql`, `ssh`, and `scp` commands without prompting you for approval each time.
-
-Finally, append the contents of `CLAUDE.md` to your global Claude Code instructions:
-
-```bash
-cat CLAUDE.md >> ~/.claude/CLAUDE.md
-```
-
-If you don't have a `~/.claude/CLAUDE.md` yet, just copy it:
-
-```bash
-cp CLAUDE.md ~/.claude/CLAUDE.md
-```
-
-This file tells Claude how to connect to WRDS, when to use SSH vs PostgreSQL, and to always delegate queries to the specialist agents rather than writing SQL directly.
+Use SSH for TAQ SAS jobs and their schema probes, monitoring, and transfers. Do not use it as a PostgreSQL fallback. Follow the [TAQ job workflow](skills/wrds-ssh/SKILL.md), including the small pilot, retained job ID, and log checks. Default `qsas` logs are in the remote home directory, such as `~/prog.log`; CSV output goes to the path specified by SAS. Follow explicit locations reported by the actual submission.
 
 ## Usage
 
-### General pattern
+Describe the data request; the parent chooses one of the two agents:
 
-Ask Claude for WRDS data and it will delegate to the right specialist agent automatically. You don't need to name agents — just describe what you need.
-
-```
-> Get me daily returns for AAPL and MSFT for 2024
-
-> What's the ATM implied volatility for SPY options with 30-day maturity?
-
-> Merge CRSP monthly returns with Compustat annual fundamentals for 2020-2024
+```text
+Get daily CRSP returns for AAPL and MSFT for January 2024.
+Get SPY option IVs for a day and match them to CRSP returns.
+Merge monthly stock returns with available Compustat fundamentals.
+Compute five-minute realized variance for AAPL for one week from TAQ.
 ```
 
-### How it works
+You can also request schema discovery with `/wrds-schema crsp optionm`, or invoke a domain skill for a methods question. PostgreSQL requests involving several databases stay with the same PostgreSQL agent; it loads each relevant skill.
 
-1. Claude reads your request and identifies which databases are involved
-2. For multi-database or ambiguous requests, it consults the **orchestrator** agent first
-3. The orchestrator delegates to the appropriate **expert** agents
-4. Each expert invokes the **wrds-psql** skill (which loads connection rules), then runs the query
-5. Results are returned as CSV, displayed inline, or saved to a file
-
-### CRSP (stocks)
-
-The `crsp-wrds-expert` handles everything in the `crsp` schema: daily/monthly stock files, index returns, stocknames, delisting, distributions, and CRSP-Compustat linking.
-
-**Example queries you can ask:**
-
-- Daily returns for a list of PERMNOs
-- Split-adjusted price histories
-- Market capitalization time series
-- Cumulative returns over event windows
-- Common stock universe with standard filters (SHRCD, EXCHCD)
-- Fama-French style portfolio sorts
-- Delisting-adjusted returns
-
-### OptionMetrics (options)
-
-The `optionmetrics-wrds-expert` covers the `optionm` schema: option prices, implied volatilities, Greeks, volatility surfaces, standardized options, and zero-coupon rates.
-
-**Example queries:**
-
-- Option chain for a given stock and date
-- ATM implied volatility term structure
-- Volatility surface extraction
-- Put-call IV spread
-- IV skew measures
-- Multi-year IV time series
-
-### Cross-database queries
-
-When your request spans multiple databases, the **orchestrator** agent coordinates:
-
-- **OptionMetrics + CRSP**: Links via `wrdsapps.opcrsphist` (SECID ↔ PERMNO) or 8-char CUSIP matching
-- **CRSP + Compustat**: Links via `crsp.ccmxpf_lnkhist` (PERMNO ↔ GVKEY)
-- **TAQ + CRSP**: Links via `wrdsapps.taqmclink` (symbol ↔ PERMNO, Sept 2003+)
-
-Example:
-
-```
-> Get option implied volatilities for SPY and match them with CRSP daily returns
-```
-
-The orchestrator will dispatch the OptionMetrics expert for option data, the CRSP expert for stock returns, and compose the merged query using the appropriate link table.
-
----
-
-## TAQ (high-frequency data)
-
-TAQ is fundamentally different from the other databases. The data is too large for direct PostgreSQL queries, so all processing happens on the WRDS cloud server via **SSH + SAS**.
-
-### How TAQ works in this toolkit
-
-The `taq-wrds-expert` agent writes SAS programs, uploads them to WRDS, submits them as batch jobs, monitors completion, and downloads results. The `wrds-ssh` skill provides the connection patterns.
-
-### TAQ workflow
-
-```
-> Compute 5-minute realized variance for AAPL for January 2024 from trade
-> records
-```
-
-What happens behind the scenes:
-
-1. Agent writes a SAS program locally
-2. Uploads it to WRDS: `scp prog.sas wrds:~/scratch/`
-3. Submits the job: `ssh wrds 'qsas ~/scratch/prog.sas'`
-4. Polls for completion: `ssh wrds 'qstat -u $(whoami)'`
-5. Checks logs: `ssh wrds 'tail -50 ~/scratch/prog.log'`
-6. Downloads results: `scp wrds:~/scratch/output.csv ./`
-
-### TAQ gotchas
-
-- SAS jobs on WRDS are **asynchronous only**. The `-sync y` option does not work on WRDS Cloud.
-- Log files go to the same directory as the `.sas` file, not a separate log directory.
-- TAQ millisecond data uses `SYM_ROOT` (not `SYMBOL_ROOT`), `TIME_M` (not `TIME`), and `ASK` (not `OFR`). Always verify variable names with `PROC CONTENTS` before writing extraction code.
-- Use SAS views (`data ... / view=...;`) with `open=defer` to avoid materializing huge intermediate datasets.
-- TAQ scratch files on WRDS are auto-deleted after 48 hours.
-
-### TAQ example queries
-
-```
-> Get NBBO bid-ask spreads for AAPL for the first week of 2024
-
-> Compute Lee-Ready signed trades matched with prevailing quotes
-
-> Extract all trades for SPY on 2024-01-15 with standard quality filters
-```
-
----
-
-## Schema pre-loading
-
-At the start of a session, you can ask Claude to pre-load schema knowledge:
-
-```
-> /wrds-schema crsp optionm
-```
-
-or just:
-
-```
-> /wrds-schema
-```
-
-This dispatches the specialist agents to query `information_schema.columns` and return a compact reference card with table names, column types, date ranges, and known gotchas. This avoids exploratory round-trips during the actual work.
+Results should include the query or SAS program, output paths, filters, units, and pilot validation. Distinguish historical availability from current access. Save extraction provenance; commit only when requested or authorized by the project.
 
 ## Troubleshooting
 
-**"Connection refused" from psql:**
-- Verify `~/.pg_service.conf` has the correct host/port/dbname/user
-- Verify `~/.pgpass` has the matching password line and `chmod 600` permissions
-- Test: `psql service=wrds -c "SELECT 1;"`
+- **Network/DNS failure:** distinguish the execution sandbox's network restrictions from WRDS availability. Use the runtime's approval path when required; do not fall back to SSH for SQL.
+- **Authentication failure:** report the client error and have the user check their service/password setup. Do not inspect credential files without permission.
+- **Missing table or permission:** verify the exact requested table/year and subscription. A successful login does not establish access to every product.
+- **TAQ job incomplete:** inspect the recorded job ID and SAS log using the SSH skill. Do not resubmit solely because a local wait timed out.
+- **Schema mismatch:** inspect the exact product/version and update the query from observed metadata. Keep historical references distinct from live evidence.
 
-**"Permission denied" from SSH:**
-- Verify your SSH key is registered on the [WRDS website](https://wrds-www.wharton.upenn.edu/)
-- Verify `~/.ssh/config` has the correct `Host wrds` entry
-- Test: `ssh wrds 'echo ok'`
-
-**Agent keeps asking for permission:**
-- Ensure `settings.json` is in `~/.claude/settings.json` (global) or `.claude/settings.json` (project-level)
-- The permission patterns must match exactly: `Bash(psql service=wrds*)`, etc.
-
-**SAS job stuck in queue:**
-- Check status: `ssh wrds 'qstat -u $(whoami)'`
-- WRDS has limited grid slots — large jobs may wait during peak hours
-
-**"Table does not exist" for OptionMetrics:**
-- OptionMetrics tables are yearly: `optionm.opprcd2024`, not `optionm.opprcd`
-- Check available years: `psql service=wrds -c "\dt optionm.opprcd*"`
-
-**SSH asks for a Duo push / MFA code:**
-- WRDS requires Duo two-factor authentication for SSH connections
-- On first connect, you'll get a Duo prompt — approve the push on your phone or enter a passcode
-- SSH sessions are typically cached for a period after a successful Duo authentication, so subsequent commands within the same window won't re-prompt
-- If you're getting Duo prompts on every `ssh wrds` call (e.g., during a TAQ workflow with multiple steps), consider using SSH connection multiplexing. Add to `~/.ssh/config`:
-  ```
-  Host wrds
-      ControlMaster auto
-      ControlPath ~/.ssh/sockets/%r@%h-%p
-      ControlPersist 4h
-  ```
-  Then `mkdir -p ~/.ssh/sockets`. The first connection authenticates with Duo; subsequent connections reuse the tunnel for up to 4 hours.
-
-## Design decisions
-
-**Why `psql service=wrds` instead of connection flags?**
-Shell variables like `$WRDS_USERNAME` and command substitutions like `$(...)` trigger Claude Code's manual approval prompt on every invocation. Using `pg_service.conf` avoids this entirely — the connection string is a static literal.
-
-**Why single-line psql commands?**
-Multi-line commands with `\` continuation also trigger approval prompts. The `wrds-psql` skill enforces writing psql as a single line, or writing SQL to a file and using `psql service=wrds -f query.sql` for complex queries.
-
-**Why SSH + SAS for TAQ but PostgreSQL for everything else?**
-TAQ data is orders of magnitude larger than other WRDS databases. A single day of millisecond trade data can be tens of gigabytes. Direct SQL queries would timeout or exhaust memory. SAS on the WRDS grid processes data in-place without network transfer.
-
-**Why `~/scratch` symlink?**
-WRDS scratch space paths include institution and username components (e.g., `/scratch/wharton/jsmith`). The symlink `~/scratch → /scratch/{institution}/{username}` makes all paths portable across users without any hardcoded credentials.
-
-**Why not the `wrds` Python library?**
-The `wrds` pip package uses interactive prompts for authentication that don't work in non-interactive contexts like Claude Code agents. Use `psql` for command-line queries or `psycopg2.connect("service=wrds")` for Python scripts.
+Use `uv` for local Python dependency management and scripts. PostgreSQL extraction itself requires only `psql`; TAQ execution uses SAS on WRDS Cloud.

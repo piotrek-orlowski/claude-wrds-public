@@ -1,0 +1,27 @@
+{
+  "checked_at": "2026-10-05",
+  "definition": "Prefer documented product endpoints. Product currency, update freshness, access eligibility, and sample restrictions are separate facts. Unknown lifecycle remains excluded by default.",
+  "schemas": {
+    "columnar": {
+      "status": "infrastructure",
+      "reason": "Citus columnar storage metadata (chunk, chunk_group, storage, stripe, options); not a research database product.",
+      "source_urls": ["https://github.com/citusdata/citus/tree/main/src/backend/columnar"]
+    },
+    "snlsamp_fig": {
+      "status": "retired",
+      "reason": "WRDS announced removal of SNL at the end of 2024. A residual sample schema is not a current SNL subscription.",
+      "source_urls": ["https://wrds-www.wharton.upenn.edu/pages/special-pages/vendor-and-product-alert-listing-page/snl-to-be-removed-from-wrds/"]
+    },
+    "pwt_all": {
+      "status": "superseded_copy",
+      "reason": "Visible WRDS tables contain PWT 6.1 through 7.1 and old national accounts. The provider's current release is PWT 11.0; no 11.0 WRDS relation was found. Retain this catalog for diagnosis, not current-release queries.",
+      "replacement": "PWT 11.0 at the provider; not present in this WRDS catalog",
+      "source_urls": ["https://www.rug.nl/ggdc/productivity/pwt/", "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/vendor-partner-the-penn-world-tables/"]
+    },
+    "secsamp_all": {
+      "status": "current",
+      "reason": "WRDS currently offers SEC Analytics sample access; observed table comments identify the sample delivery updated 2026-07-27. This is sample-only access and not full SEC coverage.",
+      "source_urls": ["https://wrds-www.wharton.upenn.edu/pages/analytics/sec-analytics-suite-wrds/", "https://wrds-www.wharton.upenn.edu/pages/get-data/wrds-sec-analytics-suite-trial/wrds-sec-filings-queries/"]
+    }
+  }
+}

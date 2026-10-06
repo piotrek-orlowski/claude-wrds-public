@@ -1,0 +1,3116 @@
+[
+  {
+    "name": "comp.g_tmptable_pkg6775_tbl5551",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-compustat",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/sp-global-market-intelligence/"
+    ],
+    "dependencies": [
+      "comp_global_daily.g_tmptable_pkg6775_tbl5551"
+    ]
+  },
+  {
+    "name": "comp_global_daily.g_tmptable_pkg6775_tbl5551",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Temporary-looking table with placeholder description; product purpose not established. Do not infer usefulness from schema membership.",
+    "canonical": false,
+    "canonical_reason": "Placeholder table with no established research purpose. Being the only observed placeholder does not make it a canonical research dataset.",
+    "canonical_counterparts": [],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-compustat",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/sp-global-market-intelligence/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp.cs20yr",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.cs20yr",
+      "crsp_q_indexes.cs20yr"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.cs20yr"
+    ]
+  },
+  {
+    "name": "crsp.cs5yr",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.cs5yr",
+      "crsp_q_indexes.cs5yr"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.cs5yr"
+    ]
+  },
+  {
+    "name": "crsp.cs90d",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.cs90d",
+      "crsp_q_indexes.cs90d"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.cs90d"
+    ]
+  },
+  {
+    "name": "crsp.dport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport1",
+      "crsp_q_indexes.dport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport1"
+    ]
+  },
+  {
+    "name": "crsp.dport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport2",
+      "crsp_q_indexes.dport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport2"
+    ]
+  },
+  {
+    "name": "crsp.dport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport3",
+      "crsp_q_indexes.dport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport3"
+    ]
+  },
+  {
+    "name": "crsp.dport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport4",
+      "crsp_q_indexes.dport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport4"
+    ]
+  },
+  {
+    "name": "crsp.dport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport5",
+      "crsp_q_indexes.dport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport5"
+    ]
+  },
+  {
+    "name": "crsp.dport6",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport6",
+      "crsp_q_indexes.dport6"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport6"
+    ]
+  },
+  {
+    "name": "crsp.dport7",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport7",
+      "crsp_q_indexes.dport7"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport7"
+    ]
+  },
+  {
+    "name": "crsp.dport8",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport8",
+      "crsp_q_indexes.dport8"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport8"
+    ]
+  },
+  {
+    "name": "crsp.dport9",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport9",
+      "crsp_q_indexes.dport9"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dport9"
+    ]
+  },
+  {
+    "name": "crsp.dsp500list",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.dsp500list_v2",
+      "crsp_m_indexes.dsp500list",
+      "crsp_q_indexes.dsp500list"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.dsp500list"
+    ]
+  },
+  {
+    "name": "crsp.erdport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport1",
+      "crsp_q_indexes.erdport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport1"
+    ]
+  },
+  {
+    "name": "crsp.erdport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport2",
+      "crsp_q_indexes.erdport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport2"
+    ]
+  },
+  {
+    "name": "crsp.erdport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport3",
+      "crsp_q_indexes.erdport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport3"
+    ]
+  },
+  {
+    "name": "crsp.erdport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport4",
+      "crsp_q_indexes.erdport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport4"
+    ]
+  },
+  {
+    "name": "crsp.erdport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport5",
+      "crsp_q_indexes.erdport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport5"
+    ]
+  },
+  {
+    "name": "crsp.erdport6",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport6",
+      "crsp_q_indexes.erdport6"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport6"
+    ]
+  },
+  {
+    "name": "crsp.erdport7",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport7",
+      "crsp_q_indexes.erdport7"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport7"
+    ]
+  },
+  {
+    "name": "crsp.erdport8",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport8",
+      "crsp_q_indexes.erdport8"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport8"
+    ]
+  },
+  {
+    "name": "crsp.erdport9",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport9",
+      "crsp_q_indexes.erdport9"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.erdport9"
+    ]
+  },
+  {
+    "name": "crsp.ermport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport1",
+      "crsp_q_indexes.ermport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.ermport1"
+    ]
+  },
+  {
+    "name": "crsp.ermport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport2",
+      "crsp_q_indexes.ermport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.ermport2"
+    ]
+  },
+  {
+    "name": "crsp.ermport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport3",
+      "crsp_q_indexes.ermport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.ermport3"
+    ]
+  },
+  {
+    "name": "crsp.ermport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport4",
+      "crsp_q_indexes.ermport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.ermport4"
+    ]
+  },
+  {
+    "name": "crsp.ermport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport5",
+      "crsp_q_indexes.ermport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.ermport5"
+    ]
+  },
+  {
+    "name": "crsp.mport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport1",
+      "crsp_q_indexes.mport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.mport1"
+    ]
+  },
+  {
+    "name": "crsp.mport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport2",
+      "crsp_q_indexes.mport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.mport2"
+    ]
+  },
+  {
+    "name": "crsp.mport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport3",
+      "crsp_q_indexes.mport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.mport3"
+    ]
+  },
+  {
+    "name": "crsp.mport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport4",
+      "crsp_q_indexes.mport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.mport4"
+    ]
+  },
+  {
+    "name": "crsp.mport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport5",
+      "crsp_q_indexes.mport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.mport5"
+    ]
+  },
+  {
+    "name": "crsp.msic",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.msic",
+      "crsp_q_indexes.msic"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.msic"
+    ]
+  },
+  {
+    "name": "crsp.msp500list",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.msp500list_v2",
+      "crsp_m_indexes.msp500list",
+      "crsp_q_indexes.msp500list"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.msp500list"
+    ]
+  },
+  {
+    "name": "crsp.sfz_dind_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_dind",
+      "crsp_m_indexes.sfz_dind_legacy",
+      "crsp_q_indexes.sfz_dind_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_dind_legacy"
+    ]
+  },
+  {
+    "name": "crsp.sfz_indhdr_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_indhdr",
+      "crsp_m_indexes.sfz_indhdr_legacy",
+      "crsp_q_indexes.sfz_indhdr_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_indhdr_legacy"
+    ]
+  },
+  {
+    "name": "crsp.sfz_mbr",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_mbr_legacy",
+      "crsp_m_indexes.sfz_mbr",
+      "crsp_q_indexes.sfz_mbr"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_mbr"
+    ]
+  },
+  {
+    "name": "crsp.sfz_mbr_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_mbr",
+      "crsp_m_indexes.sfz_mbr_legacy",
+      "crsp_q_indexes.sfz_mbr_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_mbr_legacy"
+    ]
+  },
+  {
+    "name": "crsp.sfz_mind_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_mind",
+      "crsp_m_indexes.sfz_mind_legacy",
+      "crsp_q_indexes.sfz_mind_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_mind_legacy"
+    ]
+  },
+  {
+    "name": "crsp.sfz_portd",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portd_legacy",
+      "crsp_m_indexes.sfz_portd",
+      "crsp_q_indexes.sfz_portd"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_portd"
+    ]
+  },
+  {
+    "name": "crsp.sfz_portd_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portd",
+      "crsp_m_indexes.sfz_portd_legacy",
+      "crsp_q_indexes.sfz_portd_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_portd_legacy"
+    ]
+  },
+  {
+    "name": "crsp.sfz_portm",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portm_legacy",
+      "crsp_m_indexes.sfz_portm",
+      "crsp_q_indexes.sfz_portm"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_portm"
+    ]
+  },
+  {
+    "name": "crsp.sfz_portm_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portm",
+      "crsp_m_indexes.sfz_portm_legacy",
+      "crsp_q_indexes.sfz_portm_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_portm_legacy"
+    ]
+  },
+  {
+    "name": "crsp.sfz_rb_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_rb",
+      "crsp_m_indexes.sfz_rb_legacy",
+      "crsp_q_indexes.sfz_rb_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_indexes.sfz_rb_legacy"
+    ]
+  },
+  {
+    "name": "crsp.stock_qvards",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_m_stock.stock_qvards",
+      "crsp_q_stock.stock_qvards"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": [
+      "crsp_a_stock.stock_qvards"
+    ]
+  },
+  {
+    "name": "crsp_a_indexes.cs20yr",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Recorded fields match the cselect ASCII specifications (p.55), but exact WRDS endpoint delivery remains unverified. Select series are omitted from SFZ; do not silently substitute CTI or claim provider retirement.",
+    "canonical": true,
+    "canonical_reason": "Canonical available Select Treasury endpoint: no verified interchangeable replacement. Same-named monthly and quarterly delivery copies deny this account schema usage; CTI is a different series and is not a substitute. Exact release identity and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.cs20yr",
+      "crsp_q_indexes.cs20yr"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.cs5yr",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Recorded fields match the cselect ASCII specifications (p.55), but exact WRDS endpoint delivery remains unverified. Select series are omitted from SFZ; do not silently substitute CTI or claim provider retirement.",
+    "canonical": true,
+    "canonical_reason": "Canonical available Select Treasury endpoint: no verified interchangeable replacement. Same-named monthly and quarterly delivery copies deny this account schema usage; CTI is a different series and is not a substitute. Exact release identity and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.cs5yr",
+      "crsp_q_indexes.cs5yr"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.cs90d",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Recorded fields match the cselect ASCII specifications (p.55), but exact WRDS endpoint delivery remains unverified. Select series are omitted from SFZ; do not silently substitute CTI or claim provider retirement.",
+    "canonical": true,
+    "canonical_reason": "Canonical available Select Treasury endpoint: no verified interchangeable replacement. Same-named monthly and quarterly delivery copies deny this account schema usage; CTI is a different series and is not a substitute. Exact release identity and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.cs90d",
+      "crsp_q_indexes.cs90d"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport1",
+      "crsp_q_indexes.dport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport2",
+      "crsp_q_indexes.dport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport3",
+      "crsp_q_indexes.dport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport4",
+      "crsp_q_indexes.dport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport5",
+      "crsp_q_indexes.dport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport6",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport6",
+      "crsp_q_indexes.dport6"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport7",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport7",
+      "crsp_q_indexes.dport7"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport8",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport8",
+      "crsp_q_indexes.dport8"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dport9",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.dport9",
+      "crsp_q_indexes.dport9"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.dsp500list",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "The accessible current crsp_a_indexes.dsp500list_v2 supplies the documented S&P 500 constituent-history alternative; prefer that endpoint. This selection does not assert row-for-row equivalence.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.dsp500list_v2",
+      "crsp_m_indexes.dsp500list",
+      "crsp_q_indexes.dsp500list"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport1",
+      "crsp_q_indexes.erdport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport2",
+      "crsp_q_indexes.erdport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport3",
+      "crsp_q_indexes.erdport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport4",
+      "crsp_q_indexes.erdport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport5",
+      "crsp_q_indexes.erdport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport6",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport6",
+      "crsp_q_indexes.erdport6"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport7",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport7",
+      "crsp_q_indexes.erdport7"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport8",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport8",
+      "crsp_q_indexes.erdport8"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.erdport9",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.erdport9",
+      "crsp_q_indexes.erdport9"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.ermport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport1",
+      "crsp_q_indexes.ermport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.ermport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport2",
+      "crsp_q_indexes.ermport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.ermport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport3",
+      "crsp_q_indexes.ermport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.ermport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport4",
+      "crsp_q_indexes.ermport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.ermport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.ermport5",
+      "crsp_q_indexes.ermport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.mport1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport1",
+      "crsp_q_indexes.mport1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.mport2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport2",
+      "crsp_q_indexes.mport2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.mport3",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport3",
+      "crsp_q_indexes.mport3"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.mport4",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport4",
+      "crsp_q_indexes.mport4"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.mport5",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.mport5",
+      "crsp_q_indexes.mport5"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.msic",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical available endpoint for the recorded portfolio universe, frequency, weighting or assignment. No verified interchangeable current replacement was established; generic CIZ index or assignment tables do not prove the same series. Same-named monthly and quarterly delivery copies deny this account schema usage. Lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_m_indexes.msic",
+      "crsp_q_indexes.msic"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.msp500list",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "The accessible current crsp_a_indexes.msp500list_v2 supplies the documented S&P 500 constituent-history alternative; prefer that endpoint. This selection does not assert row-for-row equivalence.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.msp500list_v2",
+      "crsp_m_indexes.msp500list",
+      "crsp_q_indexes.msp500list"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_dind_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_dind within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_dind",
+      "crsp_m_indexes.sfz_dind_legacy",
+      "crsp_q_indexes.sfz_dind_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_indhdr_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_indhdr within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_indhdr",
+      "crsp_m_indexes.sfz_indhdr_legacy",
+      "crsp_q_indexes.sfz_indhdr_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_mbr",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical unsuffixed SFZ membership or portfolio-assignment endpoint. Prefer this accessible representation over its same-family _legacy twin. No verified current replacement was established; provider lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_mbr_legacy",
+      "crsp_m_indexes.sfz_mbr",
+      "crsp_q_indexes.sfz_mbr"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_mbr_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_mbr within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_mbr",
+      "crsp_m_indexes.sfz_mbr_legacy",
+      "crsp_q_indexes.sfz_mbr_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_mind_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_mind within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_mind",
+      "crsp_m_indexes.sfz_mind_legacy",
+      "crsp_q_indexes.sfz_mind_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_portd",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical unsuffixed SFZ membership or portfolio-assignment endpoint. Prefer this accessible representation over its same-family _legacy twin. No verified current replacement was established; provider lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portd_legacy",
+      "crsp_m_indexes.sfz_portd",
+      "crsp_q_indexes.sfz_portd"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_portd_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_portd within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portd",
+      "crsp_m_indexes.sfz_portd_legacy",
+      "crsp_q_indexes.sfz_portd_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_portm",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": true,
+    "canonical_reason": "Canonical unsuffixed SFZ membership or portfolio-assignment endpoint. Prefer this accessible representation over its same-family _legacy twin. No verified current replacement was established; provider lifecycle and observation freshness remain unresolved.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portm_legacy",
+      "crsp_m_indexes.sfz_portm",
+      "crsp_q_indexes.sfz_portm"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_portm_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_portm within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_portm",
+      "crsp_m_indexes.sfz_portm_legacy",
+      "crsp_q_indexes.sfz_portm_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_indexes.sfz_rb_legacy",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Earlier blanket SIZ retirement inference withdrawn. Ongoing delivery of these assignment, alternate and helper endpoints is not established by exact current documentation. The provider distinguishes maintained standalone index formats from discontinued SIZ; old comments/suffixes cannot resolve that mapping.",
+    "canonical": false,
+    "canonical_reason": "Select the accessible unsuffixed crsp_a_indexes.sfz_rb within the same SFZ family. Recorded fields have matching names and roles, with representation differences; lifecycle and row equivalence remain separate questions.",
+    "canonical_counterparts": [
+      "crsp_a_indexes.sfz_rb",
+      "crsp_m_indexes.sfz_rb_legacy",
+      "crsp_q_indexes.sfz_rb_legacy"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://indexes.morningstar.com/docs/guide/crsp-historical-indexes-guide?isRdp=true",
+      "https://indexes.morningstar.com/api/docs/6a67e50d879300a48c6aa86a",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crsp_a_stock.stock_qvards",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Blank-comment stock query-variable helper has legacy event fields, but its exact purpose and lifecycle were not established from official documentation. Exclude from current executable recipes; no retirement claim based only on field names.",
+    "canonical": false,
+    "canonical_reason": "Do not promote this undocumented query-variable helper to a research dataset merely because it is the available copy. Its combined legacy event-variable layout does not establish a standalone research product. Use documented CIZ stock and event tables for those research concepts.",
+    "canonical_counterparts": [
+      "crsp_m_stock.stock_qvards",
+      "crsp_q_stock.stock_qvards"
+    ],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/",
+      "https://wrds-www.wharton.upenn.edu/pages/data-announcements/changes-to-crsp-data/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crspsamp.ccm_qvards",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.ccm_qvards",
+      "crsp_m_ccm.ccm_qvards",
+      "crsp_q_ccm.ccm_qvards"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": [
+      "crspsamp_all.ccm_qvards"
+    ]
+  },
+  {
+    "name": "crspsamp.ccmlinktable_trial",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.ccmxpf_linktable",
+      "crsp_m_ccm.ccmxpf_linktable",
+      "crsp_q_ccm.ccmxpf_linktable",
+      "crspsamp_all.ccmxpf_lnkhist"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": [
+      "crspsamp_all.ccmlinktable_trial"
+    ]
+  },
+  {
+    "name": "crspsamp.ccmnames_trial",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.comphead",
+      "crsp_m_ccm.comphead",
+      "crsp_q_ccm.comphead",
+      "crspsamp_all.comphead"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": [
+      "crspsamp_all.ccmnames_trial"
+    ]
+  },
+  {
+    "name": "crspsamp.ccmxpf_lnkhist",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.ccmxpf_lnkhist",
+      "crsp_m_ccm.ccmxpf_lnkhist",
+      "crsp_q_ccm.ccmxpf_lnkhist",
+      "crspsamp_all.ccmlinktable_trial"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": [
+      "crspsamp_all.ccmxpf_lnkhist"
+    ]
+  },
+  {
+    "name": "crspsamp.comphead",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.comphead",
+      "crsp_m_ccm.comphead",
+      "crsp_q_ccm.comphead",
+      "crspsamp_all.ccmnames_trial"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": [
+      "crspsamp_all.comphead"
+    ]
+  },
+  {
+    "name": "crspsamp_all.ccm_qvards",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Sample CCM/helper files do not establish a maintained production endpoint; exact lifecycle unresolved. No full-product entitlement inferred.",
+    "canonical": false,
+    "canonical_reason": "Internal web-query variable helper, not a research dataset: the production counterpart is explicitly commented \"Dummy data set for web query QVARDS use only\". The sample layout contains combined lookup variables and lacks dated research-link intervals. Sole availability does not establish research content.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.ccm_qvards",
+      "crsp_m_ccm.ccm_qvards",
+      "crsp_q_ccm.ccm_qvards"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crspsamp_all.ccmlinktable_trial",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Sample CCM/helper files do not establish a maintained production endpoint; exact lifecycle unresolved. No full-product entitlement inferred.",
+    "canonical": true,
+    "canonical_reason": "Canonical restricted CCM sample linktable with usedflag; production CCM delivery access is denied. The sample link-history table lacks usedflag and is not established as an interchangeable population. Retain sample/trial scope; current release and observation coverage remain unresolved.",
+    "canonical_counterparts": [
+      "crspsamp_all.ccmxpf_lnkhist",
+      "crsp_a_ccm.ccmxpf_linktable",
+      "crsp_m_ccm.ccmxpf_linktable",
+      "crsp_q_ccm.ccmxpf_linktable"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crspsamp_all.ccmnames_trial",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Sample CCM/helper files do not establish a maintained production endpoint; exact lifecycle unresolved. No full-product entitlement inferred.",
+    "canonical": true,
+    "canonical_reason": "Canonical restricted CCM trial company-header endpoint, including ticker and CUSIP. Production CCM delivery access is denied. The companion sample comphead omits those fields and its population is not established as identical. Retain sample/trial scope; current release and observation coverage remain unresolved.",
+    "canonical_counterparts": [
+      "crspsamp_all.comphead",
+      "crsp_a_ccm.comphead",
+      "crsp_m_ccm.comphead",
+      "crsp_q_ccm.comphead"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crspsamp_all.ccmxpf_lnkhist",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Sample CCM/helper files do not establish a maintained production endpoint; exact lifecycle unresolved. No full-product entitlement inferred.",
+    "canonical": true,
+    "canonical_reason": "Canonical restricted CCM sample link history with linkdt/linkenddt, linktype and linkprim; production CCM delivery access is denied. The trial linktable includes usedflag and is not established as the identical history or population. Retain sample scope; current release and observation coverage remain unresolved.",
+    "canonical_counterparts": [
+      "crspsamp_all.ccmlinktable_trial",
+      "crsp_a_ccm.ccmxpf_lnkhist",
+      "crsp_m_ccm.ccmxpf_lnkhist",
+      "crsp_q_ccm.ccmxpf_lnkhist"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "crspsamp_all.comphead",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Sample CCM/helper files do not establish a maintained production endpoint; exact lifecycle unresolved. No full-product entitlement inferred.",
+    "canonical": true,
+    "canonical_reason": "Canonical restricted CCM sample company-header endpoint. Production CCM delivery access is denied; no verified replacement for this sample population was established. The trial names table has a related expanded layout, but population equivalence is unverified. Retain sample scope; current release and observation coverage remain unresolved.",
+    "canonical_counterparts": [
+      "crspsamp_all.ccmnames_trial",
+      "crsp_a_ccm.comphead",
+      "crsp_m_ccm.comphead",
+      "crsp_q_ccm.comphead"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-crsp",
+    "sources": [
+      "https://wrds-www.wharton.upenn.edu/pages/about/data-vendors/center-for-research-in-security-prices-crsp/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "gutenberg.gutenberg_book",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only observed accessible Gutenberg book endpoint. No accessible replacement or dependency to the separately documented wta_gutenberg product was established. Retain unknown maintenance and product mapping.",
+    "canonical_counterparts": [],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public.exp_per_event_table1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.exp_per_event_table1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.exp_per_event_table1"
+    ]
+  },
+  {
+    "name": "public.exp_per_event_table2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.exp_per_event_table2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.exp_per_event_table2"
+    ]
+  },
+  {
+    "name": "public.meps_exp_per_event_table1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.meps_exp_per_event_table1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.meps_exp_per_event_table1"
+    ]
+  },
+  {
+    "name": "public.meps_exp_per_event_table2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.meps_exp_per_event_table2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.meps_exp_per_event_table2"
+    ]
+  },
+  {
+    "name": "public.meps_top_prescribed",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.meps_top_prescribed"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.meps_top_prescribed"
+    ]
+  },
+  {
+    "name": "public.meps_top_therapeutic_classes",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.meps_top_therapeutic_classes"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.meps_top_therapeutic_classes"
+    ]
+  },
+  {
+    "name": "public.mepsins",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.mepsins"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.mepsins"
+    ]
+  },
+  {
+    "name": "public.mepssumm",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.mepssumm"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.mepssumm"
+    ]
+  },
+  {
+    "name": "public.mepssummexp_per_condition",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.mepssummexp_per_condition"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.mepssummexp_per_condition"
+    ]
+  },
+  {
+    "name": "public.pg_stat_statements",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "PostgreSQL statement monitoring infrastructure, not a research dataset.",
+    "canonical_counterparts": [],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public.pg_stat_statements_info",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "PostgreSQL statement monitoring infrastructure, not a research dataset.",
+    "canonical_counterparts": [],
+    "default_eligible": false,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public.top_prescribed",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.top_prescribed"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.top_prescribed"
+    ]
+  },
+  {
+    "name": "public.top_therapeutic_classes",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "public_all_new.top_therapeutic_classes"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": [
+      "public_all.top_therapeutic_classes"
+    ]
+  },
+  {
+    "name": "public_all.exp_per_event_table1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this healthcare expenditure endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.exp_per_event_table1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.exp_per_event_table2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this healthcare expenditure endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.exp_per_event_table2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.meps_exp_per_event_table1",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.meps_exp_per_event_table1"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.meps_exp_per_event_table2",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.meps_exp_per_event_table2"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.meps_top_prescribed",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.meps_top_prescribed"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.meps_top_therapeutic_classes",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.meps_top_therapeutic_classes"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.mepsins",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.mepsins"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.mepssumm",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.mepssumm"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.mepssummexp_per_condition",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.mepssummexp_per_condition"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.top_prescribed",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this healthcare prescription endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.top_prescribed"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "public_all.top_therapeutic_classes",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed delivery of this healthcare prescription endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+    "canonical_counterparts": [
+      "public_all_new.top_therapeutic_classes"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "pwt.na",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "pwt_all.na70"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [
+      "https://www.rug.nl/ggdc/productivity/pwt/"
+    ],
+    "dependencies": [
+      "pwt_all.na"
+    ]
+  },
+  {
+    "name": "pwt_all.na",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Unversioned national-accounts endpoint has 1996-base consumption/government/investment columns. Exact release identity is not established. Do not apply the sibling PWT6/7 superseded classification solely from schema membership; do not treat this as current PWT11.",
+    "canonical": true,
+    "canonical_reason": "Only verified accessible delivery of this unversioned national-accounts layout with explicitly 1996-base expenditure columns. Accessible na70 has a different 22-column layout and named 7.0 release; exact replacement equivalence is not established. Preserve the unknown release identity and do not label this PWT 11 or currently maintained.",
+    "canonical_counterparts": [
+      "pwt_all.na70"
+    ],
+    "default_eligible": true,
+    "sample": false,
+    "access": "planning_accepted",
+    "skill": "wrds-public-data",
+    "sources": [
+      "https://www.rug.nl/ggdc/productivity/pwt/"
+    ],
+    "dependencies": []
+  },
+  {
+    "name": "wappsamp.ccmxpf_lnkhist",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.ccmxpf_lnkhist",
+      "crsp_m_ccm.ccmxpf_lnkhist",
+      "crsp_q_ccm.ccmxpf_lnkhist",
+      "crspsamp_all.ccmxpf_lnkhist"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.ccmxpf_lnkhist"
+    ]
+  },
+  {
+    "name": "wappsamp.ciqkeydev",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "ciq_keydev.ciqkeydev"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-vendor-samples",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.ciqkeydev"
+    ]
+  },
+  {
+    "name": "wappsamp.ciqkeydevint",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "ciq_keydev.ciqkeydev"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.ciqkeydevint"
+    ]
+  },
+  {
+    "name": "wappsamp.country",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "wrdsapps_evtstudy_int_ginsight.country"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.country"
+    ]
+  },
+  {
+    "name": "wappsamp.dsedelist",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_stock.stkdelists"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-vendor-samples",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.dsedelist"
+    ]
+  },
+  {
+    "name": "wappsamp.dsf",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_stock.dsf_v2"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-vendor-samples",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.dsf"
+    ]
+  },
+  {
+    "name": "wappsamp.dsi",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "crsp_a_stock.inddlyseriesdata",
+      "crsp_a_stock.wrds_dailyindexret_query"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-vendor-samples",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.dsi"
+    ]
+  },
+  {
+    "name": "wappsamp.g_secd",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "comp_global_daily.g_secd"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-vendor-samples",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.g_secd"
+    ]
+  },
+  {
+    "name": "wappsamp.g_security",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": false,
+    "canonical_reason": "One or more view dependencies are not canonical.",
+    "canonical_counterparts": [
+      "comp_global_daily.g_security"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-vendor-samples",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.g_security"
+    ]
+  },
+  {
+    "name": "wappsamp.series_data",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.series_data"
+    ]
+  },
+  {
+    "name": "wappsamp.wrds_keydev",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "ciq_keydev.wrds_keydev"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.wrds_keydev"
+    ]
+  },
+  {
+    "name": "wappsamp.wrds_keydevint",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "Lifecycle inherited from observed view dependencies.",
+    "canonical": true,
+    "canonical_reason": "Canonical selection inherited from observed view dependencies.",
+    "canonical_counterparts": [
+      "ciq_keydev.wrds_keydev"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": [
+      "wrdsappssamp_all.wrds_keydevint"
+    ]
+  },
+  {
+    "name": "wrdsappssamp_all.ccmxpf_lnkhist",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Accessible restricted application-sample link history; all observed production CCM deliveries lack schema access. Another CRSP sample exists with a different layout, but no verified full accessible replacement or sample-equivalence mapping was established. Keep the sample restriction.",
+    "canonical_counterparts": [
+      "crsp_a_ccm.ccmxpf_lnkhist",
+      "crsp_m_ccm.ccmxpf_lnkhist",
+      "crsp_q_ccm.ccmxpf_lnkhist",
+      "crspsamp_all.ccmxpf_lnkhist"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.ciqkeydev",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "Restricted key-development text sample has an accessible documented full CIQ endpoint providing keydevid and situation. Prefer the full product; sample maintenance is still unverified.",
+    "canonical_counterparts": [
+      "ciq_keydev.ciqkeydev"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.ciqkeydevint",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only observed application delivery explicitly identified as the international key-development text sample. The full CIQ endpoint is accessible, but exact equivalence of this international selection was not established. Preserve the sample scope and unknown maintenance.",
+    "canonical_counterparts": [
+      "ciq_keydev.ciqkeydev"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.country",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only accessible observed sample dictionary linking FIC, currency, series_name and observation date bounds. The WRDS international event-study country endpoint is inaccessible, and unrelated country dictionaries are not verified replacements. Preserve the sample scope.",
+    "canonical_counterparts": [
+      "wrdsapps_evtstudy_int_ginsight.country"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.dsedelist",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "Restricted legacy stock-delisting sample has an accessible maintained CIZ delisting product. Use the documented CIZ migration and retain the sample only for explicit diagnosis or replication.",
+    "canonical_counterparts": [
+      "crsp_a_stock.stkdelists"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.dsf",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "Restricted legacy daily-stock sample has an accessible maintained CIZ daily-stock product. Use the documented CIZ migration and retain the sample only for explicit diagnosis or replication.",
+    "canonical_counterparts": [
+      "crsp_a_stock.dsf_v2"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.dsi",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "Restricted legacy daily market-index sample has accessible maintained CIZ daily-index deliveries. Map index identity using the documented CIZ migration instead of promoting the old application sample.",
+    "canonical_counterparts": [
+      "crsp_a_stock.wrds_dailyindexret_query",
+      "crsp_a_stock.inddlyseriesdata"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.g_secd",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "Restricted Global Compustat daily-security sample has an accessible maintained full endpoint. Prefer the full product.",
+    "canonical_counterparts": [
+      "comp_global_daily.g_secd"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.g_security",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": false,
+    "canonical_reason": "Restricted Global Compustat security sample has an accessible maintained full endpoint. Prefer the full product.",
+    "canonical_counterparts": [
+      "comp_global_daily.g_security"
+    ],
+    "default_eligible": false,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.series_data",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only observed accessible series_name/date/datavalue application-sample endpoint. No verified accessible replacement for these exact series was established. Preserve sample scope and unverified maintenance.",
+    "canonical_counterparts": [],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.wrds_keydev",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only verified accessible application sample delivering the recorded GVKEY-linked event layout. Full ciq_keydev.wrds_keydev is accessible but uses companyid and is not a verified equivalent prelinked delivery. Preserve sample scope; use full CIQ plus a separately validated link for broader research.",
+    "canonical_counterparts": [
+      "ciq_keydev.wrds_keydev"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  },
+  {
+    "name": "wrdsappssamp_all.wrds_keydevint",
+    "lifecycle": "unresolved",
+    "lifecycle_reason": "No current product mapping established from public documentation and catalog dependencies.",
+    "canonical": true,
+    "canonical_reason": "Only verified accessible international application sample delivering the recorded GVKEY-linked event layout. Full ciq_keydev.wrds_keydev is accessible but is not a verified equivalent prelinked international delivery. Preserve sample scope and unknown maintenance.",
+    "canonical_counterparts": [
+      "ciq_keydev.wrds_keydev"
+    ],
+    "default_eligible": true,
+    "sample": true,
+    "access": "planning_accepted",
+    "skill": "wrds-research",
+    "sources": [],
+    "dependencies": []
+  }
+]

@@ -1,151 +1,51 @@
 ---
 name: wrds-psql
-description: Use this skill when the user needs to query WRDS data via PostgreSQL from the local machine. Covers psql connection using .pgpass credentials, query execution patterns, CSV/parquet export, and best practices for large extractions. Invoke when the user wants to pull data from WRDS (CRSP, OptionMetrics, Compustat) via SQL.
-argument-hint: "[query or description of data needed]"
+description: Connect to WRDS directly with psql, validate small queries and export PostgreSQL data for any non-TAQ product, including cross-database SQL. Use wrds-ssh for TAQ SAS jobs.
 ---
 
-# WRDS PostgreSQL Query Skill (Local psql via .pgpass)
+# WRDS PostgreSQL access
 
-Execute WRDS queries directly from the local machine using `psql` with service file authentication. No SSH required.
-
-## Critical Rule: Single-Line Commands Only
-
-**Always write psql commands as a single line.** Never use `\` line continuation or heredocs. This avoids shell expansion approval prompts.
-
-```bash
-# GOOD — single line
-psql service=wrds -c "SELECT permno, date, ret FROM crsp.dsf WHERE permno = 84398 LIMIT 10;"
-
-# BAD — multi-line
-psql service=wrds \
-    -c "SELECT permno, date, ret
-        FROM crsp.dsf
-        WHERE permno = 84398 LIMIT 10;"
-```
-
-For complex queries, write SQL to a file and use `-f`:
-```bash
-psql service=wrds -f query.sql
-```
+Use direct local `psql service=wrds`. The `wrds-psql-agent` handles both single-database and multi-database requests by loading the relevant skills. Database tables, units, filters, and joins belong in those skills, not here.
 
 ## Connection
 
-Connection details are in `~/.pg_service.conf` (host, port, database, user); password in `~/.pgpass`.
+Let libpq use the existing service and password configuration. Never open credential files such as `~/.pg_service.conf`, `~/.pgpass`, `.env`, or `~/.ssh/config` without explicit permission. Do not print passwords or put them in commands. If configuration is missing, report the error and ask for setup; do not inspect the files to diagnose it.
 
-## Query Patterns
+Keep shell invocations on one line. Save substantial SQL in a file and pass `-f`; the SQL file itself can contain multiple lines.
 
-### Inline query
-```bash
-psql service=wrds -c "SELECT column_name, data_type FROM information_schema.columns WHERE table_schema='crsp' AND table_name='dsf' ORDER BY ordinal_position;"
-```
-
-### Query from file (preferred for complex SQL)
-```bash
-psql service=wrds -f query.sql
-```
-
-### Tuples-only output (no headers/footers)
-```bash
-psql service=wrds -t -A -F',' -c "SELECT permno, date, ret FROM crsp.dsf WHERE permno=84398 LIMIT 10"
-```
-Flags: `-t` (tuples only), `-A` (unaligned), `-F','` (comma field separator).
-
-## Data Export
-
-### CSV to stdout (pipe to file)
-```bash
-psql service=wrds -c "COPY (SELECT permno, date, ret, prc FROM crsp.dsf WHERE permno = 84398 AND date >= '2020-01-01' ORDER BY date) TO STDOUT WITH CSV HEADER" > output.csv
-```
-
-### CSV with custom delimiter
-```bash
-psql service=wrds -c "COPY (SELECT ...) TO STDOUT WITH (FORMAT CSV, HEADER, DELIMITER '|')" > output.csv
-```
-
-### Tab-separated
-```bash
-psql service=wrds -c "COPY (SELECT ...) TO STDOUT WITH (FORMAT TEXT)" > output.tsv
-```
-
-### Convert CSV to parquet (after download)
+Use a noninteractive, read-only connection with a short timeout for the initial check:
 
 ```bash
-python3 -c "
-import pandas as pd
-df = pd.read_csv('output.csv', parse_dates=['date'])
-df.to_parquet('output.parquet', index=False)
-"
+psql 'service=wrds connect_timeout=10 options=-cdefault_transaction_read_only=on\ -cstatement_timeout=15000' -X -w -v ON_ERROR_STOP=1 -P pager=off -c 'SELECT 1 AS connection_ok;'
 ```
 
-## Schema Discovery
+`-X` skips psql startup files, `-w` disables password prompts, and `ON_ERROR_STOP` propagates SQL errors. The client still uses existing authentication normally. A successful connection proves authentication, not access to every subscription.
+
+Distinguish a network/DNS failure from authentication failure or missing table privileges. Use the runtime's normal network approval mechanism when needed. Do not use SSH as a PostgreSQL fallback, or the interactive `wrds` Python package.
+
+## Load knowledge and verify a pilot
+
+1. Use [wrds-schema](../wrds-schema/SKILL.md) to select the domain skills and inspect only the tables needed for the request.
+2. For multiple datasets, also load [wrds-linking](../wrds-linking/SKILL.md). Agree on output grain, dates, identifiers, and information availability before joining.
+3. Prototype the complete extraction on one asset and a small date window. Validate units, NULLs, missing-value codes, uniqueness, and join coverage. `LIMIT` alone does not bound aggregate or sort work.
+4. Scale only after the pilot is valid. Keep date and identifier bounds; batch large exports by date or asset. A timeout calls for a smaller query or a plan check before raising the limit.
+
+For saved queries, start with a bounded runtime appropriate to the sample:
 
 ```bash
-psql service=wrds -c "\dn" | head -40
-psql service=wrds -c "\dt crsp.*"
-psql service=wrds -c "SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_schema='crsp' AND table_name='dsf' ORDER BY ordinal_position;"
-psql service=wrds -c "SELECT COUNT(*), MIN(date), MAX(date) FROM crsp.dsf;"
+psql 'service=wrds connect_timeout=10 options=-cdefault_transaction_read_only=on\ -cstatement_timeout=60000' -X -w -v ON_ERROR_STOP=1 -P pager=off -f queries/pilot.sql
 ```
 
-## Common Databases and Key Tables
+TAQ extraction belongs to `wrds-taq-agent` using [wrds-taq](../wrds-taq/SKILL.md) and [wrds-ssh](../wrds-ssh/SKILL.md). A mixed TAQ/stock task can exchange small keyed outputs between the two agents through their parent; it does not require a third orchestrator agent.
 
-| Schema | Table | Description | Key Columns |
-|--------|-------|-------------|-------------|
-| `crsp` | `dsf` | Daily stock file | permno, date, ret, prc, vol, shrout |
-| `crsp` | `dsi` | Daily S&P index | date, sprtrn, spindx, vwretd |
-| `crsp` | `msf` | Monthly stock file | permno, date, ret, prc |
-| `crsp` | `stocknames` | Security names/identifiers | permno, namedt, nameendt, ticker, cusip |
-| `crsp` | `delist` | Delisting events | permno, dlstdt, dlret, dlstcd |
-| `optionm` | `opprcd{YYYY}` | Option prices (yearly) | secid, date, exdate, cp_flag, strike_price(/1000!), best_bid, best_offer, impl_volatility, delta |
-| `optionm` | `securd` | Security reference | secid, ticker, cusip, index_flag |
-| `optionm` | `stdopd` | Standardized options | secid, date, days, impl_volatility, delta |
-| `optionm` | `zerocd` | Zero-coupon rates | date, days, rate |
-| `comp` | `funda` | Annual fundamentals | gvkey, datadate, at, ni, ceq |
-| `comp` | `fundq` | Quarterly fundamentals | gvkey, datadate, atq, niq |
-| `crsp` | `ccmxpf_lnkhist` | CRSP-Compustat link | gvkey, lpermno, linkdt, linkenddt, linktype, linkprim |
-| `wrdsapps` | `opcrsphist` | OptionMetrics-CRSP link | secid, permno, sdate, edate |
+## Export and preserve provenance
 
-## Known Gotchas
-
-1. **OptionMetrics strike_price** — stored as strike * 1000. Always `strike_price / 1000.0` in queries.
-2. **OptionMetrics yearly tables** — option prices are partitioned by year: `optionm.opprcd1996`, `optionm.opprcd1997`, ..., `optionm.opprcd2025`. Use `UNION ALL` across years or query one at a time.
-3. **CRSP column names** — `crsp.dsi` uses `date` (not `caldt`), `spindx` (not `sprindx`).
-4. **Numeric precision** — PostgreSQL returns `numeric` type for many WRDS columns. When loading into Python, cast to `float64`.
-5. **Large queries** — WRDS may timeout on queries returning millions of rows. Break into date ranges:
-   ```sql
-   -- Instead of: SELECT * FROM crsp.dsf WHERE permno IN (...)
-   -- Do: SELECT * FROM crsp.dsf WHERE date >= '2020-01-01' AND date < '2021-01-01' AND permno IN (...)
-   ```
-6. **COPY vs SELECT** — `COPY ... TO STDOUT` is much faster than piping `SELECT` output for large extractions.
-7. **NULL handling** — many columns have NULLs (missing returns, missing prices). Always consider `WHERE ret IS NOT NULL` or handle in downstream code.
-8. **SPY identifiers** — CRSP PERMNO: 84398. OptionMetrics SECID: 109820. SPX SECID: 108105.
-9. **CCM linking filters** — always filter: `linktype IN ('LC','LU') AND linkprim IN ('P','C')` and check date overlap.
-
-## Best Practices
-
-1. **Always filter by date first** — date columns are indexed; this dramatically reduces scan time.
-2. **Use COPY for bulk export** — `COPY (...) TO STDOUT WITH CSV HEADER` is the fastest way to extract data.
-3. **Test with LIMIT** — always test queries with `LIMIT 100` before running full extraction.
-4. **Save as parquet** — after CSV download, convert to parquet for faster subsequent loads.
-5. **Avoid SELECT *** — specify only the columns you need to reduce data transfer.
-6. **Use CTEs for complex joins** — break multi-table queries into `WITH` clauses for readability and to help the query planner.
-
-## Putting It Together: Full Extraction Workflow
+Use a SQL file containing `COPY (bounded_query) TO STDOUT WITH CSV HEADER` for larger exports. Keep psql output quiet and write to a temporary filename so a failed query is not mistaken for a complete result:
 
 ```bash
-# 1. Test the query
-psql service=wrds -c "SELECT permno, date, ret, prc FROM crsp.dsf WHERE permno = 84398 AND date >= '2020-01-01' ORDER BY date LIMIT 10;"
-
-# 2. Export to CSV
-psql service=wrds -c "COPY (SELECT permno, date, ret, prc FROM crsp.dsf WHERE permno = 84398 AND date >= '2020-01-01' ORDER BY date) TO STDOUT WITH CSV HEADER" > data/crsp_spy.csv
+psql 'service=wrds connect_timeout=10 options=-cdefault_transaction_read_only=on\ -cstatement_timeout=60000' -X -w -q -v ON_ERROR_STOP=1 -f queries/export.sql > output/results.csv.partial
 ```
 
-## Instructions
+Check exit status, expected columns, sample values, and row counts before renaming the partial file. Do not overwrite the only copy of an earlier extraction. For alternate delimiters, use `WITH (FORMAT CSV, HEADER, DELIMITER '|')` or PostgreSQL text output. For small human-readable results, `-t -A -F ','` gives unaligned tuples; use COPY for actual CSV escaping.
 
-When given a query request (`$ARGUMENTS`):
-
-1. Identify which WRDS schemas/tables are needed
-2. Write the SQL query with appropriate filters and joins
-3. Wrap it in the appropriate `psql` command for execution
-4. If the user wants data saved locally, use `COPY ... TO STDOUT WITH CSV HEADER` piped to a file
-5. Suggest any data quality filters or gotchas specific to the tables involved
-6. For large extractions, suggest breaking into date ranges
+Preserve SQL, parameters, extraction date, source tables, units, filter definitions, and validation results with the output. See [query workflow](references/query-workflow.md) for project organization and review. For optional local Python/Parquet processing, see [Python processing](references/python.md).

@@ -1,0 +1,25 @@
+{
+  "validated_at": "2026-10-05T22:34:25.043272+00:00",
+  "schemas": 1098,
+  "relations": 118646,
+  "columns": 3092679,
+  "globally_distinct_column_layouts": 9430,
+  "dependency_edges": 48470,
+  "dependencies_on_system_relations": 0,
+  "access_statuses": {
+    "not_probed_no_schema_usage": 26543,
+    "not_probed_no_select_privilege": 2,
+    "taq_sas_required": 79010,
+    "guard_denied": 6604,
+    "planning_accepted": 6244,
+    "runtime_error": 243
+  },
+  "meaning": "Structural coverage validated; planning acceptance and alias-guard success do not prove data-return behavior or current-product lifecycle",
+  "input_sha256": {
+    "schemas.jsonl": "d788066656502c08bb425009e6557ba5e552e30fc0c0b49c89ff5084051569d0",
+    "relations.jsonl.gz": "7d9495e4f17e4e6cf44bb4cf466e78e33c4d25ffe8e820d126bad6441d274aa3",
+    "dependencies.jsonl.gz": "443f88d280b78a6bacec684a43e94cc56d8e117e0947cdec003df264c53bd363",
+    "column-layouts.jsonl.gz": "7258c6074e8ac219e4d3c519835f122b38faac0538aef14653a638efc1ce9896",
+    "access-probes.jsonl": "583432c90d9d07ddb3a3023dfef77d89373f326cab0674535e0023ba06ff67a7"
+  }
+}

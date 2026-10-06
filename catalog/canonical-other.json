@@ -1,0 +1,172 @@
+{
+  "decisions": [
+    {
+      "name": "comp_global_daily.g_tmptable_pkg6775_tbl5551",
+      "canonical": false,
+      "reason": "Placeholder table with no established research purpose. Being the only observed placeholder does not make it a canonical research dataset.",
+      "counterparts": []
+    },
+    {
+      "name": "gutenberg.gutenberg_book",
+      "canonical": true,
+      "reason": "Only observed accessible Gutenberg book endpoint. No accessible replacement or dependency to the separately documented wta_gutenberg product was established. Retain unknown maintenance and product mapping.",
+      "counterparts": []
+    },
+    {
+      "name": "public.pg_stat_statements",
+      "canonical": false,
+      "reason": "PostgreSQL statement monitoring infrastructure, not a research dataset.",
+      "counterparts": []
+    },
+    {
+      "name": "public.pg_stat_statements_info",
+      "canonical": false,
+      "reason": "PostgreSQL statement monitoring infrastructure, not a research dataset.",
+      "counterparts": []
+    },
+    {
+      "name": "public_all.exp_per_event_table1",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this healthcare expenditure endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.exp_per_event_table1"]
+    },
+    {
+      "name": "public_all.exp_per_event_table2",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this healthcare expenditure endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.exp_per_event_table2"]
+    },
+    {
+      "name": "public_all.meps_exp_per_event_table1",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.meps_exp_per_event_table1"]
+    },
+    {
+      "name": "public_all.meps_exp_per_event_table2",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.meps_exp_per_event_table2"]
+    },
+    {
+      "name": "public_all.meps_top_prescribed",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.meps_top_prescribed"]
+    },
+    {
+      "name": "public_all.meps_top_therapeutic_classes",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.meps_top_therapeutic_classes"]
+    },
+    {
+      "name": "public_all.mepsins",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.mepsins"]
+    },
+    {
+      "name": "public_all.mepssumm",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.mepssumm"]
+    },
+    {
+      "name": "public_all.mepssummexp_per_condition",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this MEPS endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.mepssummexp_per_condition"]
+    },
+    {
+      "name": "public_all.top_prescribed",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this healthcare prescription endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.top_prescribed"]
+    },
+    {
+      "name": "public_all.top_therapeutic_classes",
+      "canonical": true,
+      "reason": "Only accessible observed delivery of this healthcare prescription endpoint; the same-name public_all_new counterpart lacks schema access. Its current maintenance remains unverified.",
+      "counterparts": ["public_all_new.top_therapeutic_classes"]
+    },
+    {
+      "name": "pwt_all.na",
+      "canonical": true,
+      "reason": "Only verified accessible delivery of this unversioned national-accounts layout with explicitly 1996-base expenditure columns. Accessible na70 has a different 22-column layout and named 7.0 release; exact replacement equivalence is not established. Preserve the unknown release identity and do not label this PWT 11 or currently maintained.",
+      "counterparts": ["pwt_all.na70"]
+    },
+    {
+      "name": "wrdsappssamp_all.ccmxpf_lnkhist",
+      "canonical": true,
+      "reason": "Accessible restricted application-sample link history; all observed production CCM deliveries lack schema access. Another CRSP sample exists with a different layout, but no verified full accessible replacement or sample-equivalence mapping was established. Keep the sample restriction.",
+      "counterparts": ["crsp_a_ccm.ccmxpf_lnkhist", "crsp_m_ccm.ccmxpf_lnkhist", "crsp_q_ccm.ccmxpf_lnkhist", "crspsamp_all.ccmxpf_lnkhist"]
+    },
+    {
+      "name": "wrdsappssamp_all.ciqkeydev",
+      "canonical": false,
+      "reason": "Restricted key-development text sample has an accessible documented full CIQ endpoint providing keydevid and situation. Prefer the full product; sample maintenance is still unverified.",
+      "counterparts": ["ciq_keydev.ciqkeydev"]
+    },
+    {
+      "name": "wrdsappssamp_all.ciqkeydevint",
+      "canonical": true,
+      "reason": "Only observed application delivery explicitly identified as the international key-development text sample. The full CIQ endpoint is accessible, but exact equivalence of this international selection was not established. Preserve the sample scope and unknown maintenance.",
+      "counterparts": ["ciq_keydev.ciqkeydev"]
+    },
+    {
+      "name": "wrdsappssamp_all.country",
+      "canonical": true,
+      "reason": "Only accessible observed sample dictionary linking FIC, currency, series_name and observation date bounds. The WRDS international event-study country endpoint is inaccessible, and unrelated country dictionaries are not verified replacements. Preserve the sample scope.",
+      "counterparts": ["wrdsapps_evtstudy_int_ginsight.country"]
+    },
+    {
+      "name": "wrdsappssamp_all.dsedelist",
+      "canonical": false,
+      "reason": "Restricted legacy stock-delisting sample has an accessible maintained CIZ delisting product. Use the documented CIZ migration and retain the sample only for explicit diagnosis or replication.",
+      "counterparts": ["crsp_a_stock.stkdelists"]
+    },
+    {
+      "name": "wrdsappssamp_all.dsf",
+      "canonical": false,
+      "reason": "Restricted legacy daily-stock sample has an accessible maintained CIZ daily-stock product. Use the documented CIZ migration and retain the sample only for explicit diagnosis or replication.",
+      "counterparts": ["crsp_a_stock.dsf_v2"]
+    },
+    {
+      "name": "wrdsappssamp_all.dsi",
+      "canonical": false,
+      "reason": "Restricted legacy daily market-index sample has accessible maintained CIZ daily-index deliveries. Map index identity using the documented CIZ migration instead of promoting the old application sample.",
+      "counterparts": ["crsp_a_stock.wrds_dailyindexret_query", "crsp_a_stock.inddlyseriesdata"]
+    },
+    {
+      "name": "wrdsappssamp_all.g_secd",
+      "canonical": false,
+      "reason": "Restricted Global Compustat daily-security sample has an accessible maintained full endpoint. Prefer the full product.",
+      "counterparts": ["comp_global_daily.g_secd"]
+    },
+    {
+      "name": "wrdsappssamp_all.g_security",
+      "canonical": false,
+      "reason": "Restricted Global Compustat security sample has an accessible maintained full endpoint. Prefer the full product.",
+      "counterparts": ["comp_global_daily.g_security"]
+    },
+    {
+      "name": "wrdsappssamp_all.series_data",
+      "canonical": true,
+      "reason": "Only observed accessible series_name/date/datavalue application-sample endpoint. No verified accessible replacement for these exact series was established. Preserve sample scope and unverified maintenance.",
+      "counterparts": []
+    },
+    {
+      "name": "wrdsappssamp_all.wrds_keydev",
+      "canonical": true,
+      "reason": "Only verified accessible application sample delivering the recorded GVKEY-linked event layout. Full ciq_keydev.wrds_keydev is accessible but uses companyid and is not a verified equivalent prelinked delivery. Preserve sample scope; use full CIQ plus a separately validated link for broader research.",
+      "counterparts": ["ciq_keydev.wrds_keydev"]
+    },
+    {
+      "name": "wrdsappssamp_all.wrds_keydevint",
+      "canonical": true,
+      "reason": "Only verified accessible international application sample delivering the recorded GVKEY-linked event layout. Full ciq_keydev.wrds_keydev is accessible but is not a verified equivalent prelinked international delivery. Preserve sample scope and unknown maintenance.",
+      "counterparts": ["ciq_keydev.wrds_keydev"]
+    }
+  ]
+}

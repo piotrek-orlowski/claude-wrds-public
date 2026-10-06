@@ -1,0 +1,108 @@
+{
+  "checked_at_utc": "2026-10-05T22:41:00.147710+00:00",
+  "validation": "Column presence against collected catalog; local Markdown link existence. This is not SQL execution or observation validation.",
+  "recipes": [
+    {
+      "table": "ff_all.fivefactors_monthly",
+      "referenced_columns": [
+        "date",
+        "dateff",
+        "mktrf",
+        "smb",
+        "hml",
+        "rmw",
+        "cma",
+        "rf",
+        "umd"
+      ],
+      "layout_id": "bdbd5d5f21fd8b6137516108aad29a670aeb96b8acdebcc02a533b6f9b3cdba3",
+      "missing_columns": []
+    },
+    {
+      "table": "contrib_global_factor.global_factor",
+      "referenced_columns": [
+        "eom",
+        "id",
+        "permno",
+        "gvkey",
+        "excntry",
+        "curcd",
+        "obs_main",
+        "common",
+        "exch_main",
+        "primary_sec",
+        "me",
+        "size_grp",
+        "be_me",
+        "ret_12_1",
+        "beta_60m",
+        "ret",
+        "ret_local",
+        "ret_exc",
+        "ret_exc_lead1m"
+      ],
+      "layout_id": "5c58f2666f7f97c49c7a32e686845e51a08270f496fe16a804d720c2d9a2c070",
+      "missing_columns": []
+    },
+    {
+      "table": "contrib_bond_dickerson.dickerson_bonds_monthly",
+      "referenced_columns": [
+        "date",
+        "cusip",
+        "permno",
+        "gvkey",
+        "ret_vw",
+        "cs",
+        "md_dur",
+        "spc_rat"
+      ],
+      "layout_id": "c6facd3df5b761b6fff92752e0b8555c04db2148c4edb6dfa47344fbe9c8c797",
+      "missing_columns": []
+    },
+    {
+      "table": "wrdsapps_bondret.bondret",
+      "referenced_columns": [
+        "date",
+        "cusip",
+        "issue_id",
+        "price_eom",
+        "price_eom_flg",
+        "gap",
+        "ret_eom",
+        "ret_ldm",
+        "ret_l5m",
+        "yield",
+        "duration",
+        "rating_num",
+        "rating_cat",
+        "rating_class"
+      ],
+      "layout_id": "053f617bb13b1b2a0932ff0b681a7e7ec9efb05918689460510026c9cf8541e0",
+      "missing_columns": []
+    },
+    {
+      "table": "trace_enhanced.trace_enhanced",
+      "referenced_columns": [
+        "cusip_id",
+        "trd_exctn_dt",
+        "trd_exctn_tm",
+        "trd_rpt_dt",
+        "trd_rpt_tm",
+        "msg_seq_nb",
+        "orig_msg_seq_nb",
+        "trc_st",
+        "rptd_pr",
+        "entrd_vol_qt",
+        "rpt_side_cd",
+        "cntra_mp_id",
+        "asof_cd",
+        "sale_cndtn_cd",
+        "first_trade_ctrl_date",
+        "first_trade_ctrl_num"
+      ],
+      "layout_id": "05d526e82b7a8de064181abd45dcf56872d7b4bc1d92e5e7187b254908c16b04",
+      "missing_columns": []
+    }
+  ],
+  "local_links_checked": 21
+}

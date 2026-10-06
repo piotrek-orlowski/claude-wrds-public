@@ -1,224 +1,78 @@
 ---
 name: wrds-ssh
-description: This skill should be used when the user needs to connect to WRDS servers, run SAS code on WRDS, execute SQL queries on WRDS PostgreSQL, submit batch jobs to WRDS, or transfer files to/from WRDS. Use this skill whenever WRDS server access is required for data extraction, processing, or analysis.
-version: 1.0.0
+description: Submit and monitor TAQ SAS jobs on WRDS through SSH and transfer their programs, logs, and results. Use for TAQ-related SAS schema probes and batch operations only.
 ---
 
-# WRDS SSH Connection Skill
+# TAQ SAS job operations
 
-This skill provides guidance on connecting to and working with WRDS (Wharton Research Data Services) servers via SSH.
+Use the configured `wrds` SSH alias for TAQ SAS work only: submission, related
+SAS schema probes, monitoring, and transfer. Use `wrds-taq` for product knowledge,
+filters, and SAS analysis. Other WRDS databases use direct local PostgreSQL via
+`wrds-psql-agent`; do not use SSH for PostgreSQL or remote Python.
 
-## Connection
+Do not read credential files, including `~/.ssh/config`, without explicit user
+permission. The SSH client may use the existing configuration normally. If
+authentication or MFA needs user input, report the blocker instead of reading
+secrets or repeatedly retrying. Setup instructions belong in the repository
+README; do not modify authentication or scratch configuration during an extraction.
 
-The SSH connection to WRDS is pre-configured. Connect using:
+## Submit a prototype
+
+Write the SAS program locally and prototype on one asset and at most one week.
+Keep SAS notes enabled so the log retains row counts and diagnostics. Mirror
+the local directory under the preconfigured remote `~/scratch` symlink.
+Use a unique program basename per run so home-directory logs do not collide.
+
+Example: local `data/taq-iv/taq_probe_20241007_aapl.sas`.
 
 ```bash
-ssh wrds
+ssh wrds 'mkdir -p ~/scratch/taq-iv'
+scp data/taq-iv/taq_probe_20241007_aapl.sas wrds:~/scratch/taq-iv/
+ssh wrds 'qsas ~/scratch/taq-iv/taq_probe_20241007_aapl.sas'
 ```
 
-This connects to the WRDS cloud server (`wrds-cloud-sshkey.wharton.upenn.edu`) via the `~/.ssh/config` host alias.
+`qsas` submits asynchronously; capture its job ID. Do not invoke `sas` directly
+or add `-sync y`. Default logs go to **`~/taq_probe_20241007_aapl.log` in the remote
+home directory**, not the scratch directory containing the program. The SAS
+program determines the CSV output path. Do not assume a listing file exists.
 
-## WRDS Paths
-
-- **Home directory:** `~` (on WRDS)
-- **Scratch directory:** `~/scratch` (symlink — see CLAUDE.md setup instructions)
-
-All SSH commands use single quotes to avoid local shell expansion. Paths like `~/scratch/` expand on the remote side.
-
-## Running Commands on WRDS
-
-### Interactive Session
-
-For quick commands or testing:
+## Monitor and retrieve
 
 ```bash
-ssh wrds "command_here"
-```
-
-### Running SAS Code
-
-**IMPORTANT:** On WRDS Cloud, you cannot run `sas` directly. You must use `qsas` which submits jobs to the Grid Engine queue. Jobs run asynchronously.
-
-**Step 1: Create the SAS program file on WRDS:**
-```bash
-ssh wrds 'cat > ~/scratch/myprogram.sas << EOF
-options nonotes nosource;
-proc contents data=crsp.dsf; run;
-EOF'
-```
-
-**Step 2: Submit the job:**
-```bash
-ssh wrds 'qsas ~/scratch/myprogram.sas'
-```
-This returns immediately with a job ID (e.g., `Your job 12345678 ("myprogram.sas") has been submitted`).
-
-**Step 3: Wait for completion and check output:**
-```bash
-# Check if job is still running
 ssh wrds 'qstat -u $(whoami)'
-
-# Once complete, check the log for errors
-ssh wrds 'tail -50 ~/scratch/myprogram.log'
-
-# View the listing output
-ssh wrds 'cat ~/scratch/myprogram.lst'
+ssh wrds 'tail -80 ~/taq_probe_20241007_aapl.log'
 ```
 
-**Output files:** SAS creates `.log` and `.lst` files in the same directory as the `.sas` file.
-
-**NOTE:** The `-sync y` option does NOT work on WRDS Cloud. Jobs are always asynchronous. Use `sleep` or poll `qstat` to wait for completion.
-
-### Running SQL Queries (PostgreSQL)
-
-Use `psql` directly with `~/.pgpass` for automatic authentication:
-```bash
-# Single query
-psql service=wrds \
-    -c "SELECT * FROM crsp.dsf WHERE date > '2025-01-01' LIMIT 10;"
-
-# Output to CSV
-psql service=wrds \
-    -c "COPY (SELECT * FROM optionm.securd LIMIT 100) TO STDOUT WITH CSV HEADER" > output.csv
-```
-
-**Via SSH (fallback):**
-```bash
-ssh wrds "psql -h wrds-pgdata.wharton.upenn.edu -d wrds -c 'SELECT * FROM crsp.dsf LIMIT 10;'"
-```
-
-### Running Python Code
+Poll the recorded job rather than sleeping for a fixed duration and assuming
+success. Disappearance from the queue alone is not success: inspect the full
+log for errors and warnings, confirm output completion, and validate counts,
+keys, and missing values. Logs may appear only after the job starts.
 
 ```bash
-ssh wrds 'qpython ~/myscript.py'
+scp wrds:~/taq_probe_20241007_aapl.log data/taq-iv/
+scp wrds:~/scratch/taq-iv/taq_probe_20241007_aapl.csv data/taq-iv/
 ```
 
-## File Transfer
-
-### Upload files to WRDS
+Process TAQ in place and transfer the requested processed or aggregated result.
+For a large completed output, optional compression preserves the original:
 
 ```bash
-scp local_file.sas wrds:~/scratch/
+ssh wrds 'gzip -c ~/scratch/taq-iv/taq_probe_20241007_aapl.csv > ~/scratch/taq-iv/taq_probe_20241007_aapl.csv.gz'
+scp wrds:~/scratch/taq-iv/taq_probe_20241007_aapl.csv.gz data/taq-iv/
 ```
 
-### Download files from WRDS
+Use single quotes around remote commands so `~` and `$(whoami)` expand remotely.
+Retain local programs, logs, and result provenance. Scratch is temporary; the
+inherited notes record a 48-hour cleanup policy, so retrieve completed results
+promptly and verify current retention if a workflow depends on it.
 
-```bash
-scp wrds:~/scratch/results.csv ./
-```
+## Failures
 
-### Bulk transfer with rsync
-
-```bash
-rsync -avz wrds:~/scratch/output/ ./local_output/
-```
-
-## WRDS Directory Structure
-
-| Path | Purpose | Notes |
-|------|---------|-------|
-| `~` | Home directory | Permanent storage, limited quota |
-| `~/scratch` | Scratch space (symlink) | Large temporary storage, auto-deleted after 48 hours |
-| `/wrds/` | Data libraries | SAS libraries for all WRDS databases |
-
-## Common SAS Libraries on WRDS
-
-| Library | Database |
-|---------|----------|
-| `crsp` | CRSP Stock/Index |
-| `comp` | Compustat |
-| `optionm` | OptionMetrics |
-| `taq` | TAQ Monthly |
-| `taqmsec` | TAQ Millisecond |
-| `ibes` | I/B/E/S |
-| `tfn` | Thomson Reuters |
-| `wrdsapps` | WRDS-created linking tables |
-
-## Best Practices
-
-### 1. Use Scratch Space for Large Files
-Always write large intermediate files to `~/scratch/` rather than home directory.
-
-### 2. Check Job Status
-After submitting a batch job:
-```bash
-ssh wrds "qstat"
-```
-
-### 3. Use Screen for Long Sessions
-For long-running interactive sessions:
-```bash
-ssh wrds "screen -S mysession"
-```
-
-Detach with `Ctrl+A, D`. Reattach with:
-```bash
-ssh wrds "screen -r mysession"
-```
-
-### 4. Download Only Processed Results
-Never download raw WRDS data. Process on the server and download only aggregated results.
-
-### 5. Compress Before Transfer
-```bash
-ssh wrds 'gzip ~/scratch/large_file.csv'
-scp wrds:~/scratch/large_file.csv.gz ./
-```
-
-## Example Workflow
-
-**Option A: Upload existing SAS file**
-```bash
-# 1. Upload SAS program
-scp analysis.sas wrds:~/scratch/
-
-# 2. Submit job (returns immediately)
-ssh wrds 'qsas ~/scratch/analysis.sas'
-
-# 3. Wait and check job status
-ssh wrds 'sleep 60 && qstat -u $(whoami)'
-
-# 4. Check log for errors
-ssh wrds 'tail -50 ~/scratch/analysis.log'
-
-# 5. View results or download
-ssh wrds 'cat ~/scratch/analysis.lst'
-scp wrds:~/scratch/results.csv ./
-```
-
-**Option B: Create and run SAS code remotely**
-```bash
-# 1. Create SAS file via heredoc
-ssh wrds 'cat > ~/scratch/analysis.sas << EOF
-options nonotes nosource;
-proc sql;
-    create table out as
-    select * from crsp.dsf where date > "01JAN2025"d;
-quit;
-proc export data=out outfile="~/scratch/results.csv" dbms=csv replace; run;
-EOF'
-
-# 2. Submit and wait
-ssh wrds 'qsas ~/scratch/analysis.sas'
-ssh wrds 'sleep 90 && grep -E "ERROR|WARNING|NOTE:.*created" ~/scratch/analysis.log'
-
-# 3. Download results
-scp wrds:~/scratch/results.csv ./
-```
-
-## Troubleshooting
-
-**Connection timeout:**
-- WRDS may be under maintenance; check https://wrds-www.wharton.upenn.edu/
-
-**Permission denied:**
-- Verify SSH key is properly configured
-- Check that WRDS account is active
-
-**Job stuck in queue:**
-- Check queue status: `ssh wrds "qstat -u username"`
-- Consider using off-peak hours for large jobs
-
-**Out of disk space:**
-- Clean up scratch: `ssh wrds 'rm -rf ~/scratch/temp*'`
-- Check quota: `ssh wrds "quota -s"`
+- Connection or authentication failure: report the exact sanitized error and
+  stop before submission. Do not treat this as a SAS or schema failure.
+- A queued job: use its ID and `qstat` status; do not resubmit it solely because
+  it has not started.
+- Missing output: inspect the home-directory log and the output path specified
+  in SAS before retrying.
+- Insufficient storage: report the location and affected files. Do not run
+  wildcard deletion or remove unrelated scratch outputs.
